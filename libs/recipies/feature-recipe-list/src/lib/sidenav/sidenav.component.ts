@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Route, Router, RouterModule } from '@angular/router';
 import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
 import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
-import { RecipeDetailsComponent } from 'libs/recipies/feature-recipe-details/src/lib/recipe-details/recipe-details.component';
+import * as recipeDetailsComponent from 'libs/recipies/feature-recipe-details/src/lib/recipe-details/recipe-details.component';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -38,7 +38,7 @@ const routes: Route[] = [
     component: SidenavComponent ,
     children: [
       {
-        path: ':id', component: RecipeDetailsComponent 
+        path: ':id', component: recipeDetailsComponent.RecipeDetailsComponent 
       }
     ]
   }
