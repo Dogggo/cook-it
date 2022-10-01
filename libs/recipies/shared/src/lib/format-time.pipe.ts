@@ -10,7 +10,7 @@ export class FormatTimePipe implements PipeTransform {
     if (value == undefined) return null;
 
     if (value > 0 && value / this.minutesInHour < 1) {
-      return value < 10 ? `0${value}m` : `${value}m`;
+      return value < 10 ? `0h : 0${value}m` : `0h : ${value}m`;
     } else {
       const hours = value / this.minutesInHour;
       return `${Math.trunc(hours)}h : ${this.extractMinutes(hours)}`;

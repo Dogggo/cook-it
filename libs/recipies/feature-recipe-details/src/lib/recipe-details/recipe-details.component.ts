@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, Observable, Subscription } from 'rxjs';
 import { RecipiesUiRecipeDetailsModule } from '@cook-it/recipies/ui-recipe-details';
+import { RecipiesUiTopBarModule } from '@cook-it/recipies/ui-top-bar';
 
 @Component({
   selector: 'cook-it-recipe-details',
   standalone: true,
-  imports: [CommonModule, RecipiesUiRecipeDetailsModule],
+  imports: [CommonModule, RecipiesUiRecipeDetailsModule, RecipiesUiTopBarModule],
   templateUrl: './recipe-details.component.html',
   styleUrls: ['./recipe-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

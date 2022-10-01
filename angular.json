@@ -10,7 +10,8 @@
     "recipies-shared": "libs/recipies/shared",
     "recipies-shell": "libs/recipies/shell",
     "recipies-ui-recipe-details": "libs/recipies/ui-recipe-details",
-    "recipies-ui-recipies-sidebar": "libs/recipies/ui-recipies-sidebar"
+    "recipies-ui-recipies-sidebar": "libs/recipies/ui-recipies-sidebar",
+    "recipies-ui-top-bar": "libs/recipies/ui-top-bar"
   },
   "@shematics/angular:component": {
     "changeDetection": "onPush",

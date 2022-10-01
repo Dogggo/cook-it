@@ -32,7 +32,8 @@
       ],
       "@cook-it/recipies/ui-recipies-sidebar": [
         "libs/recipies/ui-recipies-sidebar/src/index.ts"
-      ]
+      ],
+      "@cook-it/recipies/ui-top-bar": ["libs/recipies/ui-top-bar/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
