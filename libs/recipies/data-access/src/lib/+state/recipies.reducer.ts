@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
@@ -42,6 +43,10 @@ const reducer = createReducer(
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(RecipiesActions.selectRecipe, (state, {payload}) => ({
+    ...state,
+    selectedId: payload
   }))
 );
 

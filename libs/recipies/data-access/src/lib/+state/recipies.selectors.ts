@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { RecipiesEntity } from './recipies.models';
 import {
   RECIPIES_FEATURE_KEY,
   RecipiesState,
@@ -26,10 +27,18 @@ export const getAllRecipies = createSelector(
   (state: RecipiesState) => selectAll(state)
 );
 
+
 export const getRecipiesEntities = createSelector(
   getRecipiesState,
   (state: RecipiesState) => selectEntities(state)
-);
+  );
+
+  export const getRecipeById = createSelector(
+    getRecipiesEntities,
+    (entities: any, router: any): RecipiesEntity => {
+      return router.state && entities[router.state.params.pizzaId];
+    }
+  )
 
 export const getSelectedId = createSelector(
   getRecipiesState,

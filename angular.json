@@ -5,8 +5,11 @@
     "cook-it": "apps/cook-it",
     "cook-it-e2e": "apps/cook-it-e2e",
     "recipies-data-access": "libs/recipies/data-access",
+    "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
     "recipies-feature-recipe-list": "libs/recipies/feature-recipe-list",
+    "recipies-shared": "libs/recipies/shared",
     "recipies-shell": "libs/recipies/shell",
+    "recipies-ui-recipe-details": "libs/recipies/ui-recipe-details",
     "recipies-ui-recipies-sidebar": "libs/recipies/ui-recipies-sidebar"
   },
   "@shematics/angular:component": {

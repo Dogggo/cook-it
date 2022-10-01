@@ -1,0 +1,33 @@
+<div class="recipe-container">
+  <div class="recipe-container__preview">
+    <img
+      class="recipe-container__preview-image"
+      [src]="'/' + recipe?.images?.preview"
+    />
+  </div>
+  <div class="recipe-container__content">
+    <div class="recipe-container__content-name">
+      <span>{{ recipe?.name }}</span>
+    </div>
+    <div class="recipe-container__content-description">
+      <p>{{ recipe?.description }}</p>
+    </div>
+    <span>
+      <b>Preparation time</b> -
+      <i>{{ recipe?.preparationTimeInMinutes | formatTime }}</i>
+    </span>
+    <hr>
+    <div class="recipe-container__content-ingredients">
+        <label>Ingredients</label>
+        <div style="margin-top: 2%;">
+            <ng-container *ngFor="let ingredient of recipe?.ingredients">
+              <div style="padding-bottom: 10px;">
+                <span>
+                  <b>{{ ingredient.name }}</b> - <i>{{ ingredient.quantity }}</i>
+                </span>
+              </div>
+            </ng-container>
+        </div>
+    </div>
+  </div>
+</div>

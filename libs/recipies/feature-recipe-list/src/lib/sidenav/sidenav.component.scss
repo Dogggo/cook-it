@@ -1,12 +1,19 @@
 .container {
-  width: 22vw;
   height: 100vh;
-  border: 1px solid #555;
+
+  &__sidebar {
+    width: 22vw;
+  }
 }
+
 .wrapper {
   height: auto !important;
 }
 
 .item {
   width: 100%;
+}
+
+.mat-list-item.active{
+  background-color: gray;
 }

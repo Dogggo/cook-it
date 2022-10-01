@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/recipies/data-access/src",
+  "sourceRoot": "libs/recipies/shared/src",
   "prefix": "cook-it",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/recipies/data-access"],
+      "outputs": ["coverage/libs/recipies/shared"],
       "options": {
-        "jestConfig": "libs/recipies/data-access/jest.config.ts",
+        "jestConfig": "libs/recipies/shared/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,11 +15,11 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/recipies/data-access/**/*.ts",
-          "libs/recipies/data-access/**/*.html"
+          "libs/recipies/shared/**/*.ts",
+          "libs/recipies/shared/**/*.html"
         ]
       }
     }
   },
-  "tags": ["scope:recipies", "type: data-access"]
+  "tags": ["scope:recipies", "type: utils"]
 }

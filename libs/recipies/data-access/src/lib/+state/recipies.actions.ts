@@ -12,3 +12,8 @@ export const loadRecipiesFailure = createAction(
   '[Recipies/API] Load Recipies Failure',
   props<{ error: any }>()
 );
+
+export const selectRecipe = createAction(
+  '[Recipies] Select Recipe',
+  (payload) => ({payload}),
+  );

@@ -29,6 +29,15 @@ export class RecipiesEffects implements OnInitEffects {
     );
   });
 
+  select$ = (() => {
+    return this.actions$.pipe(
+      ofType(RecipiesActions.selectRecipe),
+      map((action) => {
+        return RecipiesActions.selectRecipe(action.payload)
+      })
+    )
+  })
+
   ngrxOnInitEffects(): Action {
     return RecipiesActions.initRecipies();
   }
