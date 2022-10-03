@@ -33,13 +33,6 @@ export const getRecipiesEntities = createSelector(
   (state: RecipiesState) => selectEntities(state)
   );
 
-  export const getRecipeById = createSelector(
-    getRecipiesEntities,
-    (entities: any, router: any): RecipiesEntity => {
-      return router.state && entities[router.state.params.pizzaId];
-    }
-  )
-
 export const getSelectedId = createSelector(
   getRecipiesState,
   (state: RecipiesState) => state.selectedId
