@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { RecipiesEntity } from './recipies.models';
 import {
   RECIPIES_FEATURE_KEY,
   RecipiesState,
