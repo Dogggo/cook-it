@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
@@ -8,9 +7,9 @@ import { RecipiesEntity } from './recipies.models';
 export const RECIPIES_FEATURE_KEY = 'recipies';
 
 export interface RecipiesState extends EntityState<RecipiesEntity> {
-  selectedId?: string | number; // which Recipies record has been selected
-  loaded: boolean; // has the Recipies list been loaded
-  error?: string | null; // last known error (if any)
+  selectedId?: string;
+  loaded: boolean;
+  error?: string | null;
 }
 
 export interface RecipiesPartialState {
@@ -19,7 +18,7 @@ export interface RecipiesPartialState {
 
 export const recipiesAdapter: EntityAdapter<RecipiesEntity> =
   createEntityAdapter<RecipiesEntity>({
-    selectId: (recipie) => recipie._id as string,
+    selectId: (recipe) => recipe._id as string,
   });
 
 export const initialRecipiesState: RecipiesState =
@@ -37,16 +36,53 @@ const reducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(RecipiesActions.loadRecipiesSuccess, (state, { recipies }) =>
-    recipiesAdapter.setAll(recipies, { ...state, loaded: true })
-  ),
+  on(RecipiesActions.loadRecipiesSuccess, (state, { recipies }) => {
+    return recipiesAdapter.setAll(recipies, { ...state, loaded: true });
+  }),
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(RecipiesActions.selectRecipe, (state, {payload}) => ({
+  on(RecipiesActions.selectRecipe, (state, { payload }) => ({
     ...state,
-    selectedId: payload
+    selectedId: payload,
+  })),
+  on(RecipiesActions.saveRecipe, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
+  on(RecipiesActions.saveRecipiesSuccess, (state, { payload }) => {
+    return recipiesAdapter.addOne({ ...payload }, { ...state, loaded: true });
+  }),
+  on(RecipiesActions.saveRecipiesFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(RecipiesActions.editRecipe, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
+  on(RecipiesActions.editRecipiesSuccess, (state, { update }) => {
+    return recipiesAdapter.updateOne(update, state);
+  }),
+  on(RecipiesActions.editRecipiesFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(RecipiesActions.deleteRecipe, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
+  on(RecipiesActions.deleteRecipiesSuccess, (state, { _id }) => {
+    console.log(_id)
+    return recipiesAdapter.removeOne(_id, state);
+  }),
+  on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
+    ...state,
+    error,
   }))
 );
 
@@ -56,4 +92,3 @@ export function recipiesReducer(
 ) {
   return reducer(state, action);
 }
-

@@ -1,2 +1,5 @@
-<cook-it-top-bar [title]="(recipe$ | async)!.name"></cook-it-top-bar>
+<cook-it-top-bar 
+[title]="(recipe$ | async)?.name" 
+[selectedOption]="'Preview'"
+(deleteRecipe)="handleOnDelete($event)"></cook-it-top-bar>
 <cook-it-recipe-overview [recipe]="(recipe$ | async)!"></cook-it-recipe-overview>

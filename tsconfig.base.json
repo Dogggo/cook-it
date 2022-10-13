@@ -19,6 +19,12 @@
       "@cook-it/recipies/data-access": [
         "libs/recipies/data-access/src/index.ts"
       ],
+      "@cook-it/recipies/edit-recipe": [
+        "libs/recipies/edit-recipe/src/index.ts"
+      ],
+      "@cook-it/recipies/feature-add-recipe": [
+        "libs/recipies/feature-add-recipe/src/index.ts"
+      ],
       "@cook-it/recipies/feature-recipe-details": [
         "libs/recipies/feature-recipe-details/src/index.ts"
       ],
@@ -29,6 +35,9 @@
       "@cook-it/recipies/shell": ["libs/recipies/shell/src/index.ts"],
       "@cook-it/recipies/ui-recipe-details": [
         "libs/recipies/ui-recipe-details/src/index.ts"
+      ],
+      "@cook-it/recipies/ui-recipe-form": [
+        "libs/recipies/ui-recipe-form/src/index.ts"
       ],
       "@cook-it/recipies/ui-recipies-sidebar": [
         "libs/recipies/ui-recipies-sidebar/src/index.ts"

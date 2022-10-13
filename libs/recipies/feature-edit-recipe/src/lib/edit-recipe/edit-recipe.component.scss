@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    &__title {
+      font-weight: 500;
+      font-size: larger;
+      padding-left: 10px;
+    }
+  
+    &__button {
+      margin-left: auto;
+      padding-right: 10px;
+      
+      &-save {
+        background-color: rgb(241, 180, 47);
+        margin-left: 10px;
+      }
+
+      &-undo {
+        background-color: white;
+      }
+  
+      &-add {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+  
+      &-disabled {
+        background-color: rgb(216, 216, 216);
+      }
+    }
+  }
+  
+  .ingredient {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .delete-button {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: red;
+    width: 100%;
+  }
+  

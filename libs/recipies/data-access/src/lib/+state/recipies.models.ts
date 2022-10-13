@@ -3,7 +3,7 @@
  */
 
 export interface Ingredient {
-  _id: string | number;
+  id: string | number;
   name: string;
   quantity: string;
 }

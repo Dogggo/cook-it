@@ -4,7 +4,7 @@ import { RecipiesEntity } from '@cook-it/recipies/data-access';
 import { RecipiesSharedModule } from '@cook-it/recipies/shared';
 
 @Component({
-  selector: 'cook-it-recipe-overview',
+  selector: 'cook-it-recipe-overview[recipe]',
   standalone: true,
   imports: [CommonModule, RecipiesSharedModule],
   templateUrl: './recipe-overview.component.html',

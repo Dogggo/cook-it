@@ -5,11 +5,6 @@ import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-re
 
 export const shellRoutes: Route[] = [
   {
-    path: '',
-    redirectTo: 'recipes-list',
-    pathMatch: 'full',
-  },
-  {
     path: 'recipe-list',
     loadChildren: () =>
       import('@cook-it/recipies/feature-recipe-list').then(
