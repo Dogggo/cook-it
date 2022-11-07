@@ -21,12 +21,13 @@ export const selectRecipe = createAction(
 
 export const saveRecipe = createAction(
   '[Recipies/API] Save Recipies',
-  (payload) => ({ payload })
+  props<{ payload: any }>()
+  // (payload) => ({ payload })
 );
 
 export const saveRecipiesSuccess = createAction(
   '[Recipies/API] Save Recipies Success',
-  (payload: RecipiesEntity) => ({ payload })
+  props<{ payload: RecipiesEntity }>()
 );
 
 export const saveRecipiesFailure = createAction(

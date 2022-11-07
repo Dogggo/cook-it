@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, of } from 'rxjs';
+import { switchMap, map, catchError, of, tap } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 
@@ -35,13 +35,12 @@ export class RecipiesEffects implements OnInitEffects {
       ofType(RecipiesActions.saveRecipe),
       switchMap((action) => {
         return this.recipiesService.saveRecipe(action.payload).pipe(
-          map((recipie) => {
-            const savedRecipe = RecipiesActions.saveRecipiesSuccess(recipie);
-            this.router.navigateByUrl(
-              `/recipe-list/${savedRecipe.payload._id}`
-            );
-            return savedRecipe;
-          }),
+          tap((savedRecipe) =>
+            this.router.navigateByUrl(`/recipe-list/${savedRecipe._id}`)
+          ),
+          map((recipe) =>
+            RecipiesActions.saveRecipiesSuccess({ payload: recipe })
+          ),
           catchError((error) => {
             return of(RecipiesActions.saveRecipiesFailure(error));
           })
@@ -68,18 +67,29 @@ export class RecipiesEffects implements OnInitEffects {
     );
   });
 
+  /**
+ *           tap((savedRecipe) =>
+            this.router.navigateByUrl(`/recipe-list/${savedRecipe._id}`)
+          ),
+          map((recipe) =>
+            RecipiesActions.saveRecipiesSuccess({ payload: recipe })
+          ),
+ */
+
   delete$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RecipiesActions.deleteRecipe),
       switchMap((action) => {
         return this.recipiesService.deleteRecipe(action.id).pipe(
-          map((_id) => {
-            const deletedRecipe = RecipiesActions.deleteRecipiesSuccess({
-              _id,
-            });
-            this.router.navigateByUrl(`/recipe-list`);
-            return deletedRecipe;
-          }),
+          tap((_id) => this.router.navigateByUrl(`/recipe-list`)),
+          map((_id) => RecipiesActions.deleteRecipiesSuccess({ _id })),
+          // map((_id) => {
+          //   const deletedRecipe = RecipiesActions.deleteRecipiesSuccess({
+          //     _id,
+          //   });
+          //   this.router.navigateByUrl(`/recipe-list`);
+          //   return deletedRecipe;
+          // }),
           catchError((error) => {
             return of(RecipiesActions.deleteRecipiesFailure(error));
           })

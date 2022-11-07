@@ -5,7 +5,7 @@
       <div class="container__button">
         <button
           class="container__button-save"
-          [ngClass]="form.invalid ? 'container__button-disabled' :  'container__button-save'"
+          [ngClass]="'container__button-' + form.invalid ? 'disabled' : 'save'"
           (click)="saveRecipe()"
           [disabled]="form.invalid"
           mat-button
@@ -30,8 +30,13 @@
   </div>
 
   <div class="ingredient">
-    <cook-it-ingredient-form *ngFor="let ingredient of ingredients.controls; index as i" [form]="ingredient">
-      <button class="delete-button" mat-button (click)="deleteIngredient(i)">Delete</button>
+    <cook-it-ingredient-form
+      *ngFor="let ingredient of ingredients.controls; index as i"
+      [form]="ingredient"
+    >
+      <button class="delete-button" mat-button (click)="deleteIngredient(i)">
+        Delete
+      </button>
     </cook-it-ingredient-form>
   </div>
 </form>

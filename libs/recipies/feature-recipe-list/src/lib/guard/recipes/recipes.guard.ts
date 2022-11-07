@@ -6,7 +6,7 @@ import {
   RecipiesState,
 } from '@cook-it/recipies/data-access';
 import { Store } from '@ngrx/store';
-import { catchError, filter, Observable, of, switchMap, take, tap } from 'rxjs';
+import { catchError, first, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,7 @@ export class RecipesGuard implements CanActivate {
           this.store.dispatch(initRecipies());
         }
       }),
-      filter((loaded) => loaded),
-      take(1)
+      first(Boolean)
     );
   }
 }

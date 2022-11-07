@@ -20,7 +20,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
 import * as modalInterface from 'libs/recipies/shared/src/lib/modal/modal.interface';
-import { Observable, Subscription, take } from 'rxjs';
+import { first, Observable, Subscription, take } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { FormState } from 'libs/recipies/ui-recipe-form/src/lib/form.state';
 import { ActivatedRoute } from '@angular/router';
@@ -82,38 +82,41 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(selectRecipe(this.recipeId));
-    this.recipe$.pipe(take(1)).subscribe((recipe) => {
+    this.setRecipeOnStart();
+    this.formSub = this.formState.form.valueChanges.subscribe(() => this.formState.triggerGuard = true)
+  }
+
+  setRecipeOnStart() {
+    this.recipe$.pipe(first()).subscribe((recipe) => {
       this.recipeOnStart = recipe!;
       this.formState.setForm(recipe!);
       recipe?.ingredients.forEach((ingredient) =>
         this.formState.addIngredient(ingredient)
       );
     });
-
-    this.formSub = this.formState.form.valueChanges.subscribe(() => this.formState.triggerGuard = true)
   }
 
-  public addIngredient() {
+  addIngredient() {
     this.formState.addIngredient();
   }
 
-  public saveRecipe() {
+  saveRecipe() {
     this.formState.triggerGuard = false;
     this.formState.form.markAsPristine();
     this.store.dispatch(editRecipe(this.form.value, this.recipeId));
   }
 
-  public deleteIngredient(index: number) {
+  deleteIngredient(index: number) {
     this.formState.ingredients.removeAt(index);
     this.formState.form.markAsDirty();
   }
 
-  public undoChanges() {
+  undoChanges() {
     this.formState.setForm(this.recipeOnStart);
     this.formState.triggerGuard = false;
   }
 
-  public disardChanges(): Observable<boolean> {
+  disardChanges(): Observable<boolean> {
     const modalInterface: modalInterface.ModalInterface = {
       modalHeader: 'Unsaved changes',
       modalContent:
@@ -137,7 +140,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     this.modalRef.close(false);
   }
 
-  public handleOnDelete(id: string) {
+  handleOnDelete(id: string) {
     this.deleteRecipeConfirmation(id);
   }
 

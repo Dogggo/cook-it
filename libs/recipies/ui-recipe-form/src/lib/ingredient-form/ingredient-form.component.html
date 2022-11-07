@@ -1,4 +1,4 @@
-<div class="container">
+
   <form [formGroup]="form">
     <div class="form">
       <mat-form-field class="example-form-field" appearance="outline">
@@ -28,7 +28,9 @@
           Quantity cannot be longer than {{ state.quantityIngredientMaxLength }} characters!
         </mat-error>
       </mat-form-field>
-      <ng-content></ng-content>
+      <button class="button" mat-button (click)="delete()">
+        Delete
+      </button>
     </div>
   </form>
-</div>
+

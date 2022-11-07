@@ -79,7 +79,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   }
 
   public saveRecipe() {
-    this.store.dispatch(saveRecipe(this.form.value));
+    this.store.dispatch(saveRecipe({payload: this.form.value}));
     this.formState.triggerGuard = false;
   }
 

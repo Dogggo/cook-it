@@ -1,16 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormState } from '../form.state';
 
 const materialModules = [MatInputModule, MatButtonModule];
@@ -24,11 +22,13 @@ const materialModules = [MatInputModule, MatButtonModule];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IngredientFormComponent {
-
   constructor(private formState: FormState) {}
 
   @Input()
   form!: FormGroup;
+
+  @Output()
+  deleteIngredient = new EventEmitter();
 
   get nameControl(): FormControl {
     return this.form.get('name') as FormControl;
@@ -40,5 +40,9 @@ export class IngredientFormComponent {
 
   get state() {
     return this.formState;
+  }
+
+  delete() {
+    this.deleteIngredient.emit();
   }
 }

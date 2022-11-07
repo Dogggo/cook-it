@@ -65,7 +65,7 @@ const reducer = createReducer(
     error: null,
   })),
   on(RecipiesActions.editRecipiesSuccess, (state, { update }) => {
-    return recipiesAdapter.updateOne(update, state);
+    return recipiesAdapter.updateOne(update, {...state, loaded: true});
   }),
   on(RecipiesActions.editRecipiesFailure, (state, { error }) => ({
     ...state,
@@ -77,8 +77,7 @@ const reducer = createReducer(
     error: null,
   })),
   on(RecipiesActions.deleteRecipiesSuccess, (state, { _id }) => {
-    console.log(_id)
-    return recipiesAdapter.removeOne(_id, state);
+    return recipiesAdapter.removeOne(_id, {...state, loaded: true});
   }),
   on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
     ...state,
