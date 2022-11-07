@@ -17,6 +17,6 @@ const materialModules = [MatMenuModule, MatButtonModule, MatIconModule];
 export class TopBarComponent {
 
   @Input()
-  title?: string;
+  title!: string;
 
 }

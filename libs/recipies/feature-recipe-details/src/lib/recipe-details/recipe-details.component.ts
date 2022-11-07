@@ -16,6 +16,7 @@ import { Store } from '@ngrx/store';
 import { distinctUntilChanged, Observable, Subscription } from 'rxjs';
 import { RecipiesUiRecipeDetailsModule } from '@cook-it/recipies/ui-recipe-details';
 import { RecipiesUiTopBarModule } from '@cook-it/recipies/ui-top-bar';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'cook-it-recipe-details',
@@ -29,6 +30,8 @@ import { RecipiesUiTopBarModule } from '@cook-it/recipies/ui-top-bar';
   styleUrls: ['./recipe-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+@UntilDestroy()
 export class RecipeDetailsComponent implements OnInit, OnDestroy {
   recipe$!: Observable<RecipiesEntity | undefined>;
 
@@ -40,12 +43,18 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.changeSelectedRecipe();
+  }
+
+  changeSelectedRecipe() {
     this.routeSub = this.route.params
-      .pipe(distinctUntilChanged())
-      .subscribe((param) => {
-        this.store.dispatch(selectRecipe(param['id']));
-        this.recipe$ = this.store.select(getSelected);
-      });
+    .pipe(
+      untilDestroyed(this),
+      distinctUntilChanged())
+    .subscribe((param) => {
+      this.store.dispatch(selectRecipe({selectedId: param['id']}));
+      this.recipe$ = this.store.select(getSelected);
+    });
   }
 
   ngOnDestroy(): void {

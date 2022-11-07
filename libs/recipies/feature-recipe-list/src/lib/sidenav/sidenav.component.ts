@@ -34,7 +34,7 @@ const materialModules = [MatSidenavModule, MatListModule];
 
 const routes: Route[] = [
   { 
-    path: 'recipe-list',
+    path: '',
     component: SidenavComponent ,
     children: [
       {
@@ -52,6 +52,7 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     RecipiesDataAccessModule,
     RecipiesUiRecipiesSidebarModule,
+    RecipiesFeatureRecipeDetailsModule,
     RecipiesFeatureRecipeDetailsModule
   ],
   declarations: [SidenavComponent],

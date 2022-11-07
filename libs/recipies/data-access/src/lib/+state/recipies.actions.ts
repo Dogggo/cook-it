@@ -15,5 +15,5 @@ export const loadRecipiesFailure = createAction(
 
 export const selectRecipe = createAction(
   '[Recipies] Select Recipe',
-  (payload) => ({payload}),
-  );
+  props<{ selectedId: string }>()
+);

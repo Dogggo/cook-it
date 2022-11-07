@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormatTimePipe } from './format-time.pipe';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [
-    FormatTimePipe
-  ],
+  imports: [CommonModule, FormatTimePipe],
   exports: [
     FormatTimePipe
   ],

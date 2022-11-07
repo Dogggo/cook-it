@@ -3,7 +3,7 @@
     <mat-nav-list>
       <mat-list-item
         class="wrapper"
-        routerLink="/recipe-list/{{ recipe._id }}"
+        routerLink="/{{ recipe._id }}"
         [routerLinkActive]="['active']"
         *ngFor="let recipe of recipies$ | async"
       >

@@ -33,7 +33,7 @@ export class RecipiesEffects implements OnInitEffects {
     return this.actions$.pipe(
       ofType(RecipiesActions.selectRecipe),
       map((action) => {
-        return RecipiesActions.selectRecipe(action.payload)
+        return RecipiesActions.selectRecipe({selectedId: action.selectedId})
       })
     )
   })

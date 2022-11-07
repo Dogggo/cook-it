@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
@@ -44,9 +43,9 @@ const reducer = createReducer(
     ...state,
     error,
   })),
-  on(RecipiesActions.selectRecipe, (state, {payload}) => ({
+  on(RecipiesActions.selectRecipe, (state, {selectedId}) => ({
     ...state,
-    selectedId: payload
+    selectedId: selectedId
   }))
 );
 
