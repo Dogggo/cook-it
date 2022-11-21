@@ -36,7 +36,7 @@ export const saveRecipiesFailure = createAction(
 
 export const editRecipe = createAction(
   '[Recipies/API] Edit Recipies',
-  (payload, id) => ({ payload, id })
+  props<{ payload: any; id: string }>()
 );
 
 export const editRecipiesSuccess = createAction(
@@ -51,7 +51,7 @@ export const editRecipiesFailure = createAction(
 
 export const deleteRecipe = createAction(
   '[Recipies/API] Delete Recipies',
-  props<{_id: string}>()
+  props<{ _id: string }>()
 );
 
 export const deleteRecipiesSuccess = createAction(

@@ -19,7 +19,7 @@ export class RecipiesService {
     return this.http.post<RecipiesEntity>(this.baseUrl, recipe);
   }
 
-  public editRecipe(recipe: RecipiesEntity, id: number): Observable<RecipiesEntity> {
+  public editRecipe(recipe: RecipiesEntity, id: string): Observable<RecipiesEntity> {
     return this.http.put<RecipiesEntity>(`${this.baseUrl}/${id}`, recipe);
   }
 

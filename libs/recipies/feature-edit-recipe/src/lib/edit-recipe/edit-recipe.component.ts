@@ -109,7 +109,7 @@ export class EditRecipeComponent implements OnInit {
   saveRecipe() {
     this.formState.triggerGuard = false;
     this.formState.form.markAsPristine();
-    this.store.dispatch(editRecipe(this.form.value, this.recipeId));
+    this.store.dispatch(editRecipe({payload: this.form.value, id: this.recipeId}));
   }
 
   deleteIngredient(index: number) {

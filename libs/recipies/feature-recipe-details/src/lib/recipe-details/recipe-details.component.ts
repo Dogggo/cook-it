@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   deleteRecipe,
@@ -23,7 +18,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
 import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interface';
 
@@ -41,8 +36,10 @@ import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interfa
   styleUrls: ['./recipe-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 @UntilDestroy()
-export class RecipeDetailsComponent implements OnInit, OnDestroy {
+export class RecipeDetailsComponent implements OnInit {
+
   modalRef!: MatDialogRef<modalComponent.ModalComponent>;
 
   recipe$ = this.store.select(getSelected);
@@ -61,9 +58,9 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     this.changeSelectedRecipe();
   }
 
-  changeSelectedRecipe() {
+  private changeSelectedRecipe() {
     this.routeSub = this.route.params
-      .pipe(distinctUntilChanged())
+      .pipe(distinctUntilChanged(), untilDestroyed(this))
       .subscribe((param) => {
         this.store.dispatch(selectRecipe({ selectedId: param['id'] }));
       });
@@ -90,9 +87,5 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     });
 
     return this.modalRef.afterClosed();
-  }
-
-  ngOnDestroy(): void {
-    this.routeSub.unsubscribe();
   }
 }
