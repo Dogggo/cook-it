@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { RecipiesService } from 'libs/recipies/data-access/src/lib/recipies.service';
 import { switchMap, map, catchError, of } from 'rxjs';
+import { RecipiesService } from '../recipies.service';
 
 import * as RecipiesActions from './recipies.actions';
 
