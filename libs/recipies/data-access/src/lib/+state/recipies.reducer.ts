@@ -42,6 +42,10 @@ const reducer = createReducer(
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(RecipiesActions.selectRecipe, (state, {selectedId}) => ({
+    ...state,
+    selectedId: selectedId
   }))
 );
 

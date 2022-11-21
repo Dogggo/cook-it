@@ -26,10 +26,11 @@ export const getAllRecipies = createSelector(
   (state: RecipiesState) => selectAll(state)
 );
 
+
 export const getRecipiesEntities = createSelector(
   getRecipiesState,
   (state: RecipiesState) => selectEntities(state)
-);
+  );
 
 export const getSelectedId = createSelector(
   getRecipiesState,

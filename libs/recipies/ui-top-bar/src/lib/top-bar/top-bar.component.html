@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="container__title">
+        {{title}}
+    </div>
+    <div class="container__button">
+        <button class="mat-button" mat-button [matMenuTriggerFor]="menu">Preview</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Preview</button>
+            <button mat-menu-item>Edit</button>
+        </mat-menu>
+        <button class="mat-button" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

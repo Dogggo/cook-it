@@ -12,8 +12,10 @@ import {
 } from '@cook-it/recipies/data-access';
 import { Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { Route, RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
+import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
+import * as recipeDetailsComponent from 'libs/recipies/feature-recipe-details/src/lib/recipe-details/recipe-details.component';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -25,12 +27,22 @@ export class SidenavComponent {
   recipies$: Observable<RecipiesEntity[]> =
     this.store.select<RecipiesEntity[]>(getAllRecipies);
 
-  constructor(private store: Store<RecipiesState>) {}
+  constructor(private store: Store<RecipiesState>, private router: Router) {}
 }
 
 const materialModules = [MatSidenavModule, MatListModule];
 
-const routes: Route[] = [{ path: 'recipe-list', component: SidenavComponent }];
+const routes: Route[] = [
+  { 
+    path: '',
+    component: SidenavComponent ,
+    children: [
+      {
+        path: ':id', component: recipeDetailsComponent.RecipeDetailsComponent 
+      }
+    ]
+  }
+];
 
 @NgModule({
   imports: [
@@ -39,7 +51,9 @@ const routes: Route[] = [{ path: 'recipe-list', component: SidenavComponent }];
     HttpClientModule,
     RouterModule.forChild(routes),
     RecipiesDataAccessModule,
-    RecipiesUiRecipiesSidebarModule
+    RecipiesUiRecipiesSidebarModule,
+    RecipiesFeatureRecipeDetailsModule,
+    RecipiesFeatureRecipeDetailsModule
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
