@@ -8,12 +8,12 @@ import * as RecipiesSelectors from './recipies.selectors';
 
 describe('Recipies Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getRecipiesId = (it: RecipiesEntity) => it.id;
+  const getRecipiesId = (it: RecipiesEntity) => it._id;
   const createRecipiesEntity = (id: string, name = '') =>
     ({
       id,
       name: name || `name-${id}`,
-    } as RecipiesEntity);
+    } as unknown as RecipiesEntity);
 
   let state: RecipiesPartialState;
 

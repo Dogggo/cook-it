@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormatTimePipe } from './format-time.pipe';
+import { FormatTimePipe } from './pipe/format-time.pipe';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
-  imports: [CommonModule, FormatTimePipe],
+  imports: [CommonModule, ModalComponent, FormatTimePipe],
   exports: [
-    FormatTimePipe
+    FormatTimePipe,
+    ModalComponent
   ],
 })
 export class RecipiesSharedModule {}

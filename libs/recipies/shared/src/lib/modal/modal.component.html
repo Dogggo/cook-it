@@ -1,0 +1,26 @@
+<div>
+  <h1 mat-dialog-title>{{ modalData.modalHeader }}</h1>
+  <div mat-dialog-content>
+    <p>{{ modalData.modalContent }}</p>
+    <ng-template #container></ng-template>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      (click)="handleModalSubmit()"
+      mat-raised-button
+      color="primary"
+    >
+      {{ modalData.confirmButtonLabel }}
+    </button>
+    <button
+      mat-button
+      cdkFocusInitial
+      (click)="closeModal()"
+      mat-raised-button
+      color="accent"
+    >
+      {{ modalData.cancelButtonLabel }}
+    </button>
+  </div>
+</div>
