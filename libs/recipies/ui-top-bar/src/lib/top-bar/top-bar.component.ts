@@ -19,7 +19,7 @@ const materialModules = [MatMenuModule, MatButtonModule, MatIconModule];
 export class TopBarComponent {
 
   @Input()
-  title?: string;
+  title!: string;
 
   @Input()
   selectedOption!: string;
@@ -30,11 +30,11 @@ export class TopBarComponent {
   constructor(private route: ActivatedRoute, private router: Router) {}
   
   public navigateToEdit() {
-    this.router.navigateByUrl(`recipe-list/${ this.route.snapshot.params['id']}/edit`)
+    this.router.navigateByUrl(`${ this.route.snapshot.params['id']}/edit`)
   }
 
   public navigateToPreview() {
-    this.router.navigateByUrl(`recipe-list/${ this.route.snapshot.params['id']}`)
+    this.router.navigateByUrl(`${ this.route.snapshot.params['id']}`)
   }
 
   public remove() {

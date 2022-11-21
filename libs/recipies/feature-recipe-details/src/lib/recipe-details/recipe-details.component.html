@@ -1,5 +1,7 @@
-<cook-it-top-bar 
-[title]="(recipe$ | async)?.name" 
-[selectedOption]="'Preview'"
-(deleteRecipe)="handleOnDelete($event)"></cook-it-top-bar>
-<cook-it-recipe-overview [recipe]="(recipe$ | async)!"></cook-it-recipe-overview>
+<ng-container *ngIf="(recipe$ | async) as recipe">
+  <cook-it-top-bar 
+  [title]="recipe.name"
+  [selectedOption]="'Preview'"
+  (deleteRecipe)="handleOnDelete($event)"></cook-it-top-bar>
+  <cook-it-recipe-overview [recipe]="recipe!"></cook-it-recipe-overview>
+</ng-container>  

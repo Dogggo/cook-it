@@ -35,12 +35,15 @@ export class RecipiesEffects implements OnInitEffects {
       ofType(RecipiesActions.saveRecipe),
       switchMap((action) => {
         return this.recipiesService.saveRecipe(action.payload).pipe(
-          tap((savedRecipe) =>
-            this.router.navigateByUrl(`/recipe-list/${savedRecipe._id}`)
+          map((recipe) => {
+            return  RecipiesActions.saveRecipiesSuccess({ payload: recipe });
+          }
           ),
-          map((recipe) =>
-            RecipiesActions.saveRecipiesSuccess({ payload: recipe })
-          ),
+          tap((savedRecipe) => {
+            console.log(savedRecipe)
+            this.router.navigateByUrl(`/${savedRecipe.payload._id}`)
+          }
+        ),
           catchError((error) => {
             return of(RecipiesActions.saveRecipiesFailure(error));
           })
@@ -59,6 +62,10 @@ export class RecipiesEffects implements OnInitEffects {
               update: { id: recipie._id as number, changes: recipie },
             });
           }),
+          tap((recipe) => {
+            this.router.navigateByUrl(`/${recipe.update.id}`)
+          }
+          ),
           catchError((error) => {
             return of(RecipiesActions.editRecipiesFailure(error));
           })
@@ -67,29 +74,14 @@ export class RecipiesEffects implements OnInitEffects {
     );
   });
 
-  /**
- *           tap((savedRecipe) =>
-            this.router.navigateByUrl(`/recipe-list/${savedRecipe._id}`)
-          ),
-          map((recipe) =>
-            RecipiesActions.saveRecipiesSuccess({ payload: recipe })
-          ),
- */
-
   delete$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RecipiesActions.deleteRecipe),
       switchMap((action) => {
-        return this.recipiesService.deleteRecipe(action.id).pipe(
-          tap((_id) => this.router.navigateByUrl(`/recipe-list`)),
+        console.log(action)
+        return this.recipiesService.deleteRecipe(action._id).pipe(
           map((_id) => RecipiesActions.deleteRecipiesSuccess({ _id })),
-          // map((_id) => {
-          //   const deletedRecipe = RecipiesActions.deleteRecipiesSuccess({
-          //     _id,
-          //   });
-          //   this.router.navigateByUrl(`/recipe-list`);
-          //   return deletedRecipe;
-          // }),
+          tap(() => this.router.navigateByUrl(`/`)),
           catchError((error) => {
             return of(RecipiesActions.deleteRecipiesFailure(error));
           })
@@ -98,14 +90,15 @@ export class RecipiesEffects implements OnInitEffects {
     );
   });
 
-  select$ = () => {
+  select$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RecipiesActions.selectRecipe),
       map((action) => {
-        return RecipiesActions.selectRecipe(action.payload);
+        return RecipiesActions.selectRecipe({ selectedId: action.selectedId });
       })
     );
-  };
+  },
+  { dispatch: false });
 
   ngrxOnInitEffects(): Action {
     return RecipiesActions.initRecipies();

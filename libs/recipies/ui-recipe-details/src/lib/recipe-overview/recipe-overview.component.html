@@ -19,9 +19,9 @@
     <hr>
     <div class="recipe-container__content-ingredients">
         <label>Ingredients</label>
-        <div style="margin-top: 2%;">
+        <div class="recipe-container__content-ingredients">
             <ng-container *ngFor="let ingredient of recipe?.ingredients">
-              <div style="padding-bottom: 10px;">
+              <div class="recipe-container__content-unit">
                 <span>
                   <b>{{ ingredient.name }}</b> - <i>{{ ingredient.quantity }}</i>
                 </span>

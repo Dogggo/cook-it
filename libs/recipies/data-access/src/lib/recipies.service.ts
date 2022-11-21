@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable} from 'rxjs';
+import { map, Observable} from 'rxjs';
 import { RecipiesEntity } from './+state/recipies.models';
 
 @Injectable({
@@ -24,6 +24,5 @@ export class RecipiesService {
   }
 
   public deleteRecipe(id: string): Observable<string>{
-    return this.http.delete<string>(`${this.baseUrl}/${id}`);
-  }
+    return this.http.delete<string>(`${this.baseUrl}/${id}`).pipe(map(() => id));  }
 }

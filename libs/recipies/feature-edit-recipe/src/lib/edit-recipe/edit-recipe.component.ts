@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,6 @@ import {
   RecipiesDataAccessModule,
   RecipiesEntity,
   RecipiesState,
-  selectRecipe,
 } from '@cook-it/recipies/data-access';
 import { RecipiesSharedModule } from '@cook-it/recipies/shared';
 import {
@@ -20,11 +19,12 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
 import * as modalInterface from 'libs/recipies/shared/src/lib/modal/modal.interface';
-import { first, Observable, Subscription, take } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { FormState } from 'libs/recipies/ui-recipe-form/src/lib/form.state';
 import { ActivatedRoute } from '@angular/router';
 import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interface';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 const materialModules = [MatButtonModule];
 
@@ -46,7 +46,9 @@ const materialModules = [MatButtonModule];
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [FormState],
 })
-export class EditRecipeComponent implements OnInit, OnDestroy {
+
+@UntilDestroy()
+export class EditRecipeComponent implements OnInit {
   modalRef!: MatDialogRef<modalComponent.ModalComponent>;
 
   recipeOnStart!: RecipiesEntity;
@@ -81,13 +83,17 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(selectRecipe(this.recipeId));
     this.setRecipeOnStart();
-    this.formSub = this.formState.form.valueChanges.subscribe(() => this.formState.triggerGuard = true)
+    this.formSub = this.formState.form.valueChanges
+    .pipe(
+
+    )
+    .subscribe(() => this.formState.triggerGuard = true)
   }
 
   setRecipeOnStart() {
-    this.recipe$.pipe(first()).subscribe((recipe) => {
+    this.recipe$.pipe(take(1)).subscribe((recipe) => {
+      console.log(recipe)
       this.recipeOnStart = recipe!;
       this.formState.setForm(recipe!);
       recipe?.ingredients.forEach((ingredient) =>
@@ -144,14 +150,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     this.deleteRecipeConfirmation(id);
   }
 
-  private deleteRecipeConfirmation(id: string) {
+  private deleteRecipeConfirmation(_id: string) {
     const modalInterface: ModalInterface = {
       modalHeader: `Delete recipe: "${this.recipeOnStart?.name}"?`,
       modalContent: 'This operation cannot be undone!',
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
       callbackMethod: () => {
-        this.store.dispatch(deleteRecipe(id)),
+        this.store.dispatch(deleteRecipe({_id})),
         this.modalRef.close(false);
       },
     };
@@ -163,8 +169,5 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
 
     return this.modalRef.afterClosed();
   }
-  
-  ngOnDestroy(): void {
-    this.formSub.unsubscribe();
-  }
+
 }

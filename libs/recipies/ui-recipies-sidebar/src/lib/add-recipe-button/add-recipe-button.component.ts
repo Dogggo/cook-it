@@ -16,6 +16,6 @@ export class AddRecipeButtonComponent {
   constructor(private router: Router) {}
 
   public navigate() {
-    this.router.navigateByUrl("recipe-list/add");
+    this.router.navigateByUrl("add");
   }
 }

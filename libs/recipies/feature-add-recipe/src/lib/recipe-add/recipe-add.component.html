@@ -33,10 +33,8 @@
     <cook-it-ingredient-form
       *ngFor="let ingredient of ingredients.controls; index as i"
       [form]="ingredient"
+      (deleteIngredient) = "deleteIngredient(i)"
     >
-      <button class="delete-button" mat-button (click)="deleteIngredient(i)">
-        Delete
-      </button>
     </cook-it-ingredient-form>
   </div>
 </form>

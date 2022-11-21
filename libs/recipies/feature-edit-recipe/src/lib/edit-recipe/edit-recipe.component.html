@@ -1,5 +1,5 @@
 <cook-it-top-bar
-  [title]="recipeOnStart.name"
+  [title]="recipeOnStart ? recipeOnStart.name : ''"
   [selectedOption]="'Edit'"
   (deleteRecipe)="handleOnDelete($event)"
 ></cook-it-top-bar>

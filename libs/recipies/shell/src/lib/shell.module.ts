@@ -5,7 +5,12 @@ import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-re
 
 export const shellRoutes: Route[] = [
   {
-    path: 'recipe-list',
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     loadChildren: () =>
       import('@cook-it/recipies/feature-recipe-list').then(
         (m) => m.SidenavComponentModule

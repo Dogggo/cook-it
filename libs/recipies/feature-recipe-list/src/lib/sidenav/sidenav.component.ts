@@ -41,9 +41,9 @@ export class SidenavComponent {
 const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule];
 
 const routes: Route[] = [
-  {
-    path: 'recipe-list',
-    component: SidenavComponent,
+  { 
+    path: '',
+    component: SidenavComponent ,
     children: [
       {
         path: 'add',

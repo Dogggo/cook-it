@@ -43,46 +43,31 @@ const reducer = createReducer(
     ...state,
     error,
   })),
-  on(RecipiesActions.selectRecipe, (state, { payload }) => ({
-    ...state,
-    selectedId: payload,
-  })),
-  on(RecipiesActions.saveRecipe, (state) => ({
-    ...state,
-    loaded: false,
-    error: null,
-  })),
   on(RecipiesActions.saveRecipiesSuccess, (state, { payload }) => {
-    return recipiesAdapter.addOne({ ...payload }, { ...state, loaded: true });
+    return recipiesAdapter.addOne(payload, { ...state, loaded: true })
   }),
   on(RecipiesActions.saveRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(RecipiesActions.editRecipe, (state) => ({
-    ...state,
-    loaded: false,
-    error: null,
-  })),
   on(RecipiesActions.editRecipiesSuccess, (state, { update }) => {
-    return recipiesAdapter.updateOne(update, {...state, loaded: true});
-  }),
+    return recipiesAdapter.updateOne(update, { ...state, loaded: true })
+  }),  
   on(RecipiesActions.editRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(RecipiesActions.deleteRecipe, (state) => ({
+  on(RecipiesActions.selectRecipe, (state, {selectedId}) => ({
     ...state,
-    loaded: false,
-    error: null,
+    selectedId
   })),
-  on(RecipiesActions.deleteRecipiesSuccess, (state, { _id }) => {
-    return recipiesAdapter.removeOne(_id, {...state, loaded: true});
+  on(RecipiesActions.deleteRecipiesSuccess, (state,  { _id } ) => {
+    return recipiesAdapter.removeOne(_id, { ...state, loaded: true })
   }),
   on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
 );
 
 export function recipiesReducer(
