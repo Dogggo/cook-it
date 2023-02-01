@@ -16,7 +16,7 @@
     "recipies-ui-recipies-sidebar": "libs/recipies/ui-recipies-sidebar",
     "recipies-ui-top-bar": "libs/recipies/ui-top-bar"
   },
-  "@shematics/angular:component": {
+  "@schematics/angular:component": {
     "changeDetection": "onPush",
     "style": "scss",
     "standalone": "true"
