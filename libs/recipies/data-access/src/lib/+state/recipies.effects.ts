@@ -90,16 +90,6 @@ export class RecipiesEffects implements OnInitEffects {
     );
   });
 
-  select$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(RecipiesActions.selectRecipe),
-      map((action) => {
-        return RecipiesActions.selectRecipe({ selectedId: action.selectedId });
-      })
-    );
-  },
-  { dispatch: false });
-
   ngrxOnInitEffects(): Action {
     return RecipiesActions.initRecipies();
   }

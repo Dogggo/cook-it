@@ -16,8 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
 import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
 import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
-import * as recipeDetailsComponent from 'libs/recipies/feature-recipe-details/src/lib/recipe-details/recipe-details.component';
 import { RecipiesFeatureAddRecipeModule } from '@cook-it/recipies/feature-add-recipe';
+import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
 import { RecipeAddComponent } from 'libs/recipies/feature-add-recipe/src/lib/recipe-add/recipe-add.component';
 import { EditRecipeComponent } from 'libs/recipies/feature-edit-recipe/src/lib/edit-recipe/edit-recipe.component';
 import { AddRecipeButtonComponent } from 'libs/recipies/ui-recipies-sidebar/src/lib/add-recipe-button/add-recipe-button.component';
@@ -41,7 +41,7 @@ export class SidenavComponent {
 const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule];
 
 const routes: Route[] = [
-  { 
+  {
     path: '',
     component: SidenavComponent ,
     children: [
@@ -52,7 +52,7 @@ const routes: Route[] = [
       },
       {
         path: ':id',
-        component: recipeDetailsComponent.RecipeDetailsComponent,
+        component: RecipeDetailsComponent,
       },
       {
         path: ':id/edit',

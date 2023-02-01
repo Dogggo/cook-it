@@ -9,7 +9,8 @@ import { RecipiesEntity } from './+state/recipies.models';
 export class RecipiesService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://ml-app-valueadd.herokuapp.com/recipes';
+  // baseUrl = 'https://ml-app-valueadd.herokuapp.com/recipes';
+  baseUrl = 'https://crudcrud.com/api/da7f3c4e010a47979c980e57dea0c070/recipes';
 
   public getRecipies(): Observable<RecipiesEntity[]> {
     return this.http.get<RecipiesEntity[]>(this.baseUrl);
