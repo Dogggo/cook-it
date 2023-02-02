@@ -10,12 +10,6 @@
       <span class="container__title">Edit recipe</span>
       <div class="container__button">
         <button
-          class="container__button-undo"
-          [ngClass]="
-            form.invalid || form.pristine
-              ? 'container__button-disabled'
-              : 'container__button-save'
-          "
           (click)="undoChanges()"
           [disabled]="form.invalid || form.pristine"
           mat-button
@@ -23,12 +17,6 @@
           Undo changes
         </button>
         <button
-          class="container__button-save"
-          [ngClass]="
-            form.invalid || form.pristine
-              ? 'container__button-disabled'
-              : 'container__button-save'
-          "
           (click)="saveRecipe()"
           [disabled]="form.invalid || form.pristine"
           mat-button
@@ -42,11 +30,7 @@
   <div class="container">
     <span class="container__title">Edit Ingredients</span>
     <div class="container__button">
-      <button
-        (click)="addIngredient()"
-        mat-button
-        class="container__button-add"
-      >
+      <button (click)="addIngredient()" mat-stroked-button>
         Add ingredient
       </button>
     </div>
@@ -55,7 +39,7 @@
   <div class="ingredient">
     <cook-it-ingredient-form
       *ngFor="let ingredient of ingredients.controls; index as i"
-      (deleteIngredient) = "deleteIngredient(i)"
+      (deleteIngredient)="deleteIngredient(i)"
       [form]="ingredient"
     >
     </cook-it-ingredient-form>

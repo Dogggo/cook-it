@@ -1,15 +1,17 @@
 <div class="container">
-    <div class="container__title">
-        {{title}}
-    </div>
-    <div class="container__button">
-        <button class="mat-button" mat-button [matMenuTriggerFor]="menu">{{selectedOption}}</button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navigateToPreview()">Preview</button>
-            <button mat-menu-item (click)="navigateToEdit()">Edit</button>
-        </mat-menu>
-        <button class="mat-button" mat-icon-button (click)="remove()">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </div>
+  <div class="container__title">
+    {{ title }}
+  </div>
+  <div class="container__button">
+    <button mat-stroked-button [matMenuTriggerFor]="menu">
+      {{ selectedOption }}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="navigateToPreview()">Preview</button>
+      <button mat-menu-item (click)="navigateToEdit()">Edit</button>
+    </mat-menu>
+    <button mat-stroked-button (click)="remove()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>

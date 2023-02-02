@@ -11,18 +11,6 @@
   &__button {
     margin-left: auto;
     padding-right: 10px;
-
-    &-save {
-      background-color: rgb(241, 180, 47);
-    }
-
-    &-add {
-      border: 1px solid rgba(0, 0, 0, 0.12);
-    }
-
-    &-disabled {
-      background-color: rgb(216, 216, 216);
-    }
   }
 }
 
