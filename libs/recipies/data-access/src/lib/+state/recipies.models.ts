@@ -2,8 +2,7 @@
  * Interface for the 'Recipies' data
  */
 
- export interface Ingredient {
-  _id: string | number;
+export interface Ingredient {
   name: string;
   quantity: string;
 }

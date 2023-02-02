@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <cook-it-recipe-form>
+    <div header class="container">
+      <span class="container__title">Add new Recipe</span>
+      <div class="container__button">
+        <button
+          (click)="saveRecipe()"
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="accent"
+        >
+          Save new recipe
+        </button>
+      </div>
+    </div>
+  </cook-it-recipe-form>
+
+  <div class="container">
+    <span class="container__title">Edit Ingredients</span>
+    <div class="container__button">
+      <button (click)="addIngredient()" mat-stroked-button>
+        Add ingredient
+      </button>
+    </div>
+  </div>
+
+  <div class="ingredient">
+    <cook-it-ingredient-form
+      *ngFor="let ingredient of ingredients.controls; index as i"
+      [form]="ingredient"
+      (deleteIngredient)="deleteIngredient(i)"
+    >
+    </cook-it-ingredient-form>
+  </div>
+</form>

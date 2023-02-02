@@ -18,8 +18,4 @@ export class RecipeItemComponent {
 
   @Input()
   description!: string;
-
-  constructor() {
-    // do nothing
-  }
 }

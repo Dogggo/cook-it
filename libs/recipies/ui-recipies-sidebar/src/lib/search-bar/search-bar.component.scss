@@ -1,0 +1,19 @@
+.search-bar {
+  padding: 0 0 0 1rem;
+  height: 50px;
+  outline: none;
+  width: 100%;
+  border: 1px solid rgb(223, 223, 223);
+}
+
+.mat-button {
+  border: 1px solid rgb(223, 223, 223);
+  border-radius: 0px;
+}
+
+.buttons {
+  margin-left: auto;
+  margin-right: 0;
+  display: flex;
+  flex-direction: row;
+}

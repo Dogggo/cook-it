@@ -1,12 +1,36 @@
 .container {
-  width: 22vw;
   height: 100vh;
-  border: 1px solid #555;
+
+  &__sidebar {
+    width: 22vw;
+  }
 }
+
 .wrapper {
   height: auto !important;
 }
 
-.item {
-  width: 100%;
+.mat-list-item.active {
+  background-color: rgb(209, 209, 209);
+}
+
+.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding-top: 0px;
+}
+
+.add-button {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  opacity: 100%;
 }

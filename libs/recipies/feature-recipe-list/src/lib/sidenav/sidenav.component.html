@@ -1,17 +1,30 @@
 <mat-drawer-container class="container">
-  <mat-drawer mode="side" opened>
-    <mat-nav-list>
-      <mat-list-item class="wrapper" *ngFor="let recipe of recipies$ | async">
-        <div class="item">
+  <mat-drawer class="container__sidebar" mode="side" opened>
+    <div class="mat-drawer-inner-container">
+      <cook-it-search-bar></cook-it-search-bar>
+
+      <mat-nav-list>
+        <mat-list-item
+          class="wrapper"
+          routerLink="/{{ recipe._id }}"
+          [routerLinkActive]="['active']"
+          *ngFor="let recipe of recipies$ | async"
+        >
           <cook-it-recipe-item
-          [imagePath]="recipe.images.preview"
-          [title]="recipe.name"
-          [description]="recipe.description"
+            [imagePath]="recipe.images.preview"
+            [title]="recipe.name"
+            [description]="recipe.description"
           ></cook-it-recipe-item>
-        </div>
-      </mat-list-item>
-    </mat-nav-list>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <div class="add-button">
+        <cook-it-add-recipe-button></cook-it-add-recipe-button>
+      </div>
+    </div>
   </mat-drawer>
+
   <mat-drawer-content>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

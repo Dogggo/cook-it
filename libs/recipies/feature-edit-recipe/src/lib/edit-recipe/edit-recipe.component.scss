@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  &__title {
+    font-weight: 500;
+    font-size: larger;
+    padding-left: 10px;
+  }
+
+  &__button {
+    margin-left: auto;
+    padding-right: 10px;
+  }
+}
+
+.ingredient {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.5rem;
+}

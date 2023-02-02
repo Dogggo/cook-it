@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/recipies/feature-recipe-details/src",
+  "prefix": "cook-it",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/recipies/feature-recipe-details"],
+      "options": {
+        "jestConfig": "libs/recipies/feature-recipe-details/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/recipies/feature-recipe-details/**/*.ts",
+          "libs/recipies/feature-recipe-details/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:recipes", "type:feature"]
+}

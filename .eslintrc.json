@@ -13,8 +13,37 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:utils",
+                  "type:ui",
+                  "type:data-access"
+                ]
+              },
+              {
+                "sourceTag": "type:utils",
+                "onlyDependOnLibsWithTags": ["type:utils"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:ui", "type:utils"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:feature"]
+              },
+              {
+                "sourceTag": "type:application",
+                "onlyDependOnLibsWithTags": ["type:feature", "type:shell"]
+              },
+              {
+                "sourceTag": "type:shell",
+                "onlyDependOnLibsWithTags": ["type:feature"]
+              },
+              {
+                "sourceTag": "scope:recipes",
+                "onlyDependOnLibsWithTags": ["scope:recipes"]
               }
             ]
           }

@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/recipies/ui-top-bar/src",
+  "prefix": "cook-it",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/recipies/ui-top-bar"],
+      "options": {
+        "jestConfig": "libs/recipies/ui-top-bar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/recipies/ui-top-bar/**/*.ts",
+          "libs/recipies/ui-top-bar/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:recipes", "type:ui"]
+}

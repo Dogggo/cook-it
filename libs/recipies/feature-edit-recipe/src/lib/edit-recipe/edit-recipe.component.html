@@ -1,0 +1,47 @@
+<cook-it-top-bar
+  [title]="recipeOnStart ? recipeOnStart.name : ''"
+  [selectedOption]="'Edit'"
+  (deleteRecipe)="handleOnDelete($event)"
+></cook-it-top-bar>
+
+<form [formGroup]="form">
+  <cook-it-recipe-form>
+    <div header class="container">
+      <span class="container__title">Edit recipe</span>
+      <div class="container__button">
+        <button
+          (click)="undoChanges()"
+          [disabled]="form.invalid || form.pristine"
+          mat-button
+        >
+          Undo changes
+        </button>
+        <button
+          (click)="saveRecipe()"
+          [disabled]="form.invalid || form.pristine"
+          mat-button
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </cook-it-recipe-form>
+
+  <div class="container">
+    <span class="container__title">Edit Ingredients</span>
+    <div class="container__button">
+      <button (click)="addIngredient()" mat-stroked-button>
+        Add ingredient
+      </button>
+    </div>
+  </div>
+
+  <div class="ingredient">
+    <cook-it-ingredient-form
+      *ngFor="let ingredient of ingredients.controls; index as i"
+      (deleteIngredient)="deleteIngredient(i)"
+      [form]="ingredient"
+    >
+    </cook-it-ingredient-form>
+  </div>
+</form>
