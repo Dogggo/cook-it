@@ -5,7 +5,8 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { Ingredient, RecipiesEntity } from '@cook-it/recipies/data-access';
+import { IngredientOverview } from '../../../ui-recipe-details/src/lib/model/ingredients-overview.interface';
+import { RecipiesOverview } from '../../../ui-recipe-details/src/lib/model/recipes-overview.interface';
 
 @Injectable()
 export class FormState {
@@ -60,15 +61,15 @@ export class FormState {
     return this._form;
   }
 
-  public setForm(recipeEntity: RecipiesEntity) {
+  public setForm(recipeEntity: RecipiesOverview) {
     this.form.patchValue(recipeEntity);
   }
 
-  public addIngredient(ingredient?: Ingredient) {
+  public addIngredient(ingredient?: IngredientOverview) {
     this.ingredients.push(this.createIngredient(ingredient));
   }
 
-  private createIngredient(ingredient?: Ingredient) {
+  private createIngredient(ingredient?: IngredientOverview) {
     return this.formBuilder.group({
       name: [
         ingredient?.name ?? '',

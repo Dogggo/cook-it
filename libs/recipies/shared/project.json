@@ -21,5 +21,5 @@
       }
     }
   },
-  "tags": ["scope:recipes", "type: utils"]
+  "tags": ["scope:recipes", "type:utils"]
 }
