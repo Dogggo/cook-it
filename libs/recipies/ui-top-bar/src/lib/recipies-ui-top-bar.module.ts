@@ -4,6 +4,6 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
   imports: [CommonModule, TopBarComponent],
-  exports: [TopBarComponent]
+  exports: [TopBarComponent],
 })
 export class RecipiesUiTopBarModule {}

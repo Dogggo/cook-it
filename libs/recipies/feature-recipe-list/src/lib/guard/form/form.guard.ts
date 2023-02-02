@@ -7,7 +7,13 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class FormGuard implements CanDeactivate<recipeAddComponent.RecipeAddComponent | editRecipeComponent.EditRecipeComponent> {
+export class FormGuard
+  implements
+    CanDeactivate<
+      | recipeAddComponent.RecipeAddComponent
+      | editRecipeComponent.EditRecipeComponent
+    >
+{
   constructor() {}
 
   canDeactivate(

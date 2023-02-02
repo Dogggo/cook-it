@@ -46,7 +46,6 @@ const materialModules = [MatButtonModule];
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [FormState],
 })
-
 @UntilDestroy()
 export class EditRecipeComponent implements OnInit {
   modalRef!: MatDialogRef<modalComponent.ModalComponent>;
@@ -85,15 +84,13 @@ export class EditRecipeComponent implements OnInit {
   ngOnInit(): void {
     this.setRecipeOnStart();
     this.formSub = this.formState.form.valueChanges
-    .pipe(
-
-    )
-    .subscribe(() => this.formState.triggerGuard = true)
+      .pipe()
+      .subscribe(() => (this.formState.triggerGuard = true));
   }
 
   setRecipeOnStart() {
     this.recipe$.pipe(take(1)).subscribe((recipe) => {
-      console.log(recipe)
+      console.log(recipe);
       this.recipeOnStart = recipe!;
       this.formState.setForm(recipe!);
       recipe?.ingredients.forEach((ingredient) =>
@@ -109,7 +106,9 @@ export class EditRecipeComponent implements OnInit {
   saveRecipe() {
     this.formState.triggerGuard = false;
     this.formState.form.markAsPristine();
-    this.store.dispatch(editRecipe({payload: this.form.value, id: this.recipeId}));
+    this.store.dispatch(
+      editRecipe({ payload: this.form.value, id: this.recipeId })
+    );
   }
 
   deleteIngredient(index: number) {
@@ -157,8 +156,7 @@ export class EditRecipeComponent implements OnInit {
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
       callbackMethod: () => {
-        this.store.dispatch(deleteRecipe({_id})),
-        this.modalRef.close(false);
+        this.store.dispatch(deleteRecipe({ _id })), this.modalRef.close(false);
       },
     };
 
@@ -169,5 +167,4 @@ export class EditRecipeComponent implements OnInit {
 
     return this.modalRef.afterClosed();
   }
-
 }

@@ -12,10 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddRecipeButtonComponent {
-
   constructor(private router: Router) {}
 
   public navigate() {
-    this.router.navigateByUrl("add");
+    this.router.navigateByUrl('add');
   }
 }

@@ -4,6 +4,6 @@ import { RecipeOverviewComponent } from './recipe-overview/recipe-overview.compo
 
 @NgModule({
   imports: [CommonModule, RecipeOverviewComponent],
-  exports: [RecipeOverviewComponent]
+  exports: [RecipeOverviewComponent],
 })
 export class RecipiesUiRecipeDetailsModule {}

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +23,6 @@ const materialModules = [MatMenuModule, MatButtonModule, MatIconModule];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopBarComponent {
-
   @Input()
   title!: string;
 
@@ -28,13 +33,13 @@ export class TopBarComponent {
   deleteRecipe = new EventEmitter<string>();
 
   constructor(private route: ActivatedRoute, private router: Router) {}
-  
+
   public navigateToEdit() {
-    this.router.navigateByUrl(`${ this.route.snapshot.params['id']}/edit`)
+    this.router.navigateByUrl(`${this.route.snapshot.params['id']}/edit`);
   }
 
   public navigateToPreview() {
-    this.router.navigateByUrl(`${ this.route.snapshot.params['id']}`)
+    this.router.navigateByUrl(`${this.route.snapshot.params['id']}`);
   }
 
   public remove() {

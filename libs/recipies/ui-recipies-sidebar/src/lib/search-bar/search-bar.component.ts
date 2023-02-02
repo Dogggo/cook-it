@@ -14,5 +14,4 @@ const materialModules = [MatInputModule, MatButtonModule, MatIconModule];
   styleUrls: ['./search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent {
-}
+export class SearchBarComponent {}

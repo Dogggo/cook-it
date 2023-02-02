@@ -44,30 +44,30 @@ const reducer = createReducer(
     error,
   })),
   on(RecipiesActions.saveRecipiesSuccess, (state, { payload }) => {
-    return recipiesAdapter.addOne(payload, { ...state, loaded: true })
+    return recipiesAdapter.addOne(payload, { ...state, loaded: true });
   }),
   on(RecipiesActions.saveRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
   })),
   on(RecipiesActions.editRecipiesSuccess, (state, { update }) => {
-    return recipiesAdapter.updateOne(update, { ...state, loaded: true })
-  }),  
+    return recipiesAdapter.updateOne(update, { ...state, loaded: true });
+  }),
   on(RecipiesActions.editRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(RecipiesActions.selectRecipe, (state, {selectedId}) => ({
+  on(RecipiesActions.selectRecipe, (state, { selectedId }) => ({
     ...state,
-    selectedId
+    selectedId,
   })),
-  on(RecipiesActions.deleteRecipiesSuccess, (state,  { _id } ) => {
-    return recipiesAdapter.removeOne(_id, { ...state, loaded: true })
+  on(RecipiesActions.deleteRecipiesSuccess, (state, { _id }) => {
+    return recipiesAdapter.removeOne(_id, { ...state, loaded: true });
   }),
   on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
-  })),
+  }))
 );
 
 export function recipiesReducer(

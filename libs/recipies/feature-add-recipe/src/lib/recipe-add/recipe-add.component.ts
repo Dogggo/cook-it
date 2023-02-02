@@ -10,9 +10,7 @@ import {
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   RecipiesDataAccessModule,
   RecipiesState,
@@ -55,11 +53,13 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private formState: FormState
   ) {}
-  
+
   ngOnInit(): void {
     this.formState.addIngredient();
     this.formState.addIngredient();
-    this.formSub = this.formState.form.valueChanges.subscribe(() => this.formState.triggerGuard = true)
+    this.formSub = this.formState.form.valueChanges.subscribe(
+      () => (this.formState.triggerGuard = true)
+    );
   }
 
   get ingredients() {
@@ -79,7 +79,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   }
 
   public saveRecipe() {
-    this.store.dispatch(saveRecipe({payload: this.form.value}));
+    this.store.dispatch(saveRecipe({ payload: this.form.value }));
     this.formState.triggerGuard = false;
   }
 

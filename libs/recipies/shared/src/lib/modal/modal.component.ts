@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,10 +26,9 @@ const materialModules = [
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  entryComponents: []
+  entryComponents: [],
 })
-export class ModalComponent{
-
+export class ModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public modalData: ModalInterface,
     public modalRef: MatDialogRef<ModalComponent>
@@ -46,5 +41,4 @@ export class ModalComponent{
   public closeModal(): void {
     this.modalRef.close();
   }
-
 }

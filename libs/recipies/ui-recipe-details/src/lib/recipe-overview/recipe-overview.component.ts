@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { RecipiesEntity } from '@cook-it/recipies/data-access';
+import { RecipiesOverview } from '../model/recipes-overview.interface';
 import { RecipiesSharedModule } from '@cook-it/recipies/shared';
 
 @Component({
@@ -12,7 +12,6 @@ import { RecipiesSharedModule } from '@cook-it/recipies/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeOverviewComponent {
-  
   @Input()
-  recipe?: RecipiesEntity;
+  recipe?: RecipiesOverview;
 }

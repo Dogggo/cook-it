@@ -5,9 +5,6 @@ import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   imports: [CommonModule, ModalComponent, FormatTimePipe],
-  exports: [
-    FormatTimePipe,
-    ModalComponent
-  ],
+  exports: [FormatTimePipe, ModalComponent],
 })
 export class RecipiesSharedModule {}

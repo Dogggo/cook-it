@@ -5,7 +5,12 @@ import { AddRecipeButtonComponent } from './add-recipe-button/add-recipe-button.
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
-  imports: [CommonModule, RecipeItemComponent, AddRecipeButtonComponent, SearchBarComponent],
-  exports: [RecipeItemComponent, AddRecipeButtonComponent, SearchBarComponent]
+  imports: [
+    CommonModule,
+    RecipeItemComponent,
+    AddRecipeButtonComponent,
+    SearchBarComponent,
+  ],
+  exports: [RecipeItemComponent, AddRecipeButtonComponent, SearchBarComponent],
 })
 export class RecipiesUiRecipiesSidebarModule {}

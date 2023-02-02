@@ -4,6 +4,6 @@ import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 
 @NgModule({
   imports: [CommonModule, EditRecipeComponent],
-  exports: [EditRecipeComponent]
+  exports: [EditRecipeComponent],
 })
 export class RecipiesFeatureEditRecipeModule {}

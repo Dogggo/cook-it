@@ -5,6 +5,6 @@ import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 
 @NgModule({
   imports: [CommonModule, RecipeDetailsComponent, TopBarComponent],
-  exports: [RecipeDetailsComponent]
+  exports: [RecipeDetailsComponent],
 })
 export class RecipiesFeatureRecipeDetailsModule {}

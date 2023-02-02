@@ -36,10 +36,8 @@ import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interfa
   styleUrls: ['./recipe-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 @UntilDestroy()
 export class RecipeDetailsComponent implements OnInit {
-
   modalRef!: MatDialogRef<modalComponent.ModalComponent>;
 
   recipe$ = this.store.select(getSelected);
@@ -77,7 +75,7 @@ export class RecipeDetailsComponent implements OnInit {
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
       callbackMethod: () => {
-        this.store.dispatch(deleteRecipe({_id})), this.modalRef.close(false);
+        this.store.dispatch(deleteRecipe({ _id })), this.modalRef.close(false);
       },
     };
 

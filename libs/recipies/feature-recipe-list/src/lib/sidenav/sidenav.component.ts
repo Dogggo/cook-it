@@ -43,7 +43,7 @@ const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule];
 const routes: Route[] = [
   {
     path: '',
-    component: SidenavComponent ,
+    component: SidenavComponent,
     children: [
       {
         path: 'add',

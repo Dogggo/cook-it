@@ -36,14 +36,12 @@ export class RecipiesEffects implements OnInitEffects {
       switchMap((action) => {
         return this.recipiesService.saveRecipe(action.payload).pipe(
           map((recipe) => {
-            return  RecipiesActions.saveRecipiesSuccess({ payload: recipe });
-          }
-          ),
+            return RecipiesActions.saveRecipiesSuccess({ payload: recipe });
+          }),
           tap((savedRecipe) => {
-            console.log(savedRecipe)
-            this.router.navigateByUrl(`/${savedRecipe.payload._id}`)
-          }
-        ),
+            console.log(savedRecipe);
+            this.router.navigateByUrl(`/${savedRecipe.payload._id}`);
+          }),
           catchError((error) => {
             return of(RecipiesActions.saveRecipiesFailure(error));
           })
@@ -63,9 +61,8 @@ export class RecipiesEffects implements OnInitEffects {
             });
           }),
           tap((recipe) => {
-            this.router.navigateByUrl(`/${recipe.update.id}`)
-          }
-          ),
+            this.router.navigateByUrl(`/${recipe.update.id}`);
+          }),
           catchError((error) => {
             return of(RecipiesActions.editRecipiesFailure(error));
           })
@@ -78,7 +75,7 @@ export class RecipiesEffects implements OnInitEffects {
     return this.actions$.pipe(
       ofType(RecipiesActions.deleteRecipe),
       switchMap((action) => {
-        console.log(action)
+        console.log(action);
         return this.recipiesService.deleteRecipe(action._id).pipe(
           map((_id) => RecipiesActions.deleteRecipiesSuccess({ _id })),
           tap(() => this.router.navigateByUrl(`/`)),
