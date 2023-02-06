@@ -95,8 +95,10 @@ describe('Recipies Reducer', () => {
 
   describe('saveRecipiesFailure', () => {
     it('should return loaded false and error', () => {
-      //given, when
+      //given
       const action = RecipiesActions.saveRecipiesFailure({ error });
+
+      //when
       const result = recipiesReducer(initialRecipiesState, action);
 
       //then
@@ -129,6 +131,69 @@ describe('Recipies Reducer', () => {
       expect(result.entities[FIRST_RECIPE_ID]?.description).toEqual(
         UPDATED_DESCRIPTION
       );
+    });
+  });
+
+  describe('editRecipiesFailure', () => {
+    it('should return loaded false and error', () => {
+      //given
+      const action = RecipiesActions.editRecipiesFailure({ error });
+
+      //when
+      const result = recipiesReducer(initialRecipiesState, action);
+
+      //then
+      expect(result.loaded).toBe(false);
+      expect(result.error).toEqual(error);
+    });
+  });
+
+  describe('selectRecipe', () => {
+    it('should set selectedId', () => {
+      //given
+      const action = RecipiesActions.selectRecipe({
+        selectedId: FIRST_RECIPE_ID,
+      });
+
+      //when
+      const result = recipiesReducer(initialRecipiesState, action);
+
+      //then
+      expect(result.selectedId).toEqual(FIRST_RECIPE_ID);
+    });
+  });
+
+  describe('deleteRecipeSuccess', () => {
+    it('should return loaded true and new state', () => {
+      //given
+      const recipe = createRecipiesEntity(FIRST_RECIPE_ID);
+      const saveRecipiesSuccess = RecipiesActions.saveRecipiesSuccess({
+        payload: recipe,
+      });
+      const state = recipiesReducer(initialRecipiesState, saveRecipiesSuccess);
+      const deleteRecipiesSuccess = RecipiesActions.deleteRecipiesSuccess({
+        _id: FIRST_RECIPE_ID,
+      });
+
+      //when
+      const result = recipiesReducer(state, deleteRecipiesSuccess);
+
+      //then
+      expect(result.entities[FIRST_RECIPE_ID]).toBeUndefined();
+    });
+  });
+
+  describe('deleteRecipeFailure', () => {
+    it('should return loaded false and error', () => {
+      //given
+      const action = RecipiesActions.deleteRecipiesFailure({ error });
+
+      //when
+      const result = recipiesReducer(initialRecipiesState, action);
+
+      //then
+      expect(result.loaded).toBe(false);
+      expect(result.error).toEqual(error);
     });
   });
 });
