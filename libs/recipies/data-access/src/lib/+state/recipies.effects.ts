@@ -39,7 +39,6 @@ export class RecipiesEffects implements OnInitEffects {
             return RecipiesActions.saveRecipiesSuccess({ payload: recipe });
           }),
           tap((savedRecipe) => {
-            console.log(savedRecipe);
             this.router.navigateByUrl(`/${savedRecipe.payload._id}`);
           }),
           catchError((error) => {
