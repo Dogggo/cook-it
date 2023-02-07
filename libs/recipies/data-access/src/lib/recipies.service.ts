@@ -10,7 +10,7 @@ export class RecipiesService {
   constructor(private http: HttpClient) {}
   baseUrl = 'https://crudcrud.com/api/da7f3c4e010a47979c980e57dea0c070/recipes';
 
-  public getRecipies(): Observable<RecipiesEntity[]> {
+  public getRecipies() {
     return this.http.get<RecipiesEntity[]>(this.baseUrl);
   }
 
