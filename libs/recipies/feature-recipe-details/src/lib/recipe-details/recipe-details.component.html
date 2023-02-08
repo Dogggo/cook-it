@@ -3,6 +3,7 @@
     [title]="recipe.name"
     [selectedOption]="'Preview'"
     (deleteRecipe)="handleOnDelete($event)"
+    data-cy="top-bar"
   ></cook-it-top-bar>
   <cook-it-recipe-overview [recipe]="recipe!"></cook-it-recipe-overview>
 </ng-container>
