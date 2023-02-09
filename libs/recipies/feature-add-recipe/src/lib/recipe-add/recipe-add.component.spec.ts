@@ -12,14 +12,14 @@ describe('RecipeAddComponent', () => {
   const initialState = initialRecipiesState;
   let spectator: Spectator<RecipeAddComponent>;
 
-  const createCompontn = createComponentFactory({
+  const createComponent = createComponentFactory({
     component: RecipeAddComponent,
     declarations: [RecipeAddComponent],
     providers: [provideMockStore({ initialState })],
   });
 
   beforeEach(() => {
-    spectator = createCompontn();
+    spectator = createComponent();
     store = spectator.inject(MockStore);
   });
 

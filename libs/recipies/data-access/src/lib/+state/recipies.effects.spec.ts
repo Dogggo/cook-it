@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -11,8 +10,8 @@ import { RecipiesEntity } from './recipies.models';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RecipiesService } from '../recipies.service';
 import { RouterTestingModule } from '@angular/router/testing';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
+import { Component } from '@angular/core';
 
 const FIRST_RECIPE_ID = 'PRODUCT-AAA';
 const SECOND_RECIPE_ID = 'PRODUCT-BBB';
@@ -22,6 +21,9 @@ const SECOND_RECIPE_DES = 'second des';
 const router = {
   navigateByUrl: jest.spyOn(Router.prototype, 'navigateByUrl'),
 };
+
+@Component({ template: '' })
+class MockedComponent {}
 
 const createRecipiesEntity = (
   _id: string,
@@ -40,28 +42,33 @@ const createRecipiesEntity = (
 });
 
 describe('RecipiesEffects', () => {
+  let spectator: SpectatorService<RecipiesEffects>;
   let actions$: ReplaySubject<Action>;
-  let effects: RecipiesEffects;
-  let recipies: RecipiesEntity[];
   let recipiesService: RecipiesService;
+  let recipies: RecipiesEntity[];
+  let effects: RecipiesEffects;
+
+  const createService = createServiceFactory({
+    service: RecipiesEffects,
+    imports: [
+      HttpClientTestingModule,
+      RouterTestingModule.withRoutes([
+        { path: ':id', component: MockedComponent },
+      ]),
+    ],
+    providers: [
+      RecipiesService,
+      RecipiesEffects,
+      provideMockActions(() => actions$),
+      provideMockStore(),
+    ],
+  });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: ':id', component: RecipeDetailsComponent },
-        ]),
-      ],
-      providers: [
-        RecipiesEffects,
-        RecipiesService,
-        provideMockActions(() => actions$),
-        provideMockStore(),
-      ],
-    });
-    effects = TestBed.inject(RecipiesEffects);
-    recipiesService = TestBed.inject(RecipiesService);
+    spectator = createService();
+    recipiesService = spectator.inject(RecipiesService);
+    effects = spectator.inject(RecipiesEffects);
+    actions$ = new ReplaySubject(1);
   });
 
   describe('init$', () => {
@@ -88,7 +95,9 @@ describe('RecipiesEffects', () => {
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
       effects.init$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(RecipiesActions.loadRecipiesFailure);
+        expect(resultAction).toEqual(
+          RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
+        );
       });
     });
   });
@@ -122,7 +131,9 @@ describe('RecipiesEffects', () => {
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
       effects.init$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(RecipiesActions.loadRecipiesFailure);
+        expect(resultAction).toEqual(
+          RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
+        );
       });
     });
   });
