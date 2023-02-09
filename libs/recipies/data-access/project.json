@@ -1,4 +1,5 @@
 {
+  "name": "recipies-data-access",
   "projectType": "library",
   "sourceRoot": "libs/recipies/data-access/src",
   "prefix": "cook-it",

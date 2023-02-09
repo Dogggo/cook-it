@@ -33,6 +33,9 @@
       ],
       "@cook-it/recipies/shared": ["libs/recipies/shared/src/index.ts"],
       "@cook-it/recipies/shell": ["libs/recipies/shell/src/index.ts"],
+      "@cook-it/recipies/ui-navi-bar": [
+        "libs/recipies/ui-navi-bar/src/index.ts"
+      ],
       "@cook-it/recipies/ui-recipe-details": [
         "libs/recipies/ui-recipe-details/src/index.ts"
       ],

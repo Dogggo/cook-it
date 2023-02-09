@@ -1,4 +1,5 @@
 {
+  "name": "cook-it",
   "projectType": "application",
   "sourceRoot": "apps/cook-it/src",
   "prefix": "cook-it",

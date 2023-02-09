@@ -9,6 +9,8 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SidenavComponentModule } from '@cook-it/recipies/feature-recipe-list';
+import { RecipiesFeatureNaviBarComponent } from '../../../../libs/recipies/feature-navi-bar/src';
+import {NaviBarService} from "../../../../libs/recipies/feature-navi-bar/src/lib/service/navi-bar.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,11 +20,12 @@ import { SidenavComponentModule } from '@cook-it/recipies/feature-recipe-list';
     SidenavComponentModule,
     ShellModule,
     RouterModule,
+    RecipiesFeatureNaviBarComponent,
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
-  providers: [],
+  providers: [NaviBarService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

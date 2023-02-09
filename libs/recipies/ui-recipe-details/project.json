@@ -1,4 +1,5 @@
 {
+  "name": "recipies-ui-recipe-details",
   "projectType": "library",
   "sourceRoot": "libs/recipies/ui-recipe-details/src",
   "prefix": "cook-it",

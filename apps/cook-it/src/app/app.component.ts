@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NaviBarService } from '../../../../libs/recipies/feature-navi-bar/src/lib/service/navi-bar.service';
 
 @Component({
   selector: 'cook-it-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'cook-it';
+  isDarkTheme = this.navBarService.isDarkTheme;
+  constructor(private navBarService: NaviBarService) {}
 }

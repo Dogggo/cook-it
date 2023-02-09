@@ -1,4 +1,5 @@
 {
+  "name": "recipies-feature-recipe-list",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/recipies/feature-recipe-list/src",

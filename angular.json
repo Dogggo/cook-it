@@ -9,6 +9,7 @@
     "recipies-feature-edit-recipe": "libs/recipies/feature-edit-recipe",
     "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
     "recipies-feature-recipe-list": "libs/recipies/feature-recipe-list",
+    "recipies-feature-navi-bar": "libs/recipies/feature-navi-bar",
     "recipies-shared": "libs/recipies/shared",
     "recipies-shell": "libs/recipies/shell",
     "recipies-ui-recipe-details": "libs/recipies/ui-recipe-details",
@@ -20,5 +21,6 @@
     "changeDetection": "onPush",
     "style": "scss",
     "standalone": "true"
-  }
+  },
+  "defaultProject": "cook-it"
 }

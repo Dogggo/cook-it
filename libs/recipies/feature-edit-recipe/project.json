@@ -1,4 +1,5 @@
 {
+  "name": "recipies-feature-edit-recipe",
   "projectType": "library",
   "sourceRoot": "libs/recipies/feature-edit-recipe/src",
   "prefix": "cook-it",
