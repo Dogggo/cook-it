@@ -30,10 +30,6 @@
                 "onlyDependOnLibsWithTags": ["type:ui", "type:utils"]
               },
               {
-                "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": ["type:feature"]
-              },
-              {
                 "sourceTag": "type:application",
                 "onlyDependOnLibsWithTags": ["type:feature", "type:shell"]
               },

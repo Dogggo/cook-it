@@ -1,22 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RecipeAddComponent } from './recipe-add.component';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import {
+  initialRecipiesState,
+  RecipiesState,
+} from '@cook-it/recipies/data-access';
+import { Spectator } from '@ngneat/spectator';
+import { createComponentFactory } from '@ngneat/spectator/jest';
 
 describe('RecipeAddComponent', () => {
-  let component: RecipeAddComponent;
-  let fixture: ComponentFixture<RecipeAddComponent>;
+  let store: MockStore<RecipiesState>;
+  const initialState = initialRecipiesState;
+  let spectator: Spectator<RecipeAddComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RecipeAddComponent],
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: RecipeAddComponent,
+    declarations: [RecipeAddComponent],
+    providers: [provideMockStore({ initialState })],
+  });
 
-    fixture = TestBed.createComponent(RecipeAddComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    store = spectator.inject(MockStore);
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
 });
