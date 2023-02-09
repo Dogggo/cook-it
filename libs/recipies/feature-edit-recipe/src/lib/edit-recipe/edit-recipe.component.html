@@ -2,16 +2,18 @@
   [title]="recipeOnStart ? recipeOnStart.name : ''"
   [selectedOption]="'Edit'"
   (deleteRecipe)="handleOnDelete($event)"
+  data-cy="top-bar"
 ></cook-it-top-bar>
 
-<form [formGroup]="form">
+<form [formGroup]="form" data-cy="recipe-form">
   <cook-it-recipe-form>
     <div header class="container">
       <span class="container__title">Edit recipe</span>
       <div class="container__button">
         <button
           (click)="undoChanges()"
-          [disabled]="form.invalid || form.pristine"
+          [disabled]="form.pristine"
+          data-cy="undo-changes-btn"
           mat-button
         >
           Undo changes
@@ -19,6 +21,7 @@
         <button
           (click)="saveRecipe()"
           [disabled]="form.invalid || form.pristine"
+          data-cy="save-changes-btn"
           mat-button
         >
           Save changes
