@@ -34,3 +34,9 @@ mat-nav-list {
   z-index: 1;
   opacity: 100%;
 }
+
+@media (max-width: 1024px) {
+  .search-bar {
+    display: none;
+  }
+}

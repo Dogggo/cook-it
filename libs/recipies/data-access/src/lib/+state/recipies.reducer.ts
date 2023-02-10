@@ -28,7 +28,7 @@ export const initialRecipiesState: RecipiesState =
     state: [],
     loaded: false,
     error: null,
-    showToast: false
+    showToast: false,
   });
 
 const reducer = createReducer(
@@ -72,11 +72,11 @@ const reducer = createReducer(
   })),
   on(RecipiesActions.snackbarClose, (state) => ({
     ...state,
-    showToast: false
+    showToast: false,
   })),
   on(RecipiesActions.snackbarOpen, (state) => ({
     ...state,
-    showToast: true
+    showToast: true,
   }))
 );
 

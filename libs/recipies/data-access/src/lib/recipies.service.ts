@@ -8,7 +8,8 @@ import { RecipiesEntity } from './+state/recipies.models';
 })
 export class RecipiesService {
   constructor(private http: HttpClient) {}
-  baseUrl = 'https://crudcrud.com/api/83cbc944a5a740d6a2cf0e7cc3523813/recipes';
+  crudUrl = 'https://crudcrud.com/api/629ce25fe5b845e2bcbf46ac83a6bc2e';
+  baseUrl = `${this.crudUrl}/recipes`;
 
   public getRecipies() {
     return this.http.get<RecipiesEntity[]>(this.baseUrl);
@@ -22,7 +23,12 @@ export class RecipiesService {
     recipe: RecipiesEntity,
     id: string
   ): Observable<RecipiesEntity> {
-    return this.http.put<RecipiesEntity>(`${this.baseUrl}/${id}`, recipe);
+    console.log(recipe);
+    return this.http.put<RecipiesEntity>(`${this.baseUrl}/${id}`, recipe).pipe(
+      map(() => {
+        return { ...recipe, _id: id };
+      })
+    );
   }
 
   public deleteRecipe(id: string): Observable<string> {

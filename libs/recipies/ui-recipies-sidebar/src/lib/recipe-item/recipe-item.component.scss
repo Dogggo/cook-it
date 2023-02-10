@@ -1,10 +1,19 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+
 .item {
   padding: 0.1rem 0;
   height: 170px;
-
+  white-space: normal;
   &__title {
     font-size: large;
     font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    word-break: break-word;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
   }
 
   &__image {
@@ -16,8 +25,29 @@
 
   &__description {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
+    word-wrap: break-word;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+}
+
+@media (max-width: 1024px) {
+  .item__image {
+    display: none;
+  }
+  .container {
+    display: flex;
+  }
+
+  .item__description {
+    white-space: pre-wrap;
+  }
+
+  .item {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
   }
 }

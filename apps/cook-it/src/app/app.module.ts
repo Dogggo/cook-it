@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SidenavComponentModule } from '@cook-it/recipies/feature-recipe-list';
 import { RecipiesFeatureNaviBarComponent } from '../../../../libs/recipies/feature-navi-bar/src';
-import {NaviBarService} from "../../../../libs/recipies/feature-navi-bar/src/lib/service/navi-bar.service";
+import { NaviBarService } from '../../../../libs/recipies/feature-navi-bar/src/lib/service/navi-bar.service';
 
 @NgModule({
   declarations: [AppComponent],

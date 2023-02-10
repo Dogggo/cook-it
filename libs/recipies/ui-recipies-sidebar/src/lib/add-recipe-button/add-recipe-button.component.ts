@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from "@angular/material/button";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'cook-it-add-recipe-button',

@@ -35,15 +35,15 @@ $angular-dark-theme: mat.define-dark-theme(
 
 @include mat.all-component-themes($angular-default-theme);
 
-  .darkMode {
-      @include mat.all-component-colors($angular-dark-theme);
-    }
+.darkMode {
+  @include mat.all-component-colors($angular-dark-theme);
+}
 
 .mat-mdc-snack-bar-container {
-    --mdc-snackbar-container-color: #ff4c4c;
-    --mat-mdc-snack-bar-button-color: #fff;
-    --mdc-snackbar-supporting-text-color: #fff;
-  }
+  --mdc-snackbar-container-color: #ff4c4c;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
 
 html,
 body {

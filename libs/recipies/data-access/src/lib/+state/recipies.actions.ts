@@ -1,7 +1,7 @@
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { RecipiesEntity } from './recipies.models';
-import {MatSnackBarConfig} from "@angular/material/snack-bar";
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
 export const initRecipies = createAction('[Recipies/API] Load Recipies');
 
@@ -37,7 +37,7 @@ export const saveRecipiesFailure = createAction(
 
 export const editRecipe = createAction(
   '[Recipies/API] Edit Recipies',
-  props<{ payload: any; id: string }>()
+  props<{ payload: RecipiesEntity; id: string }>()
 );
 
 export const editRecipiesSuccess = createAction(
@@ -67,9 +67,7 @@ export const deleteRecipiesFailure = createAction(
 
 export const snackbarOpen = createAction(
   'Open Snackbar',
-  props<{payload:{message: string, config?: MatSnackBarConfig}}>()
-)
+  props<{ payload: { message: string; config?: MatSnackBarConfig } }>()
+);
 
-export const snackbarClose = createAction(
-  'Close Snackbar'
-)
+export const snackbarClose = createAction('Close Snackbar');
