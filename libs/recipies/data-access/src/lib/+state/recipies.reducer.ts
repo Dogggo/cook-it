@@ -10,6 +10,7 @@ export interface RecipiesState extends EntityState<RecipiesEntity> {
   selectedId?: string;
   loaded: boolean;
   error?: string | null;
+  showToast: boolean;
 }
 
 export interface RecipiesPartialState {
@@ -27,6 +28,7 @@ export const initialRecipiesState: RecipiesState =
     state: [],
     loaded: false,
     error: null,
+    showToast: false
   });
 
 const reducer = createReducer(
@@ -67,6 +69,14 @@ const reducer = createReducer(
   on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(RecipiesActions.snackbarClose, (state) => ({
+    ...state,
+    showToast: false
+  })),
+  on(RecipiesActions.snackbarOpen, (state) => ({
+    ...state,
+    showToast: true
   }))
 );
 

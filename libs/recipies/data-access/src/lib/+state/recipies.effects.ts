@@ -2,16 +2,25 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, of, tap } from 'rxjs';
+import {switchMap, map, catchError, of, tap, delay} from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Injectable()
 export class RecipiesEffects implements OnInitEffects {
+
+  toastConfig: MatSnackBarConfig = {
+    horizontalPosition: 'end',
+    verticalPosition: 'top',
+    panelClass: ['error-snackbar']
+  }
+
   constructor(
     private readonly actions$: Actions,
     private recipiesService: RecipiesService,
-    private router: Router
+    private router: Router,
+    private matSnackBar: MatSnackBar
   ) {}
 
   init$ = createEffect(() => {
@@ -42,7 +51,8 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${savedRecipe.payload._id}`);
           }),
           catchError((error) => {
-            return of(RecipiesActions.saveRecipiesFailure(error));
+             of(RecipiesActions.saveRecipiesFailure(error));
+             return of(RecipiesActions.snackbarOpen({payload: {message: error.message, config: this.toastConfig}}))
           })
         );
       })
@@ -63,7 +73,8 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${recipe.update.id}`);
           }),
           catchError((error) => {
-            return of(RecipiesActions.editRecipiesFailure(error));
+            of(RecipiesActions.editRecipiesFailure(error));
+            return of(RecipiesActions.snackbarOpen({payload: {message: error.message, config: this.toastConfig}}))
           })
         );
       })
@@ -74,17 +85,37 @@ export class RecipiesEffects implements OnInitEffects {
     return this.actions$.pipe(
       ofType(RecipiesActions.deleteRecipe),
       switchMap((action) => {
-        console.log(action);
         return this.recipiesService.deleteRecipe(action._id).pipe(
           map((_id) => RecipiesActions.deleteRecipiesSuccess({ _id })),
           tap(() => this.router.navigateByUrl(`/`)),
           catchError((error) => {
-            return of(RecipiesActions.deleteRecipiesFailure(error));
+            of(RecipiesActions.deleteRecipiesFailure(error));
+            return of(RecipiesActions.snackbarOpen({payload: {message: error.message, config: this.toastConfig}}))
           })
         );
       })
     );
   });
+
+  showSnackbar$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(RecipiesActions.snackbarOpen),
+      map((action) => action.payload),
+      tap(payload => this.matSnackBar.open(payload.message, '', payload.config)),
+      delay(5000),
+      map(() => RecipiesActions.snackbarClose())
+    )
+  })
+
+  closeSnackbar$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(RecipiesActions.snackbarClose),
+      tap(() => this.matSnackBar.dismiss())
+    )
+  },
+    {
+      dispatch: false
+    })
 
   ngrxOnInitEffects(): Action {
     return RecipiesActions.initRecipies();
