@@ -19,7 +19,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
 import * as modalInterface from 'libs/recipies/shared/src/lib/modal/modal.interface';
-import { Observable, Subscription, take, tap } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { FormState } from 'libs/recipies/ui-recipe-form/src/lib/form.state';
 import { ActivatedRoute } from '@angular/router';

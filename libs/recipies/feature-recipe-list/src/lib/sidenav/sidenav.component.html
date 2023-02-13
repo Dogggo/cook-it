@@ -1,61 +1,64 @@
-<mat-toolbar color="primary">
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    mat-icon-button
-    (click)="drawer.toggle()"
-    *ngIf="isHandset$ | async"
-  >
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <div class="flex-stretch"></div>
-  <mat-icon class="mr-8">brightness_5</mat-icon>
-  <mat-slide-toggle
-    (change)="toggleDarkTheme($event.checked)"
-    [formControl]="toggleControl"
-    class="mr-8"
-  >
-  </mat-slide-toggle>
-  <mat-icon>bedtime</mat-icon>
-</mat-toolbar>
+<ng-container *ngIf="{isHandset: isHandset$ | async} as settings">
+  <mat-toolbar color="primary">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="settings.isHandset"
+    >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div class="flex-stretch"></div>
+    <mat-icon class="mr-8">brightness_5</mat-icon>
+    <mat-slide-toggle
+      (change)="toggleDarkTheme($event.checked)"
+      [formControl]="toggleControl"
+      class="mr-8"
+    >
+    </mat-slide-toggle>
+    <mat-icon>bedtime</mat-icon>
+  </mat-toolbar>
 
-<mat-drawer-container class="container mat-app-background">
-  <mat-drawer
-    #drawer
-    class="container__sidebar"
-    fixedInViewport="true"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
-    <div class="mat-drawer-inner-container">
-      <div class="search-bar">
-        <cook-it-search-bar></cook-it-search-bar>
+  <mat-drawer-container class="container mat-app-background">
+    <mat-drawer
+      #drawer
+      class="container__sidebar"
+      fixedInViewport="true"
+      [attr.role]="settings.isHandset ? 'dialog' : 'navigation'"
+      [mode]="settings.isHandset ? 'over' : 'side'"
+      [opened]="settings.isHandset === false"
+    >
+      <div class="mat-drawer-inner-container">
+        <div class="search-bar">
+          <cook-it-search-bar></cook-it-search-bar>
+        </div>
+
+        <mat-nav-list>
+          <mat-list-item
+            class="wrapper"
+            routerLink="/{{ recipe._id }}"
+            (click)="closeSideNav()"
+            [routerLinkActive]="['active']"
+            *ngFor="let recipe of recipies$ | async"
+          >
+            <cook-it-recipe-item
+              [imagePath]="recipe.images.preview"
+              [title]="recipe.name"
+              [description]="recipe.description"
+              data-cy="recipe-item"
+            ></cook-it-recipe-item>
+          </mat-list-item>
+        </mat-nav-list>
+        <div role="button" class="add-button" (click)="closeSideNav()">
+          <cook-it-add-recipe-button></cook-it-add-recipe-button>
+        </div>
       </div>
+    </mat-drawer>
 
-      <mat-nav-list>
-        <mat-list-item
-          class="wrapper"
-          routerLink="/{{ recipe._id }}"
-          (click)="closeSideNav()"
-          [routerLinkActive]="['active']"
-          *ngFor="let recipe of recipies$ | async"
-        >
-          <cook-it-recipe-item
-            [imagePath]="recipe.images.preview"
-            [title]="recipe.name"
-            [description]="recipe.description"
-            data-cy="recipe-item"
-          ></cook-it-recipe-item>
-        </mat-list-item>
-      </mat-nav-list>
-      <div role="button" class="add-button" (click)="closeSideNav()">
-        <cook-it-add-recipe-button></cook-it-add-recipe-button>
-      </div>
-    </div>
-  </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
 
-  <mat-drawer-content>
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+</ng-container>
