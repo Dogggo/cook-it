@@ -8,7 +8,7 @@ import { RecipiesEntity } from './+state/recipies.models';
 })
 export class RecipiesService {
   constructor(private http: HttpClient) {}
-  crudUrl = 'https://crudcrud.com/api/edc4d3d3f921430abfe926f350b6b842';
+  crudUrl = 'https://crudcrud.com/api/a0bdd927811041a3bbb7127e4d910be8';
   baseUrl = `${this.crudUrl}/recipes`;
 
   public getRecipies() {
