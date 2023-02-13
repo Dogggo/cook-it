@@ -1,25 +1,27 @@
+@import "apps/cook-it/src/styles.scss";
+
 .search-form {
   display: flex;
   padding: 1rem;
+
+  &__bar {
+    padding: 0 0 0 1rem;
+    height: 40px;
+    outline: none;
+    width: 100%;
+    border: 1px solid $gray-primary;
+    border-radius: 1rem;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+  }
 }
 
-.search-bar {
-  padding: 0 0 0 1rem;
-  height: 40px;
-  outline: none;
-  width: 100%;
-  border: 1px solid rgb(223, 223, 223);
-  border-radius: 1rem;
-}
 
 .mat-button {
-  border: 1px solid rgb(223, 223, 223);
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  border: 1px solid $gray-primary;
 }
 
 mat-icon {

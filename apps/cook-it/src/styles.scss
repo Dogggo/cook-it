@@ -12,25 +12,25 @@ $angular-warn: mat.define-palette(mat.$red-palette);
 $angular-secondary: mat.define-palette(mat.$deep-purple-palette, 300, 100, 200);
 
 $angular-default-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $angular-secondary,
-      secondary: $angular-primary,
-      accent: $angular-accent,
-      warn: $angular-warn,
-    ),
-  )
+    (
+      color: (
+        primary: $angular-secondary,
+        secondary: $angular-primary,
+        accent: $angular-accent,
+        warn: $angular-warn,
+      ),
+    )
 );
 
 $angular-dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $angular-primary,
-      secondary: $angular-secondary,
-      accent: $angular-accent,
-      warn: $angular-warn,
-    ),
-  )
+    (
+      color: (
+        primary: $angular-primary,
+        secondary: $angular-secondary,
+        accent: $angular-accent,
+        warn: $angular-warn,
+      ),
+    )
 );
 
 @include mat.all-component-themes($angular-default-theme);
@@ -45,12 +45,21 @@ $angular-dark-theme: mat.define-dark-theme(
   --mdc-snackbar-supporting-text-color: #fff;
 }
 
+//variables
+
+//breakpoint borders
 $max-m-size-breakpoint: 559px;
+
+//colors
+$gray-primary: rgb(223, 233, 233);
+$gray-secondary: rgb(209, 209, 209);
+$border-button-color: rgba(black, 0.12);
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;

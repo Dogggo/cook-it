@@ -1,3 +1,5 @@
+@import "apps/cook-it/src/styles.scss";
+
 .container {
   padding: 0.5rem;
 }
@@ -9,12 +11,12 @@
   justify-content: center;
   align-items: center;
   border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid $border-button-color;
 }
 
 .button {
   border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid $border-button-color;
   width: 100%;
 }
 
