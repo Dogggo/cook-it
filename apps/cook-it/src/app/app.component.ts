@@ -7,6 +7,6 @@ import { NaviBarService } from '../../../../libs/recipies/shared/src/lib/service
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  isDarkTheme = this.navBarService.isDarkTheme;
+  isDarkTheme$ = this.navBarService.isDarkTheme$;
   constructor(private navBarService: NaviBarService) {}
 }

@@ -1,6 +1,4 @@
-@use 'sass:map';
-@use '@angular/material' as mat;
-@import '@angular/material/theming';
+@import 'apps/cook-it/src/styles.scss';
 
 .item {
   padding: 0.1rem 0;
@@ -32,7 +30,7 @@
   }
 }
 
-@media (max-width: 959px) {
+@media (max-width: $max-m-size-breakpoint) {
   .item__image {
     display: none;
   }

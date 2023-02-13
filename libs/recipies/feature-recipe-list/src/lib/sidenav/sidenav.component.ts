@@ -1,4 +1,4 @@
-import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -50,7 +50,7 @@ export class SidenavComponent {
   recipies$: Observable<RecipiesEntity[]> =
     this.store.select<RecipiesEntity[]>(getAllRecipies);
 
-  @ViewChild('drawer') drawer: any;
+  @ViewChild('drawer') drawer!: MatDrawer;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Small, Breakpoints.XSmall])
@@ -68,7 +68,7 @@ export class SidenavComponent {
   ) {}
 
   closeSideNav() {
-    if (this.drawer._mode == 'over') {
+    if (this.drawer.mode == 'over') {
       this.drawer.close();
     }
   }

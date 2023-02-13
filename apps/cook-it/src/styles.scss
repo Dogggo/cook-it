@@ -45,6 +45,8 @@ $angular-dark-theme: mat.define-dark-theme(
   --mdc-snackbar-supporting-text-color: #fff;
 }
 
+$max-m-size-breakpoint: 559px;
+
 html,
 body {
   height: 100%;

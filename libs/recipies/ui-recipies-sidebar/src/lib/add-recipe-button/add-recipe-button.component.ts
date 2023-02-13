@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class AddRecipeButtonComponent {
   constructor(private router: Router) {}
 
-  public navigate() {
+  navigate() {
     this.router.navigateByUrl('add');
   }
 }
