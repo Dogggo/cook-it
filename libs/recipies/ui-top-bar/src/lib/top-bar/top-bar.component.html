@@ -3,27 +3,27 @@
     {{ title }}
   </div>
   <div class="container__button">
-   <div>
-     <button
-       mat-stroked-button
-       [matMenuTriggerFor]="menu"
-       data-cy="top-bar-menu"
-     >
-       {{ selectedOption }}
-     </button>
-     <mat-menu #menu="matMenu">
-       <button
-         mat-menu-item
-         (click)="navigateToPreview()"
-         data-cy="menu-preview"
-       >
-         Preview
-       </button>
-       <button mat-menu-item (click)="navigateToEdit()" data-cy="menu-edit">
-         Edit
-       </button>
-     </mat-menu>
-   </div>
+    <div>
+      <button
+        mat-stroked-button
+        [matMenuTriggerFor]="menu"
+        data-cy="top-bar-menu"
+      >
+        {{ selectedOption }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          (click)="navigateToPreview()"
+          data-cy="menu-preview"
+        >
+          Preview
+        </button>
+        <button mat-menu-item (click)="navigateToEdit()" data-cy="menu-edit">
+          Edit
+        </button>
+      </mat-menu>
+    </div>
 
     <div>
       <button mat-stroked-button (click)="remove()">

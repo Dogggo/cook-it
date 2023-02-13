@@ -1,37 +1,44 @@
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
-import {ChangeDetectionStrategy, Component, NgModule, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Store} from '@ngrx/store';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  NgModule,
+  ViewChild,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
 import {
   RecipiesState,
   RecipiesEntity,
   getAllRecipies,
   RecipiesDataAccessModule,
 } from '@cook-it/recipies/data-access';
-import {distinctUntilChanged, map, Observable} from 'rxjs';
-import {HttpClientModule} from '@angular/common/http';
-import {Route, RouterModule} from '@angular/router';
-import {RecipiesUiRecipiesSidebarModule} from '@cook-it/recipies/ui-recipies-sidebar';
-import {RecipiesFeatureRecipeDetailsModule} from '@cook-it/recipies/feature-recipe-details';
-import {RecipiesFeatureAddRecipeModule} from '@cook-it/recipies/feature-add-recipe';
-import {RecipeDetailsComponent} from '@cook-it/recipies/feature-recipe-details';
-import {RecipeAddComponent} from 'libs/recipies/feature-add-recipe/src/lib/recipe-add/recipe-add.component';
-import {EditRecipeComponent} from 'libs/recipies/feature-edit-recipe/src/lib/edit-recipe/edit-recipe.component';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { Route, RouterModule } from '@angular/router';
+import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
+import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
+import { RecipiesFeatureAddRecipeModule } from '@cook-it/recipies/feature-add-recipe';
+import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
+import { RecipeAddComponent } from 'libs/recipies/feature-add-recipe/src/lib/recipe-add/recipe-add.component';
+import { EditRecipeComponent } from 'libs/recipies/feature-edit-recipe/src/lib/edit-recipe/edit-recipe.component';
+import { AddRecipeButtonComponent } from 'libs/recipies/ui-recipies-sidebar/src/lib/add-recipe-button/add-recipe-button.component';
+import { SearchBarComponent } from 'libs/recipies/ui-recipies-sidebar/src/lib/search-bar/search-bar.component';
+import { FormGuard } from '../guard/form/form.guard';
+import { RecipesGuard } from '../guard/recipes/recipes.guard';
 import {
-  AddRecipeButtonComponent
-} from 'libs/recipies/ui-recipies-sidebar/src/lib/add-recipe-button/add-recipe-button.component';
-import {SearchBarComponent} from 'libs/recipies/ui-recipies-sidebar/src/lib/search-bar/search-bar.component';
-import {FormGuard} from '../guard/form/form.guard';
-import {RecipesGuard} from '../guard/recipes/recipes.guard';
-import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {NaviBarService} from "../../../../shared/src/lib/service/navi-bar.service";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState,
+} from '@angular/cdk/layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NaviBarService } from '../../../../shared/src/lib/service/navi-bar.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -49,14 +56,16 @@ export class SidenavComponent {
     .observe([Breakpoints.Small, Breakpoints.XSmall])
     .pipe(
       distinctUntilChanged(),
-      map((result: BreakpointState) => result.matches));
+      map((result: BreakpointState) => result.matches)
+    );
 
   toggleControl = new FormControl(false);
 
-  constructor(private store: Store<RecipiesState>,
-              private breakpointObserver: BreakpointObserver,
-              private naviBarService: NaviBarService) {
-  }
+  constructor(
+    private store: Store<RecipiesState>,
+    private breakpointObserver: BreakpointObserver,
+    private naviBarService: NaviBarService
+  ) {}
 
   closeSideNav() {
     if (this.drawer._mode == 'over') {
@@ -69,7 +78,14 @@ export class SidenavComponent {
   }
 }
 
-const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule, MatSlideToggleModule];
+const materialModules = [
+  MatSidenavModule,
+  MatListModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatSlideToggleModule,
+];
 
 const routes: Route[] = [
   {
@@ -107,11 +123,10 @@ const routes: Route[] = [
     RecipiesFeatureAddRecipeModule,
     AddRecipeButtonComponent,
     SearchBarComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
   providers: [FormGuard, RecipesGuard],
 })
-export class SidenavComponentModule {
-}
+export class SidenavComponentModule {}
