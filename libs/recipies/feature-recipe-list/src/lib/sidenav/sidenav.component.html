@@ -1,12 +1,27 @@
-<mat-drawer-container class="container mat-app-background">
-<!--  <mat-toolbar color="primary" style="margin-top:30px;"> Business</mat-toolbar>-->
+<mat-toolbar color="primary">
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <div class="flex-stretch"></div>
+  <mat-icon class="mr-8">brightness_5</mat-icon>
+  <mat-slide-toggle
+    (change)="toggleDarkTheme($event.checked)"
+    [formControl]="toggleControl"
+    class="mr-8"
+  >
+  </mat-slide-toggle>
+  <mat-icon>bedtime</mat-icon>
+</mat-toolbar>
 
+<mat-drawer-container class="container mat-app-background">
   <mat-drawer #drawer
               class="container__sidebar"
               fixedInViewport="true"
               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
               [mode]="(isHandset$ | async) ? 'over' : 'side'"
               [opened]="(isHandset$ | async) === false">
+
+
     <div class="mat-drawer-inner-container">
       <div class="search-bar">
         <cook-it-search-bar></cook-it-search-bar>
@@ -29,18 +44,13 @@
         </mat-list-item>
       </mat-nav-list>
 
-      <div class="add-button">
+      <div role="button" class="add-button" (click)="closeSideNav()">
         <cook-it-add-recipe-button></cook-it-add-recipe-button>
       </div>
     </div>
   </mat-drawer>
 
   <mat-drawer-content>
-    <div class="toggle-drawer-button" *ngIf="(isHandset$ | async)">
-      <button (click)="drawer.toggle()" mat-fab color="primary">
-        <mat-icon>list</mat-icon>
-      </button>
-    </div>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

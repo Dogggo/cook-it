@@ -7,7 +7,6 @@
     "recipies-data-access": "libs/recipies/data-access",
     "recipies-feature-add-recipe": "libs/recipies/feature-add-recipe",
     "recipies-feature-edit-recipe": "libs/recipies/feature-edit-recipe",
-    "recipies-feature-navi-bar": "libs/recipies/feature-navi-bar",
     "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
     "recipies-feature-recipe-list": "libs/recipies/feature-recipe-list",
     "recipies-shared": "libs/recipies/shared",

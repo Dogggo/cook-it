@@ -29,6 +29,9 @@ import {RecipesGuard} from '../guard/recipes/recipes.guard';
 import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {NaviBarService} from "../../../../shared/src/lib/service/navi-bar.service";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -48,7 +51,11 @@ export class SidenavComponent {
       distinctUntilChanged(),
       map((result: BreakpointState) => result.matches));
 
-  constructor(private store: Store<RecipiesState>, private breakpointObserver: BreakpointObserver) {
+  toggleControl = new FormControl(false);
+
+  constructor(private store: Store<RecipiesState>,
+              private breakpointObserver: BreakpointObserver,
+              private naviBarService: NaviBarService) {
   }
 
   closeSideNav() {
@@ -56,9 +63,13 @@ export class SidenavComponent {
       this.drawer.close();
     }
   }
+
+  toggleDarkTheme(checked: boolean) {
+    this.naviBarService.setDarkTheme(checked);
+  }
 }
 
-const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule];
+const materialModules = [MatSidenavModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule, MatSlideToggleModule];
 
 const routes: Route[] = [
   {
@@ -96,6 +107,7 @@ const routes: Route[] = [
     RecipiesFeatureAddRecipeModule,
     AddRecipeButtonComponent,
     SearchBarComponent,
+    ReactiveFormsModule
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
