@@ -35,7 +35,11 @@ mat-nav-list {
   opacity: 100%;
 }
 
-@media (max-width: 1024px) {
+.toggle-drawer-button {
+  padding: 1rem 0 0 1rem ;
+}
+
+@media (max-width: 959px) {
   .search-bar {
     display: none;
   }

@@ -1,5 +1,12 @@
 <mat-drawer-container class="container mat-app-background">
-  <mat-drawer class="container__sidebar" mode="side" opened>
+<!--  <mat-toolbar color="primary" style="margin-top:30px;"> Business</mat-toolbar>-->
+
+  <mat-drawer #drawer
+              class="container__sidebar"
+              fixedInViewport="true"
+              [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+              [mode]="(isHandset$ | async) ? 'over' : 'side'"
+              [opened]="(isHandset$ | async) === false">
     <div class="mat-drawer-inner-container">
       <div class="search-bar">
         <cook-it-search-bar></cook-it-search-bar>
@@ -9,6 +16,7 @@
         <mat-list-item
           class="wrapper"
           routerLink="/{{ recipe._id }}"
+          (click)="closeSideNav()"
           [routerLinkActive]="['active']"
           *ngFor="let recipe of recipies$ | async"
         >
@@ -28,6 +36,11 @@
   </mat-drawer>
 
   <mat-drawer-content>
+    <div class="toggle-drawer-button" *ngIf="(isHandset$ | async)">
+      <button (click)="drawer.toggle()" mat-fab color="primary">
+        <mat-icon>list</mat-icon>
+      </button>
+    </div>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
