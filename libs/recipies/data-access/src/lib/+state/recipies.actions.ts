@@ -2,6 +2,7 @@ import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { RecipiesEntity } from './recipies.models';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 
 export const initRecipies = createAction('[Recipies/API] Load Recipies');
 
@@ -37,7 +38,7 @@ export const saveRecipiesFailure = createAction(
 
 export const editRecipe = createAction(
   '[Recipies/API] Edit Recipies',
-  props<{ payload: RecipiesEntity; id: string }>()
+  props<{ payload: RecipiesOverview; id: string }>()
 );
 
 export const editRecipiesSuccess = createAction(

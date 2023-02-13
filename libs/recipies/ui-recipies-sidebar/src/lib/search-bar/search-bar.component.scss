@@ -1,4 +1,4 @@
-@import "apps/cook-it/src/styles.scss";
+@import 'apps/cook-it/src/styles.scss';
 
 .search-form {
   display: flex;
@@ -18,7 +18,6 @@
     align-items: center;
   }
 }
-
 
 .mat-button {
   border: 1px solid $gray-primary;

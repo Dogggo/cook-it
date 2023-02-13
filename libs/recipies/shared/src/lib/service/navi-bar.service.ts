@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class NaviBarService {
-
   private _darkTheme$ = new BehaviorSubject<boolean>(false);
   isDarkTheme$ = this._darkTheme$.asObservable();
 

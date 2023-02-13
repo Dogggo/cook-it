@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { RecipiesEntity } from './+state/recipies.models';
+import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class RecipiesService {
   }
 
   public editRecipe(
-    recipe: RecipiesEntity,
+    recipe: RecipiesOverview,
     id: string
   ): Observable<RecipiesEntity> {
     return this.http.put<RecipiesEntity>(`${this.baseUrl}/${id}`, recipe).pipe(
@@ -31,7 +32,6 @@ export class RecipiesService {
   }
 
   public deleteRecipe(id: string): Observable<void> {
-    return this.http
-      .delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

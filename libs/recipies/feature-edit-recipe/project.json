@@ -6,9 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/recipies/edit-recipe"],
+      "outputs": ["coverage/libs/recipies/feature-edit-recipe"],
       "options": {
-        "jestConfig": "libs/recipies/edit-recipe/jest.config.ts",
+        "jestConfig": "libs/recipies/feature-edit-recipe/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -16,8 +16,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/recipies/edit-recipe/**/*.ts",
-          "libs/recipies/edit-recipe/**/*.html"
+          "libs/recipies/feature-edit-recipe/**/*.ts",
+          "libs/recipies/feature-edit-recipe/**/*.html"
         ]
       }
     }

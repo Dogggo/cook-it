@@ -1,4 +1,4 @@
-import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -23,10 +23,12 @@ import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-s
 import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
 import { RecipiesFeatureAddRecipeModule } from '@cook-it/recipies/feature-add-recipe';
 import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
-import { RecipeAddComponent } from 'libs/recipies/feature-add-recipe/src/lib/recipe-add/recipe-add.component';
-import { EditRecipeComponent } from 'libs/recipies/feature-edit-recipe/src/lib/edit-recipe/edit-recipe.component';
-import { AddRecipeButtonComponent } from 'libs/recipies/ui-recipies-sidebar/src/lib/add-recipe-button/add-recipe-button.component';
-import { SearchBarComponent } from 'libs/recipies/ui-recipies-sidebar/src/lib/search-bar/search-bar.component';
+import { RecipeAddComponent } from '@cook-it/recipies/feature-add-recipe';
+import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
+import {
+  SearchBarComponent,
+  AddRecipeButtonComponent,
+} from '@cook-it/recipies/ui-recipies-sidebar';
 import { FormGuard } from '../guard/form/form.guard';
 import { RecipesGuard } from '../guard/recipes/recipes.guard';
 import {
@@ -37,7 +39,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NaviBarService } from '../../../../shared/src/lib/service/navi-bar.service';
+import { NaviBarService } from '@cook-it/recipies/shared';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({

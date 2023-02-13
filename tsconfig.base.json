@@ -19,8 +19,8 @@
       "@cook-it/recipies/data-access": [
         "libs/recipies/data-access/src/index.ts"
       ],
-      "@cook-it/recipies/edit-recipe": [
-        "libs/recipies/edit-recipe/src/index.ts"
+      "@cook-it/recipies/feature-edit-recipe": [
+        "libs/recipies/feature-edit-recipe/src/index.ts"
       ],
       "@cook-it/recipies/feature-add-recipe": [
         "libs/recipies/feature-add-recipe/src/index.ts"
