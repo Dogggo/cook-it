@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
-  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async"
+  >
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <div class="flex-stretch"></div>
@@ -14,17 +20,19 @@
 </mat-toolbar>
 
 <mat-drawer-container class="container mat-app-background">
-  <mat-drawer #drawer
-              class="container__sidebar"
-              fixedInViewport="true"
-              [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-              [mode]="(isHandset$ | async) ? 'over' : 'side'"
-              [opened]="(isHandset$ | async) === false">
-
-
+  <mat-drawer
+    #drawer
+    class="container__sidebar"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <div class="mat-drawer-inner-container">
       <div class="search-bar">
-        <cook-it-search-bar></cook-it-search-bar>
+        <cook-it-search-bar
+          (searchValue)="handleSearchInput($event)"
+        ></cook-it-search-bar>
       </div>
 
       <mat-nav-list>

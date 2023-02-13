@@ -1,27 +1,13 @@
 .container {
-  display: flex;
   padding: 1rem;
-}
-
-.search-bar {
-  padding: 0 0 0 1rem;
-  height: 40px;
-  outline: none;
-  width: 100%;
-  border: 1px solid rgb(223, 223, 223);
-  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .mat-button {
   border: 1px solid rgb(223, 223, 223);
 }
 
-.buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-mat-icon {
-  transform: scale(2);
+mat-form-field {
+  width: 80%;
 }

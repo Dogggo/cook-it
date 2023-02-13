@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   deleteRecipe,
+  getRecipiesBySearchPhrase,
   getSelected,
   RecipiesEntity,
   RecipiesState,
@@ -54,6 +55,9 @@ export class RecipeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.changeSelectedRecipe();
+    this.store
+      .select(getRecipiesBySearchPhrase('chicken'))
+      .subscribe((res) => console.log(res));
   }
 
   private changeSelectedRecipe() {
