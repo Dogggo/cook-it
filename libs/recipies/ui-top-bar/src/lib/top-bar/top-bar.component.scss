@@ -2,9 +2,11 @@
   display: flex;
   padding: 0.7rem;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid;
   height: 50px;
   border-color: rgb(223, 223, 223);
+
   &__title {
     font-weight: 500;
     font-size: larger;
@@ -12,10 +14,14 @@
   }
 
   &__button {
-    margin-left: auto;
-    margin-right: 0;
+    display: flex;
+  }
+
+  &__button > div > button {
+    margin-right: 1rem;
   }
 }
+
 
 .delete-icon {
   justify-content: center;
