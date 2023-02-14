@@ -14,8 +14,8 @@ import {
   RecipiesState,
   RecipiesEntity,
   getAllRecipies,
-  RecipiesDataAccessModule,
-} from '@cook-it/recipies/data-access';
+  RecipiesDataAccessRecipesModule,
+} from '@cook-it/recipies/data-access-recipes';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
@@ -40,9 +40,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DarkModeState } from '@cook-it/recipies/feature-dark-mode';
-import { setDarkMode } from '@cook-it/recipies/feature-dark-mode';
-import { RecipiesFeatureDarkModeModule } from '@cook-it/recipies/feature-dark-mode';
+import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
+import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
+import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
+import { RecipiesFeatureSnackBarModule } from '@cook-it/recipies/data-access-snack-bar';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -126,14 +127,15 @@ const routes: Route[] = [
     ...materialModules,
     HttpClientModule,
     RouterModule.forChild(routes),
-    RecipiesDataAccessModule,
+    RecipiesDataAccessRecipesModule,
     RecipiesUiRecipiesSidebarModule,
     RecipiesFeatureRecipeDetailsModule,
     RecipiesFeatureAddRecipeModule,
     AddRecipeButtonComponent,
     SearchBarComponent,
     ReactiveFormsModule,
-    RecipiesFeatureDarkModeModule,
+    RecipiesDataAccessDarkModeModule,
+    RecipiesFeatureSnackBarModule,
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],

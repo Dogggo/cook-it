@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectDarkMode } from '@cook-it/recipies/feature-dark-mode';
-import { DarkModeState } from '@cook-it/recipies/feature-dark-mode';
+import { selectDarkMode } from '@cook-it/recipies/data-access-dark-mode';
+import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
 
 @Component({
   selector: 'cook-it-root',

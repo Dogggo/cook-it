@@ -13,10 +13,10 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  RecipiesDataAccessModule,
+  RecipiesDataAccessRecipesModule,
   RecipiesState,
   saveRecipe,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -37,7 +37,7 @@ const materialModules = [MatButtonModule];
     RecipeFormComponent,
     ...materialModules,
     ReactiveFormsModule,
-    RecipiesDataAccessModule,
+    RecipiesDataAccessRecipesModule,
     RecipiesSharedModule,
   ],
   templateUrl: './recipe-add.component.html',

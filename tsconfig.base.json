@@ -16,14 +16,17 @@
     "baseUrl": ".",
     "paths": {
       "@cook-it/recipies": ["libs/recipies/src/index.ts"],
-      "@cook-it/recipies/data-access": [
-        "libs/recipies/data-access/src/index.ts"
+      "@cook-it/recipies/data-access-dark-mode": [
+        "libs/recipies/data-access-dark-mode/src/index.ts"
+      ],
+      "@cook-it/recipies/data-access-recipes": [
+        "libs/recipies/data-access-recipes/src/index.ts"
+      ],
+      "@cook-it/recipies/data-access-snack-bar": [
+        "libs/recipies/data-access-snack-bar/src/index.ts"
       ],
       "@cook-it/recipies/feature-add-recipe": [
         "libs/recipies/feature-add-recipe/src/index.ts"
-      ],
-      "@cook-it/recipies/feature-dark-mode": [
-        "libs/recipies/feature-dark-mode/src/index.ts"
       ],
       "@cook-it/recipies/feature-edit-recipe": [
         "libs/recipies/feature-edit-recipe/src/index.ts"

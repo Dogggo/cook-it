@@ -1,0 +1,27 @@
+{
+  "name": "recipies-data-access-recipes",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/recipies/data-access-recipes/src",
+  "prefix": "cook-it",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/recipies/data-access-recipes"],
+      "options": {
+        "jestConfig": "libs/recipies/data-access-recipes/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/recipies/data-access-recipes/**/*.ts",
+          "libs/recipies/data-access-recipes/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:recipes", "type:data-access"]
+}

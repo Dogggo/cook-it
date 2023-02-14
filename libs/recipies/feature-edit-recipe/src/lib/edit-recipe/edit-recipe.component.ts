@@ -6,9 +6,9 @@ import {
   deleteRecipe,
   editRecipe,
   getSelected,
-  RecipiesDataAccessModule,
+  RecipiesDataAccessRecipesModule,
   RecipiesState,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { RecipiesSharedModule } from '@cook-it/recipies/shared';
 import {
   IngredientFormComponent,
@@ -35,7 +35,7 @@ const materialModules = [MatButtonModule];
     RecipeFormComponent,
     ...materialModules,
     ReactiveFormsModule,
-    RecipiesDataAccessModule,
+    RecipiesDataAccessRecipesModule,
     RecipiesSharedModule,
     TopBarComponent,
   ],
