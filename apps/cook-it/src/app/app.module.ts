@@ -9,7 +9,6 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SidenavComponentModule } from '@cook-it/recipies/feature-recipe-list';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [

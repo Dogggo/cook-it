@@ -39,8 +39,10 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NaviBarService } from '@cook-it/recipies/shared';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DarkModeState } from '@cook-it/recipies/feature-dark-mode';
+import { setDarkMode } from '@cook-it/recipies/feature-dark-mode';
+import { RecipiesFeatureDarkModeModule } from '@cook-it/recipies/feature-dark-mode';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -61,12 +63,17 @@ export class SidenavComponent {
       map((result: BreakpointState) => result.matches)
     );
 
-  toggleControl = new FormControl(false);
+  darkModeLocalStorageValue: string | null = localStorage.getItem('darkMode');
+  isInitWithDarkMode =
+    typeof this.darkModeLocalStorageValue === 'string'
+      ? (JSON.parse(this.darkModeLocalStorageValue) as boolean)
+      : false;
+  toggleControl = new FormControl(this.isInitWithDarkMode);
 
   constructor(
     private store: Store<RecipiesState>,
     private breakpointObserver: BreakpointObserver,
-    private naviBarService: NaviBarService
+    private darkModeStore: Store<DarkModeState>
   ) {}
 
   closeSideNav() {
@@ -76,7 +83,7 @@ export class SidenavComponent {
   }
 
   toggleDarkTheme(checked: boolean) {
-    this.naviBarService.setDarkTheme(checked);
+    this.darkModeStore.dispatch(setDarkMode({ payload: checked }));
   }
 }
 
@@ -126,6 +133,7 @@ const routes: Route[] = [
     AddRecipeButtonComponent,
     SearchBarComponent,
     ReactiveFormsModule,
+    RecipiesFeatureDarkModeModule,
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
