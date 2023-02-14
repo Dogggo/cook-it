@@ -70,7 +70,7 @@ export class SidenavComponent {
   ) {}
 
   closeSideNav() {
-    if (this.drawer.mode == 'over') {
+    if (this.drawer.mode === 'over') {
       this.drawer.close();
     }
   }

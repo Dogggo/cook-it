@@ -94,7 +94,7 @@ export class RecipiesEffects implements OnInitEffects {
     return this.actions$.pipe(
       ofType(RecipiesActions.deleteRecipe),
       switchMap((action) => {
-        return this.recipiesService.deleteRecipe(action._id + '1').pipe(
+        return this.recipiesService.deleteRecipe(action._id).pipe(
           map(() => RecipiesActions.deleteRecipiesSuccess({ _id: action._id })),
           tap(() => this.router.navigateByUrl(`/`)),
           catchError((error) => {

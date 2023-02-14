@@ -1,4 +1,4 @@
-<ng-container *ngIf="{ isHandset: isHandset$ | async } as settings">
+<div *ngIf="{ isHandset: isHandset$ | async } as settings">
   <mat-toolbar color="primary">
     <button
       type="button"
@@ -20,7 +20,7 @@
     <mat-icon>bedtime</mat-icon>
   </mat-toolbar>
 
-  <mat-drawer-container class="container mat-app-background">
+  <mat-drawer-container class="container">
     <mat-drawer
       #drawer
       class="container__sidebar"
@@ -59,4 +59,4 @@
       <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>
-</ng-container>
+</div>
