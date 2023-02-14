@@ -11,10 +11,10 @@ export const initialDarkModeState: DarkModeState = {
 
 const reducer = createReducer(
   initialDarkModeState,
-  on(DarkModeActions.setDarkModeSuccess, (state, { payload }) => ({
-    ...state,
-    isDarkMode: payload,
-  }))
+  on(DarkModeActions.setDarkMode, (state, {payload}) => {
+    localStorage.setItem('darkMode', JSON.stringify(payload));
+    return {...state, isDarkMode: payload}
+  })
 );
 
 export function darkModeReducer(state: DarkModeState, action: Action) {
