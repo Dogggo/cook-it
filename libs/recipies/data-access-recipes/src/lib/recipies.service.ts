@@ -9,14 +9,14 @@ import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 })
 export class RecipiesService {
   constructor(private http: HttpClient) {}
-  crudUrl = 'https://crudcrud.com/api/f94a44f6d9554aa7bed163afa1737bda' + '1';
+  crudUrl = 'https://crudcrud.com/api/f94a44f6d9554aa7bed163afa1737bda';
   baseUrl = `${this.crudUrl}/recipes`;
 
   public getRecipies() {
     return this.http.get<RecipiesEntity[]>(this.baseUrl);
   }
 
-  public saveRecipe(recipe: RecipiesEntity): Observable<RecipiesEntity> {
+  public saveRecipe(recipe: RecipiesOverview): Observable<RecipiesEntity> {
     return this.http.post<RecipiesEntity>(this.baseUrl, recipe);
   }
 

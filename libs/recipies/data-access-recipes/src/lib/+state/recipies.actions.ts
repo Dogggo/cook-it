@@ -22,7 +22,7 @@ export const selectRecipe = createAction(
 
 export const saveRecipe = createAction(
   '[Recipies/API] Save Recipies',
-  props<{ payload: string }>()
+  props<{ payload: RecipiesOverview }>()
 );
 
 export const saveRecipiesSuccess = createAction(
