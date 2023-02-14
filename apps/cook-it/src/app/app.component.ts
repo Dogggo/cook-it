@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NaviBarService } from '../../../../libs/recipies/shared/src/lib/service/navi-bar.service';
+import { NaviBarService } from '@cook-it/recipies/shared';
 
 @Component({
   selector: 'cook-it-root',

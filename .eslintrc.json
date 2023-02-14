@@ -31,7 +31,7 @@
               },
               {
                 "sourceTag": "type:application",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:shell"]
+                "onlyDependOnLibsWithTags": ["type:feature", "type:shell", "type:utils"]
               },
               {
                 "sourceTag": "type:shell",
