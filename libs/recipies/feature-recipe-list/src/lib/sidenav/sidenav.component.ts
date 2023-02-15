@@ -43,7 +43,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
 import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
 import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
-import { RecipiesFeatureSnackBarModule } from '@cook-it/recipies/data-access-snack-bar';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -133,8 +132,7 @@ const routes: Route[] = [
     AddRecipeButtonComponent,
     SearchBarComponent,
     ReactiveFormsModule,
-    RecipiesDataAccessDarkModeModule,
-    RecipiesFeatureSnackBarModule,
+    RecipiesDataAccessDarkModeModule
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],

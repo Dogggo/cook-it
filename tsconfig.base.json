@@ -22,9 +22,6 @@
       "@cook-it/recipies/data-access-recipes": [
         "libs/recipies/data-access-recipes/src/index.ts"
       ],
-      "@cook-it/recipies/data-access-snack-bar": [
-        "libs/recipies/data-access-snack-bar/src/index.ts"
-      ],
       "@cook-it/recipies/feature-add-recipe": [
         "libs/recipies/feature-add-recipe/src/index.ts"
       ],

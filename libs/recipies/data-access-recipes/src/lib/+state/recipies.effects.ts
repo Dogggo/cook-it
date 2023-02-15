@@ -2,18 +2,26 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, tap } from 'rxjs';
+import {switchMap, map, catchError, tap, of} from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
-import * as SnackbarActions from '@cook-it/recipies/data-access-snack-bar';
-import { initialSnackbarConfig } from '@cook-it/recipies/data-access-snack-bar';
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Injectable()
 export class RecipiesEffects implements OnInitEffects {
+
+  snackBarConfig: MatSnackBarConfig = {
+    horizontalPosition: 'end',
+    verticalPosition: 'top',
+    duration: 3000,
+    panelClass: ['error-snackbar'],
+  };
+
   constructor(
     private readonly actions$: Actions,
     private recipiesService: RecipiesService,
-    private router: Router
+    private router: Router,
+    private snackbarService: MatSnackBar
   ) {}
 
   init$ = createEffect(() => {
@@ -25,14 +33,8 @@ export class RecipiesEffects implements OnInitEffects {
             return RecipiesActions.loadRecipiesSuccess({ recipies });
           }),
           catchError((error) => {
-            const loadFailure = RecipiesActions.loadRecipiesFailure(error);
-            const snackbarOpen = SnackbarActions.snackbarOpen({
-              payload: {
-                message: error.message,
-                config: initialSnackbarConfig,
-              },
-            });
-            return [loadFailure, snackbarOpen];
+            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            return of(RecipiesActions.loadRecipiesFailure(error));
           })
         );
       })
@@ -51,14 +53,8 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${savedRecipe.payload._id}`);
           }),
           catchError((error) => {
-            const saveFailure = RecipiesActions.saveRecipiesFailure(error);
-            const snackbarOpen = SnackbarActions.snackbarOpen({
-              payload: {
-                message: error.message,
-                config: initialSnackbarConfig,
-              },
-            });
-            return [saveFailure, snackbarOpen];
+            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            return of(RecipiesActions.saveRecipiesFailure(error));
           })
         );
       })
@@ -79,14 +75,8 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${recipe.update.id}`);
           }),
           catchError((error) => {
-            const editFailure = RecipiesActions.editRecipiesFailure(error);
-            const snackbarOpen = SnackbarActions.snackbarOpen({
-              payload: {
-                message: error.message,
-                config: initialSnackbarConfig,
-              },
-            });
-            return [editFailure, snackbarOpen];
+            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            return of(RecipiesActions.editRecipiesFailure(error));
           })
         );
       })
@@ -101,14 +91,8 @@ export class RecipiesEffects implements OnInitEffects {
           map(() => RecipiesActions.deleteRecipiesSuccess({ _id: action._id })),
           tap(() => this.router.navigateByUrl(`/`)),
           catchError((error) => {
-            const deleteFailure = RecipiesActions.deleteRecipiesFailure(error);
-            const snackbarOpen = SnackbarActions.snackbarOpen({
-              payload: {
-                message: error.message,
-                config: initialSnackbarConfig,
-              },
-            });
-            return [deleteFailure, snackbarOpen];
+            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            return of(RecipiesActions.deleteRecipiesFailure(error));
           })
         );
       })

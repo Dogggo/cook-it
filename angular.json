@@ -6,7 +6,6 @@
     "cook-it-e2e": "apps/cook-it-e2e",
     "recipies-data-access-dark-mode": "libs/recipies/data-access-dark-mode",
     "recipies-data-access-recipes": "libs/recipies/data-access-recipes",
-    "recipies-data-access-snack-bar": "libs/recipies/data-access-snack-bar",
     "recipies-feature-add-recipe": "libs/recipies/feature-add-recipe",
     "recipies-feature-edit-recipe": "libs/recipies/feature-edit-recipe",
     "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
