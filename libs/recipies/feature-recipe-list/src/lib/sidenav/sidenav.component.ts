@@ -72,9 +72,8 @@ export class SidenavComponent {
   toggleControl = new FormControl(this.isInitWithDarkMode);
 
   constructor(
-    private store: Store<RecipiesState>,
+    private store: Store<RecipiesState | DarkModeState>,
     private breakpointObserver: BreakpointObserver,
-    private darkModeStore: Store<DarkModeState>
   ) {}
 
   closeSideNav() {
@@ -84,7 +83,7 @@ export class SidenavComponent {
   }
 
   toggleDarkTheme(checked: boolean) {
-    this.darkModeStore.dispatch(setDarkMode({ payload: checked }));
+    this.store.dispatch(setDarkMode({ payload: checked }));
   }
 }
 
