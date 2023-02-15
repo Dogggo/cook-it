@@ -25,7 +25,6 @@ import {
   RecipiesSharedModule,
 } from '@cook-it/recipies/shared';
 import { Observable, Subscription } from 'rxjs';
-import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 
 const materialModules = [MatButtonModule];
 
@@ -84,7 +83,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   public saveRecipe() {
     this.store.dispatch(
       saveRecipe({
-        payload: { ...(this.form.getRawValue() as RecipiesOverview) },
+        payload: { ...this.form.getRawValue() },
       })
     );
     this.formState.triggerGuard = false;

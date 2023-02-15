@@ -107,7 +107,7 @@ export class EditRecipeComponent implements OnInit {
     this.formState.form.markAsPristine();
     this.store.dispatch(
       editRecipe({
-        payload: { ...(this.form.getRawValue() as RecipiesOverview) },
+        payload: { ...this.form.getRawValue() },
         id: this.recipeId,
       })
     );
