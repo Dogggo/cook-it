@@ -4,7 +4,8 @@
   "projects": {
     "cook-it": "apps/cook-it",
     "cook-it-e2e": "apps/cook-it-e2e",
-    "recipies-data-access": "libs/recipies/data-access",
+    "recipies-data-access-dark-mode": "libs/recipies/data-access-dark-mode",
+    "recipies-data-access-recipes": "libs/recipies/data-access-recipes",
     "recipies-feature-add-recipe": "libs/recipies/feature-add-recipe",
     "recipies-feature-edit-recipe": "libs/recipies/feature-edit-recipe",
     "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
@@ -20,5 +21,6 @@
     "changeDetection": "onPush",
     "style": "scss",
     "standalone": "true"
-  }
+  },
+  "defaultProject": "cook-it"
 }

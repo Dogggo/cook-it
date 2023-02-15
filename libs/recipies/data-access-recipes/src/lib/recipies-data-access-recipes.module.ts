@@ -15,4 +15,4 @@ import { RecipiesEffects } from './+state/recipies.effects';
     EffectsModule.forFeature([RecipiesEffects]),
   ],
 })
-export class RecipiesDataAccessModule {}
+export class RecipiesDataAccessRecipesModule {}

@@ -1,7 +1,11 @@
+@import 'libs/recipies/shared/src/variables.scss';
+
 .container {
   display: flex;
   align-items: center;
   height: 40px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   &__title {
     font-weight: 500;
     font-size: larger;
@@ -22,7 +26,7 @@
 
 .delete-button {
   border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid $border-button-color;
   color: red;
   width: 100%;
 }

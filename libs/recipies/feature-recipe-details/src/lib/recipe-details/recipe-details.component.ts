@@ -6,7 +6,7 @@ import {
   RecipiesEntity,
   RecipiesState,
   selectRecipe,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, Subscription } from 'rxjs';
@@ -19,8 +19,7 @@ import {
 } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
-import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interface';
+import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
 
 @Component({
   selector: 'cook-it-recipe-details',
@@ -38,7 +37,7 @@ import { ModalInterface } from 'libs/recipies/shared/src/lib/modal/modal.interfa
 })
 @UntilDestroy()
 export class RecipeDetailsComponent implements OnInit {
-  modalRef!: MatDialogRef<modalComponent.ModalComponent>;
+  modalRef!: MatDialogRef<ModalComponent, boolean>;
 
   recipe$ = this.store.select(getSelected);
 
@@ -75,11 +74,12 @@ export class RecipeDetailsComponent implements OnInit {
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
       callbackMethod: () => {
-        this.store.dispatch(deleteRecipe({ _id })), this.modalRef.close(false);
+        this.store.dispatch(deleteRecipe({ _id }));
+        this.modalRef.close(false);
       },
     };
 
-    this.modalRef = this.dialog.open(modalComponent.ModalComponent, {
+    this.modalRef = this.dialog.open(ModalComponent, {
       width: '400px',
       data: modalInterface,
     });

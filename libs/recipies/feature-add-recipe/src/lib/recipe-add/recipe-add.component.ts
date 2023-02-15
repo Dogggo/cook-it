@@ -6,23 +6,25 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  FormState,
   IngredientFormComponent,
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  RecipiesDataAccessModule,
+  RecipiesDataAccessRecipesModule,
   RecipiesState,
   saveRecipe,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { RecipiesSharedModule } from '@cook-it/recipies/shared';
-import * as modalInterface from 'libs/recipies/shared/src/lib/modal/modal.interface';
-import * as modalComponent from 'libs/recipies/shared/src/lib/modal/modal.component';
+import {
+  ModalComponent,
+  ModalInterface,
+  RecipiesSharedModule,
+} from '@cook-it/recipies/shared';
 import { Observable, Subscription } from 'rxjs';
-import { FormState } from 'libs/recipies/ui-recipe-form/src/lib/form.state';
 
 const materialModules = [MatButtonModule];
 
@@ -35,7 +37,7 @@ const materialModules = [MatButtonModule];
     RecipeFormComponent,
     ...materialModules,
     ReactiveFormsModule,
-    RecipiesDataAccessModule,
+    RecipiesDataAccessRecipesModule,
     RecipiesSharedModule,
   ],
   templateUrl: './recipe-add.component.html',
@@ -44,7 +46,7 @@ const materialModules = [MatButtonModule];
   providers: [FormState],
 })
 export class RecipeAddComponent implements OnInit, OnDestroy {
-  modalRef!: MatDialogRef<modalComponent.ModalComponent>;
+  modalRef!: MatDialogRef<ModalComponent>;
 
   formSub!: Subscription;
 
@@ -79,7 +81,11 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   }
 
   public saveRecipe() {
-    this.store.dispatch(saveRecipe({ payload: this.form.value }));
+    this.store.dispatch(
+      saveRecipe({
+        payload: { ...this.form.getRawValue() },
+      })
+    );
     this.formState.triggerGuard = false;
   }
 
@@ -88,7 +94,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   }
 
   public disardChanges(): Observable<boolean> {
-    const modalInterface: modalInterface.ModalInterface = {
+    const modalInterface: ModalInterface = {
       modalHeader: 'Unsaved changes',
       modalContent:
         'You have unsaved changes. Are you sure you want to discard them?',
@@ -99,7 +105,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
       },
     };
 
-    this.modalRef = this.dialog.open(modalComponent.ModalComponent, {
+    this.modalRef = this.dialog.open(ModalComponent, {
       width: '400px',
       data: modalInterface,
     });

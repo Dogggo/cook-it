@@ -1,25 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import * as recipeAddComponent from 'libs/recipies/feature-add-recipe/src/lib/recipe-add/recipe-add.component';
-import * as editRecipeComponent from 'libs/recipies/feature-edit-recipe/src/lib/edit-recipe/edit-recipe.component';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { RecipeAddComponent } from '@cook-it/recipies/feature-add-recipe';
+import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormGuard
-  implements
-    CanDeactivate<
-      | recipeAddComponent.RecipeAddComponent
-      | editRecipeComponent.EditRecipeComponent
-    >
+  implements CanDeactivate<RecipeAddComponent | EditRecipeComponent>
 {
-  constructor() {}
-
   canDeactivate(
-    component:
-      | recipeAddComponent.RecipeAddComponent
-      | editRecipeComponent.EditRecipeComponent
+    component: RecipeAddComponent | EditRecipeComponent
   ): Observable<boolean> | boolean {
     if (component.form?.dirty && component.formServiceState.triggerGuard) {
       return component.disardChanges();

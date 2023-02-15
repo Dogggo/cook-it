@@ -3,7 +3,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   initialRecipiesState,
   RecipiesState,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { Spectator } from '@ngneat/spectator';
 import { createComponentFactory } from '@ngneat/spectator/jest';
 

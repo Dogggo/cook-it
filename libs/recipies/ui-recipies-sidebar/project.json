@@ -1,4 +1,5 @@
 {
+  "name": "recipies-ui-recipies-sidebar",
   "projectType": "library",
   "sourceRoot": "libs/recipies/ui-recipies-sidebar/src",
   "prefix": "cook-it",

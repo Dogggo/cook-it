@@ -4,7 +4,7 @@ import {
   getRecipiesLoaded,
   initRecipies,
   RecipiesState,
-} from '@cook-it/recipies/data-access';
+} from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { catchError, first, Observable, of, switchMap, tap } from 'rxjs';
 

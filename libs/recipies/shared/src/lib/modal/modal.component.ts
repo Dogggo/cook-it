@@ -26,7 +26,6 @@ const materialModules = [
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  entryComponents: [],
 })
 export class ModalComponent {
   constructor(

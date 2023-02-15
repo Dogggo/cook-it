@@ -1,4 +1,5 @@
 {
+  "name": "recipies-ui-top-bar",
   "projectType": "library",
   "sourceRoot": "libs/recipies/ui-top-bar/src",
   "prefix": "cook-it",

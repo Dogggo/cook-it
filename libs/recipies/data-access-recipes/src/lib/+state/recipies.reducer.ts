@@ -27,6 +27,7 @@ export const initialRecipiesState: RecipiesState =
     state: [],
     loaded: false,
     error: null,
+    showToast: false,
   });
 
 const reducer = createReducer(
