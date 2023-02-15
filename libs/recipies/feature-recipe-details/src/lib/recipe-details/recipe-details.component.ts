@@ -37,7 +37,7 @@ import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
 })
 @UntilDestroy()
 export class RecipeDetailsComponent implements OnInit {
-  modalRef!: MatDialogRef<ModalComponent>;
+  modalRef!: MatDialogRef<ModalComponent, boolean>;
 
   recipe$ = this.store.select(getSelected);
 
