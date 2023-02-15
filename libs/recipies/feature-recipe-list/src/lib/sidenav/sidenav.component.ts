@@ -55,7 +55,7 @@ import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-
 export class SidenavComponent {
   recipies$: Observable<RecipiesEntity[]> =
     this.store.select<RecipiesEntity[]>(getAllRecipies);
-  filteredRecipies$!: Observable<string[]>;
+  filteredRecipies$!: Observable<string[] | null>;
 
   @ViewChild('drawer') drawer!: MatDrawer;
 

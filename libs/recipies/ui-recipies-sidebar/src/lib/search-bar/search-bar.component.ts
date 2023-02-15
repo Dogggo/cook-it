@@ -39,7 +39,7 @@ export class SearchBarComponent implements OnInit {
   typedChars = new EventEmitter<string>();
 
   @Input()
-  filteredRecipes?: string[];
+  filteredRecipes!: string[] | null;
 
   searchPhrase = new FormControl();
 

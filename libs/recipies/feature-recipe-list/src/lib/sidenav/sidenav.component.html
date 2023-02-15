@@ -31,7 +31,7 @@
       <div class="mat-drawer-inner-container">
         <div class="search-bar">
           <cook-it-search-bar
-            [filteredRecipes]="(filteredRecipies$ | async)!"
+            [filteredRecipes]="filteredRecipies$ | async"
             (typedChars)="handleTypingPhrase($event)"
             (searchValue)="handleSearchInput($event)"
           ></cook-it-search-bar>
