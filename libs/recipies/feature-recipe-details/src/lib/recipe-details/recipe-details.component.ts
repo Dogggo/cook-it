@@ -19,7 +19,7 @@ import {
 } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {ModalComponent, ModalInterface} from "@cook-it/recipies/shared";
+import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
 
 @Component({
   selector: 'cook-it-recipe-details',
@@ -74,7 +74,7 @@ export class RecipeDetailsComponent implements OnInit {
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
       callbackMethod: () => {
-        this.store.dispatch(deleteRecipe({ _id }))
+        this.store.dispatch(deleteRecipe({ _id }));
         this.modalRef.close(false);
       },
     };

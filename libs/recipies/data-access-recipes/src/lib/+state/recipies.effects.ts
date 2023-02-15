@@ -13,7 +13,7 @@ export class RecipiesEffects implements OnInitEffects {
   constructor(
     private readonly actions$: Actions,
     private recipiesService: RecipiesService,
-    private router: Router,
+    private router: Router
   ) {}
 
   init$ = createEffect(() => {
