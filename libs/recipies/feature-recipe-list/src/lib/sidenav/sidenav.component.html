@@ -30,7 +30,9 @@
     >
       <div class="mat-drawer-inner-container">
         <div class="search-bar">
-          <cook-it-search-bar></cook-it-search-bar>
+          <cook-it-search-bar
+            (searchValue)="handleSearchInput($event)"
+          ></cook-it-search-bar>
         </div>
 
         <mat-nav-list>

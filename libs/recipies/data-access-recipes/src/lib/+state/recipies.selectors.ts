@@ -41,3 +41,12 @@ export const getSelected = createSelector(
   getSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
 );
+
+export const getRecipiesBySearchPhrase = (searchPhrase: string) =>
+  createSelector(getAllRecipies, (entities) =>
+    entities.filter(
+      (entity) =>
+        entity.name.startsWith(searchPhrase) ||
+        entity.ingredients.some((ing) => ing.name.startsWith(searchPhrase))
+    )
+  );

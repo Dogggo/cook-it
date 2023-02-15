@@ -14,7 +14,7 @@ import {
   RecipiesState,
   RecipiesEntity,
   getAllRecipies,
-  RecipiesDataAccessRecipesModule,
+  RecipiesDataAccessRecipesModule, getRecipiesBySearchPhrase,
 } from '@cook-it/recipies/data-access-recipes';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -83,6 +83,10 @@ export class SidenavComponent {
 
   toggleDarkTheme(checked: boolean) {
     this.store.dispatch(setDarkMode({ payload: checked }));
+  }
+
+  handleSearchInput(phrase: string) {
+    this.recipies$ = this.store.select(getRecipiesBySearchPhrase(phrase));
   }
 }
 

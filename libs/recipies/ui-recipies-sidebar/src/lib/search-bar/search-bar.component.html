@@ -1,10 +1,24 @@
-<form class="search-form">
-  <input class="search-form__bar" type="text" matInput placeholder="Search" />
-  <div class="search-form__buttons">
-    <button mat-button>
-      <mat-icon>tune</mat-icon>
-    </button>
-    <button mat-button>
+
+<form (ngSubmit)="handleSearchClick()">
+  <div class="container">
+    <mat-form-field appearance="outline">
+      <input
+        type="text"
+        matInput
+        placeholder="Search"
+        [formControl]="searchPhrase"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredRecipes$ | async"
+          [value]="option.name"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button type="submit" mat-fab color="primary">
       <mat-icon>search</mat-icon>
     </button>
   </div>
