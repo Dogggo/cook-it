@@ -13,10 +13,8 @@ import { Store } from '@ngrx/store';
 import {
   RecipiesState,
   RecipiesEntity,
-  getAllRecipies,
   RecipiesDataAccessRecipesModule,
   getRecipiesBySearchPhrase,
-  getRecipiesNamesBySearchPhrase,
 } from '@cook-it/recipies/data-access-recipes';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -54,8 +52,7 @@ import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-
 })
 export class SidenavComponent {
   recipies$: Observable<RecipiesEntity[]> =
-    this.store.select<RecipiesEntity[]>(getAllRecipies);
-  filteredRecipies$!: Observable<string[] | null>;
+    this.store.select(getRecipiesBySearchPhrase(''));
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -88,14 +85,8 @@ export class SidenavComponent {
     this.store.dispatch(setDarkMode({ payload: checked }));
   }
 
-  handleSearchInput(phrase: string) {
-    this.recipies$ = this.store.select(getRecipiesBySearchPhrase(phrase));
-  }
-
   handleTypingPhrase(phrase: string) {
-    this.filteredRecipies$ = this.store.select(
-      getRecipiesNamesBySearchPhrase(phrase)
-    );
+    this.recipies$ = this.store.select(getRecipiesBySearchPhrase(phrase));
   }
 }
 

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -13,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 const materialModules = [
   MatInputModule,
@@ -24,7 +23,7 @@ const materialModules = [
 ];
 
 @Component({
-  selector: 'cook-it-search-bar[filteredRecipes]',
+  selector: 'cook-it-search-bar',
   standalone: true,
   imports: [CommonModule, ...materialModules, ReactiveFormsModule, FormsModule],
   templateUrl: './search-bar.component.html',
@@ -33,29 +32,18 @@ const materialModules = [
 })
 export class SearchBarComponent implements OnInit {
   @Output()
-  searchValue = new EventEmitter<string>();
-
-  @Output()
   typedChars = new EventEmitter<string>();
-
-  @Input()
-  filteredRecipes!: string[] | null;
 
   searchPhrase = new FormControl();
 
   ngOnInit(): void {
     this.searchPhrase.valueChanges
       .pipe(
-        filter((phrase) => phrase.length >= 2),
         debounceTime(200),
         distinctUntilChanged()
       )
       .subscribe((phrase) => {
         this.typedChars.emit(phrase);
       });
-  }
-
-  handleSearchClick() {
-    this.searchValue.emit(this.searchPhrase.value);
   }
 }

@@ -3,16 +3,17 @@
     <img
       class="recipe-container__preview-image"
       [src]="'/' + recipe?.images?.preview"
+      data-cy="preview-image"
     />
   </div>
   <div class="recipe-container__content">
-    <div class="recipe-container__content-name">
+    <div class="recipe-container__content-name" data-cy="name">
       <span>{{ recipe?.name }}</span>
     </div>
-    <div class="recipe-container__content-description">
+    <div class="recipe-container__content-description" data-cy="description">
       <p>{{ recipe?.description }}</p>
     </div>
-    <span>
+    <span data-cy="preparationTime">
       <b>Preparation time</b> -
       <i>{{ recipe?.preparationTimeInMinutes | formatTime }}</i>
     </span>
@@ -20,13 +21,11 @@
     <div class="recipe-container__content-ingredients">
       <label>Ingredients</label>
       <div class="recipe-container__content-ingredients">
-        <ng-container *ngFor="let ingredient of recipe?.ingredients">
-          <div class="recipe-container__content-unit">
+          <div class="recipe-container__content-unit" data-cy="ingredients" *ngFor="let ingredient of recipe?.ingredients">
             <span>
               <b>{{ ingredient.name }}</b> - <i>{{ ingredient.quantity }}</i>
             </span>
           </div>
-        </ng-container>
       </div>
     </div>
   </div>
