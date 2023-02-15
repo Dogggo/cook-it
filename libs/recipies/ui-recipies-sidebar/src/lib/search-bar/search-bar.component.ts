@@ -2,23 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {
-  getRecipiesBySearchPhrase,
-  RecipiesEntity,
-  RecipiesState,
-} from '@cook-it/recipies/data-access-recipes';
-import {debounceTime, distinctUntilChanged, filter, Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 const materialModules = [
   MatInputModule,
@@ -29,7 +24,7 @@ const materialModules = [
 ];
 
 @Component({
-  selector: 'cook-it-search-bar',
+  selector: 'cook-it-search-bar[filteredRecipes]',
   standalone: true,
   imports: [CommonModule, ...materialModules, ReactiveFormsModule, FormsModule],
   templateUrl: './search-bar.component.html',
@@ -40,22 +35,23 @@ export class SearchBarComponent implements OnInit {
   @Output()
   searchValue = new EventEmitter<string>();
 
-  filteredRecipes$!: Observable<RecipiesEntity[]>;
+  @Output()
+  typedChars = new EventEmitter<string>();
+
+  @Input()
+  filteredRecipes?: string[];
 
   searchPhrase = new FormControl();
-
-  constructor(private store: Store<RecipiesState>) {}
 
   ngOnInit(): void {
     this.searchPhrase.valueChanges
       .pipe(
         filter((phrase) => phrase.length >= 2),
         debounceTime(200),
-        distinctUntilChanged())
+        distinctUntilChanged()
+      )
       .subscribe((phrase) => {
-        this.filteredRecipes$ = this.store.select(
-          getRecipiesBySearchPhrase(phrase)
-        );
+        this.typedChars.emit(phrase);
       });
   }
 

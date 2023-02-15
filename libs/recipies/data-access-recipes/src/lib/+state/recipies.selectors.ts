@@ -5,7 +5,6 @@ import {
   recipiesAdapter,
 } from './recipies.reducer';
 
-// Lookup the 'Recipies' feature state managed by NgRx
 export const getRecipiesState =
   createFeatureSelector<RecipiesState>(RECIPIES_FEATURE_KEY);
 
@@ -49,4 +48,9 @@ export const getRecipiesBySearchPhrase = (searchPhrase: string) =>
         entity.name.startsWith(searchPhrase) ||
         entity.ingredients.some((ing) => ing.name.startsWith(searchPhrase))
     )
+  );
+
+export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
+  createSelector(getRecipiesBySearchPhrase(searchPhrase), (entities) =>
+    entities.map((entity) => entity.name)
   );
