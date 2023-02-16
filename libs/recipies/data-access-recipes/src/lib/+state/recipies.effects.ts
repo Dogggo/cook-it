@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import {switchMap, map, catchError, tap, of} from 'rxjs';
+import { switchMap, map, catchError, tap, of } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
-import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { environment } from '../../../../../../apps/cook-it/src/environments/environment';
+import { RecipiesEntity } from './recipies.models';
+
+const cache = new Map<string, RecipiesEntity[]>();
 
 @Injectable()
 export class RecipiesEffects implements OnInitEffects {
-
   snackBarConfig: MatSnackBarConfig = {
     horizontalPosition: 'end',
     verticalPosition: 'top',
@@ -27,16 +31,31 @@ export class RecipiesEffects implements OnInitEffects {
   init$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RecipiesActions.initRecipies),
-      switchMap(() => {
-        return this.recipiesService.getRecipies().pipe(
-          map((recipies) => {
-            return RecipiesActions.loadRecipiesSuccess({ recipies });
-          }),
-          catchError((error) => {
-            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
-            return of(RecipiesActions.loadRecipiesFailure(error));
-          })
-        );
+      switchMap((action) => {
+        const stringifiedAction = JSON.stringify(action);
+        if (cache.has(stringifiedAction)) {
+          return of(
+            RecipiesActions.loadRecipiesSuccess({
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              recipies: cache.get(stringifiedAction)!,
+            })
+          );
+        } else {
+          return this.recipiesService.getRecipies().pipe(
+            map((recipies) => {
+              cache.set(stringifiedAction, recipies);
+              return RecipiesActions.loadRecipiesSuccess({ recipies });
+            }),
+            catchError((error) => {
+              this.snackbarService.open(
+                error.message,
+                undefined,
+                this.snackBarConfig
+              );
+              return of(RecipiesActions.loadRecipiesFailure(error));
+            })
+          );
+        }
       })
     );
   });
@@ -53,7 +72,11 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${savedRecipe.payload._id}`);
           }),
           catchError((error) => {
-            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            this.snackbarService.open(
+              error.message,
+              undefined,
+              this.snackBarConfig
+            );
             return of(RecipiesActions.saveRecipiesFailure(error));
           })
         );
@@ -75,7 +98,11 @@ export class RecipiesEffects implements OnInitEffects {
             this.router.navigateByUrl(`/${recipe.update.id}`);
           }),
           catchError((error) => {
-            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            this.snackbarService.open(
+              error.message,
+              undefined,
+              this.snackBarConfig
+            );
             return of(RecipiesActions.editRecipiesFailure(error));
           })
         );
@@ -91,7 +118,11 @@ export class RecipiesEffects implements OnInitEffects {
           map(() => RecipiesActions.deleteRecipiesSuccess({ _id: action._id })),
           tap(() => this.router.navigateByUrl(`/`)),
           catchError((error) => {
-            this.snackbarService.open(error.message, undefined, this.snackBarConfig)
+            this.snackbarService.open(
+              error.message,
+              undefined,
+              this.snackBarConfig
+            );
             return of(RecipiesActions.deleteRecipiesFailure(error));
           })
         );
@@ -100,6 +131,9 @@ export class RecipiesEffects implements OnInitEffects {
   });
 
   ngrxOnInitEffects(): Action {
+    setInterval(() => {
+      cache.clear();
+    }, environment.cacheExpirationTime);
     return RecipiesActions.initRecipies();
   }
 }

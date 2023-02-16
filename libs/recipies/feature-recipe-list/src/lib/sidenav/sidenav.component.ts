@@ -72,7 +72,7 @@ export class SidenavComponent {
 
   constructor(
     private store: Store<RecipiesState | DarkModeState>,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   closeSideNav() {
@@ -132,7 +132,7 @@ const routes: Route[] = [
     AddRecipeButtonComponent,
     SearchBarComponent,
     ReactiveFormsModule,
-    RecipiesDataAccessDarkModeModule
+    RecipiesDataAccessDarkModeModule,
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
