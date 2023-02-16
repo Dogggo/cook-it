@@ -9,7 +9,7 @@ export const RECIPIES_FEATURE_KEY = 'recipies';
 export interface RecipiesState extends EntityState<RecipiesEntity> {
   selectedId?: string;
   loaded: boolean;
-  error?: string | null;
+  error?: Error | null;
 }
 
 export interface RecipiesPartialState {

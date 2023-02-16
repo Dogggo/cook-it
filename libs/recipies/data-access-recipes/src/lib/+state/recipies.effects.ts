@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, tap, of } from 'rxjs';
+import {switchMap, map, catchError, tap, of, Observable} from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -20,6 +20,8 @@ export class RecipiesEffects implements OnInitEffects {
     duration: 3000,
     panelClass: ['error-snackbar'],
   };
+
+  interval!: number;
 
   constructor(
     private readonly actions$: Actions,
@@ -131,7 +133,8 @@ export class RecipiesEffects implements OnInitEffects {
   });
 
   ngrxOnInitEffects(): Action {
-    setInterval(() => {
+    this.interval = setInterval(() => {
+      console.log(this.interval)
       cache.clear();
     }, environment.cacheExpirationTime);
     return RecipiesActions.initRecipies();

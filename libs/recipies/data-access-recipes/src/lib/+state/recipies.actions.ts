@@ -12,7 +12,7 @@ export const loadRecipiesSuccess = createAction(
 
 export const loadRecipiesFailure = createAction(
   '[Recipies/API] Load Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const selectRecipe = createAction(
@@ -32,7 +32,7 @@ export const saveRecipiesSuccess = createAction(
 
 export const saveRecipiesFailure = createAction(
   '[Recipies/API] Save Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const editRecipe = createAction(
@@ -47,7 +47,7 @@ export const editRecipiesSuccess = createAction(
 
 export const editRecipiesFailure = createAction(
   '[Recipies/API] Edit Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const deleteRecipe = createAction(
@@ -62,5 +62,5 @@ export const deleteRecipiesSuccess = createAction(
 
 export const deleteRecipiesFailure = createAction(
   '[Recipies/API] Delete Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );

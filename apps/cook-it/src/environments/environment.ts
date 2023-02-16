@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  cacheExpirationTime: 60000,
+  cacheExpirationTime: 5000,
 };
 
 /*

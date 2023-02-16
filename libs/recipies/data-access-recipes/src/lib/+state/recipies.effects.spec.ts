@@ -12,6 +12,7 @@ import { RecipiesService } from '../recipies.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 import { Component } from '@angular/core';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 const FIRST_RECIPE_ID = 'PRODUCT-AAA';
 const SECOND_RECIPE_ID = 'PRODUCT-BBB';
@@ -59,6 +60,7 @@ describe('RecipiesEffects', () => {
     providers: [
       RecipiesService,
       RecipiesEffects,
+      MatSnackBar,
       provideMockActions(() => actions$),
       provideMockStore(),
     ],
@@ -207,7 +209,7 @@ describe('RecipiesEffects', () => {
     it('should return deleteRecipiesSuccess action and navigate to home page, on success', (done) => {
       jest
         .spyOn(recipiesService, 'deleteRecipe')
-        .mockReturnValue(of(recipeToDelete._id as string));
+        .mockReturnValue(of(undefined));
 
       effects.delete$.subscribe((resultAction) => {
         expect(resultAction).toEqual(

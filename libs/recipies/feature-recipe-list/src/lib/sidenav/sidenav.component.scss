@@ -10,6 +10,7 @@
 
 .wrapper {
   height: auto !important;
+  min-height: 25vh;
 }
 
 .mat-list-item.active {
@@ -54,4 +55,5 @@ mat-toolbar {
   .search-bar {
     display: none;
   }
+
 }
