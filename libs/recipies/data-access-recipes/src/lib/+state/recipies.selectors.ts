@@ -36,6 +36,13 @@ export const getSelectedId = createSelector(
   (state: RecipiesState) => state.selectedId
 );
 
+export const checkIfNameExists = (name: string, removedNames: string[]) =>
+  createSelector(getAllRecipies, (recipes) => {
+    if (removedNames.includes(name)) return false;
+
+    return recipes.some((recipe) => recipe.name.toUpperCase() === name.toUpperCase());
+  });
+
 export const getSelected = createSelector(
   getRecipiesEntities,
   getSelectedId,

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FormState,
+  FormState, FormValidator,
   IngredientFormComponent,
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
@@ -53,12 +53,14 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<RecipiesState>,
     public dialog: MatDialog,
-    private formState: FormState
+    private formState: FormState,
   ) {}
 
   ngOnInit(): void {
     this.formState.addIngredient();
     this.formState.addIngredient();
+    this.name.setAsyncValidators([FormValidator.uniqueNameRequired(this.store, [])])
+    this.formState.form.updateValueAndValidity();
     this.formSub = this.formState.form.valueChanges.subscribe(
       () => (this.formState.triggerGuard = true)
     );
@@ -66,6 +68,10 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
 
   get ingredients() {
     return this.formState.form.controls.ingredients;
+  }
+
+  get name() {
+    return this.formState.form.controls.name;
   }
 
   get form() {

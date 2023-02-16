@@ -11,6 +11,7 @@ import {
 } from '@cook-it/recipies/data-access-recipes';
 import { RecipiesSharedModule } from '@cook-it/recipies/shared';
 import {
+  FormValidator,
   IngredientFormComponent,
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
@@ -91,7 +92,11 @@ export class EditRecipeComponent implements OnInit {
       .pipe(takeWhile((recipe) => recipe == undefined, true))
       .subscribe((recipe) => {
         this.recipeOnStart = recipe;
-        if (recipe != undefined) this.formState.setForm(recipe);
+        if (recipe != undefined) {
+          this.formState.setForm(recipe);
+          this.name.setAsyncValidators([FormValidator.uniqueNameRequired(this.store, [recipe.name])])
+          this.form.updateValueAndValidity();
+        }
         recipe?.ingredients.forEach((ingredient) =>
           this.formState.addIngredient(ingredient)
         );

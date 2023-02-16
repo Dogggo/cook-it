@@ -5,7 +5,7 @@
       <div class="container__button">
         <button
           (click)="saveRecipe()"
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || form.pending"
           mat-raised-button
           color="accent"
         >

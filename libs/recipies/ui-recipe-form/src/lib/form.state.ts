@@ -5,8 +5,7 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { IngredientOverview } from '../../../ui-recipe-details/src/lib/model/ingredients-overview.interface';
-import { RecipiesOverview } from '../../../ui-recipe-details/src/lib/model/recipes-overview.interface';
+import { IngredientOverview, RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 
 @Injectable()
 export class FormState {
@@ -50,7 +49,7 @@ export class FormState {
         name: FormControl<string>;
         quantity: FormControl<string>;
       }>
-    >([]),
+    >([], [Validators.required, Validators.minLength(2)]),
   });
 
   get ingredients() {

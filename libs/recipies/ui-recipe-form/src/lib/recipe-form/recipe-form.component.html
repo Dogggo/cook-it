@@ -7,6 +7,9 @@
       <mat-error *ngIf="nameControl.errors?.['required']">
         Name is required!
       </mat-error>
+      <mat-error *ngIf="nameControl.errors?.['nameExists']">
+        You have already recipe with this name
+      </mat-error>
       <mat-error *ngIf="nameControl.errors?.['minlength']">
         Name cannot be shorter than {{ state.nameRecipeMinLength }} characters!
       </mat-error>
@@ -16,7 +19,6 @@
       <mat-hint align="end">{{ name.value.length || 0 }}/80</mat-hint>
     </mat-form-field>
   </div>
-
   <div class="input">
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
