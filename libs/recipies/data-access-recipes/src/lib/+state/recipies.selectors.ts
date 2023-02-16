@@ -45,10 +45,11 @@ export const getRecipiesBySearchPhrase = (searchPhrase: string) =>
   createSelector(getAllRecipies, (entities) =>
     entities.filter(
       (entity) =>
-        entity.name.startsWith(searchPhrase) ||
-        entity.ingredients.some((ing) => ing.name.startsWith(searchPhrase))
+        entity.name.toUpperCase().startsWith(searchPhrase.toUpperCase()) ||
+        entity.ingredients.some((ing) => ing.name.toUpperCase().startsWith(searchPhrase.toUpperCase()))
     )
   );
+
 
 export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
   createSelector(getRecipiesBySearchPhrase(searchPhrase), (entities) =>
