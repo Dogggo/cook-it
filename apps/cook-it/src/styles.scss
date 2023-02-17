@@ -39,7 +39,7 @@ $angular-dark-theme: mat.define-dark-theme(
   @include mat.all-component-colors($angular-dark-theme);
 
   ::-webkit-scrollbar-thumb {
-    background: #009688;
+    background: mat-color($angular-primary, default);
     border-radius: 10px;
   }
 }
@@ -73,7 +73,7 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #9575cd;
+  background: mat-color($angular-secondary, default);
   border-radius: 10px;
 }
 
