@@ -43,6 +43,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
 import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
 import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -133,6 +134,7 @@ const routes: Route[] = [
     SearchBarComponent,
     ReactiveFormsModule,
     RecipiesDataAccessDarkModeModule,
+    ScrollingModule
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],

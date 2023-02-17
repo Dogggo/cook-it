@@ -134,7 +134,6 @@ export class RecipiesEffects implements OnInitEffects {
 
   ngrxOnInitEffects(): Action {
     this.interval = setInterval(() => {
-      console.log(this.interval)
       cache.clear();
     }, environment.cacheExpirationTime);
     return RecipiesActions.initRecipies();

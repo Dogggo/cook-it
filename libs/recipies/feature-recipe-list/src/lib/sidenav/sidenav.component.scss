@@ -1,7 +1,7 @@
 @import 'libs/recipies/shared/src/variables.scss';
 
 .container {
-  height: 100vh;
+  height: 93vh;
 
   &__sidebar {
     width: 22vw;
@@ -11,6 +11,10 @@
 .wrapper {
   height: auto !important;
   min-height: 25vh;
+}
+
+.viewport {
+  height: 92vh;
 }
 
 .mat-list-item.active {
@@ -45,6 +49,7 @@ mat-nav-list {
 mat-toolbar {
   display: flex;
   align-items: center;
+  height: 7vh;
 }
 
 .flex-stretch {
