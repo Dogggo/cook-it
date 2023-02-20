@@ -64,3 +64,8 @@ export const deleteRecipiesFailure = createAction(
   '[Recipies/API] Delete Recipies Failure',
   props<{ error: string }>()
 );
+
+export const setSearchPhrase = createAction(
+  '[Recipies] Set Search Phrase',
+  props<{ searchPhrase: string }>()
+);

@@ -9,7 +9,7 @@ import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 })
 export class RecipiesService {
   constructor(private http: HttpClient) {}
-  crudUrl = 'https://crudcrud.com/api/f94a44f6d9554aa7bed163afa1737bda';
+  crudUrl = 'https://crudcrud.com/api/bacf8f5b954d4131a67f5b774da63816';
   baseUrl = `${this.crudUrl}/recipes`;
 
   public getRecipies() {

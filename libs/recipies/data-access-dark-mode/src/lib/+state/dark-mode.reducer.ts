@@ -11,11 +11,13 @@ export const initialDarkModeState: DarkModeState = {
 
 const reducer = createReducer(
   initialDarkModeState,
-  on(DarkModeActions.setDarkMode, (state, { payload }) => {
-    return { ...state, isDarkMode: payload };
+  on(DarkModeActions.setDarkMode, (state) => {
+    return { ...state, isDarkMode: true };
+  }),
+  on(DarkModeActions.setLightMode, (state) => {
+    return { ...state, isDarkMode: false };
   })
 );
-
 export function darkModeReducer(state: DarkModeState, action: Action) {
   return reducer(state, action);
 }

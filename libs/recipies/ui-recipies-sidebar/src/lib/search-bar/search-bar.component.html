@@ -1,11 +1,13 @@
-<form class="search-form">
-  <input class="search-form__bar" type="text" matInput placeholder="Search" />
-  <div class="search-form__buttons">
-    <button mat-button>
-      <mat-icon>tune</mat-icon>
-    </button>
-    <button mat-button>
-      <mat-icon>search</mat-icon>
-    </button>
+<form>
+  <div class="container">
+    <mat-form-field appearance="outline">
+      <input
+        data-cy="search-input"
+        type="text"
+        matInput
+        placeholder="Search"
+        [formControl]="searchPhrase"
+      />
+    </mat-form-field>
   </div>
 </form>
