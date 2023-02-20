@@ -13,7 +13,21 @@ export class DarkModeEffects implements OnInitEffects {
       return this.actions$.pipe(
         ofType(DarkModeActions.setDarkMode),
         tap((action) => {
-          localStorage.setItem('darkMode', JSON.stringify(action.payload));
+          localStorage.setItem('darkMode', 'true');
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
+  setLightMode = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(DarkModeActions.setLightMode),
+        tap((action) => {
+          localStorage.setItem('darkMode', 'false');
         })
       );
     },
@@ -25,10 +39,11 @@ export class DarkModeEffects implements OnInitEffects {
   ngrxOnInitEffects(): Action {
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode) {
-      return DarkModeActions.setDarkMode({ payload: JSON.parse(darkMode) });
+      const parsedDarkMode = JSON.parse(darkMode)
+      return parsedDarkMode ? DarkModeActions.setDarkMode() : DarkModeActions.setLightMode();
     } else {
       localStorage.setItem('darkMode', 'false');
-      return DarkModeActions.setDarkMode({ payload: false });
+      return DarkModeActions.setLightMode();
     }
   }
 }

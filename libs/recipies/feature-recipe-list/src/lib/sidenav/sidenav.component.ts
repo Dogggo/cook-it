@@ -13,8 +13,9 @@ import { Store } from '@ngrx/store';
 import {
   RecipiesState,
   RecipiesEntity,
-  getAllRecipies,
   RecipiesDataAccessRecipesModule,
+  getRecipiesBySearchPhrase,
+  setSearchPhrase,
 } from '@cook-it/recipies/data-access-recipes';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,7 +41,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
+import {
+  DarkModeState,
+  setLightMode,
+} from '@cook-it/recipies/data-access-dark-mode';
 import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
 import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -52,8 +56,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavComponent {
-  recipies$: Observable<RecipiesEntity[]> =
-    this.store.select<RecipiesEntity[]>(getAllRecipies);
+  recipies$: Observable<RecipiesEntity[]> = this.store.select(
+    getRecipiesBySearchPhrase
+  );
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -83,7 +88,13 @@ export class SidenavComponent {
   }
 
   toggleDarkTheme(checked: boolean) {
-    this.store.dispatch(setDarkMode({ payload: checked }));
+   checked
+      ? this.store.dispatch(setDarkMode())
+      : this.store.dispatch(setLightMode());
+  }
+
+  handleTypingPhrase(phrase: string) {
+    this.store.dispatch(setSearchPhrase({ searchPhrase: phrase }));
   }
 }
 
@@ -134,7 +145,7 @@ const routes: Route[] = [
     SearchBarComponent,
     ReactiveFormsModule,
     RecipiesDataAccessDarkModeModule,
-    ScrollingModule,
+    ScrollingModule
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],

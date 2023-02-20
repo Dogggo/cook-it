@@ -5,7 +5,6 @@ import {
   recipiesAdapter,
 } from './recipies.reducer';
 
-// Lookup the 'Recipies' feature state managed by NgRx
 export const getRecipiesState =
   createFeatureSelector<RecipiesState>(RECIPIES_FEATURE_KEY);
 
@@ -19,6 +18,11 @@ export const getRecipiesLoaded = createSelector(
 export const getRecipiesError = createSelector(
   getRecipiesState,
   (state: RecipiesState) => state.error
+);
+
+export const getSearchPhrase = createSelector(
+  getRecipiesState,
+  (state: RecipiesState) => state.searchPhrase
 );
 
 export const getAllRecipies = createSelector(
@@ -50,3 +54,21 @@ export const getSelected = createSelector(
   getSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
 );
+
+export const getRecipiesBySearchPhrase = createSelector(
+  getAllRecipies,
+  getSearchPhrase,
+  (entities, searchPhrase) =>
+    entities.filter(
+      (entity) =>
+        entity.name.toUpperCase().startsWith(searchPhrase.toUpperCase()) ||
+        entity.ingredients.some((ing) =>
+          ing.name.toUpperCase().startsWith(searchPhrase.toUpperCase())
+        )
+    )
+);
+
+export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
+  createSelector(getRecipiesBySearchPhrase, (entities) =>
+    entities.map((entity) => entity.name)
+  );
