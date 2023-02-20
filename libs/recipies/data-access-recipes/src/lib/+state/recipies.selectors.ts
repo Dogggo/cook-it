@@ -23,7 +23,7 @@ export const getRecipiesError = createSelector(
 export const getSearchPhrase = createSelector(
   getRecipiesState,
   (state: RecipiesState) => state.searchPhrase
-)
+);
 
 export const getAllRecipies = createSelector(
   getRecipiesState,
@@ -46,15 +46,18 @@ export const getSelected = createSelector(
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
 );
 
-export const getRecipiesBySearchPhrase =
-  createSelector(getAllRecipies, getSearchPhrase, (entities, searchPhrase) =>
+export const getRecipiesBySearchPhrase = createSelector(
+  getAllRecipies,
+  getSearchPhrase,
+  (entities, searchPhrase) =>
     entities.filter(
       (entity) =>
         entity.name.toUpperCase().startsWith(searchPhrase.toUpperCase()) ||
-        entity.ingredients.some((ing) => ing.name.toUpperCase().startsWith(searchPhrase.toUpperCase()))
+        entity.ingredients.some((ing) =>
+          ing.name.toUpperCase().startsWith(searchPhrase.toUpperCase())
+        )
     )
-  );
-
+);
 
 export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
   createSelector(getRecipiesBySearchPhrase, (entities) =>

@@ -48,6 +48,8 @@ describe('RecipeOverviewComponent', () => {
       )}`
     );
     expect(spectator.query(baseSelector('ingredients'))).toBeDefined();
-    expect(spectator.queryAll(baseSelector('ingredients'))).toHaveLength(recipe.ingredients.length);
+    expect(spectator.queryAll(baseSelector('ingredients'))).toHaveLength(
+      recipe.ingredients.length
+    );
   });
 });

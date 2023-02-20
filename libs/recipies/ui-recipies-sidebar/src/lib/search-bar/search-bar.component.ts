@@ -42,10 +42,7 @@ export class SearchBarComponent implements OnInit {
 
   private _initListenToSearchInputChanges(): void {
     this.searchPhrase.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(200), distinctUntilChanged())
       .subscribe((phrase) => {
         this.typedChars.emit(phrase);
       });

@@ -68,4 +68,4 @@ export const deleteRecipiesFailure = createAction(
 export const setSearchPhrase = createAction(
   '[Recipies] Set Search Phrase',
   props<{ searchPhrase: string }>()
-)
+);

@@ -21,11 +21,15 @@
     <div class="recipe-container__content-ingredients">
       <label>Ingredients</label>
       <div class="recipe-container__content-ingredients">
-          <div class="recipe-container__content-unit" data-cy="ingredients" *ngFor="let ingredient of recipe?.ingredients">
-            <span>
-              <b>{{ ingredient.name }}</b> - <i>{{ ingredient.quantity }}</i>
-            </span>
-          </div>
+        <div
+          class="recipe-container__content-unit"
+          data-cy="ingredients"
+          *ngFor="let ingredient of recipe?.ingredients"
+        >
+          <span>
+            <b>{{ ingredient.name }}</b> - <i>{{ ingredient.quantity }}</i>
+          </span>
+        </div>
       </div>
     </div>
   </div>

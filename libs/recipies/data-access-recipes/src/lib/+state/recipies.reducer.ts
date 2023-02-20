@@ -29,7 +29,7 @@ export const initialRecipiesState: RecipiesState =
     loaded: false,
     error: null,
     showToast: false,
-    searchPhrase: ''
+    searchPhrase: '',
   });
 
 const reducer = createReducer(
@@ -73,7 +73,7 @@ const reducer = createReducer(
   })),
   on(RecipiesActions.setSearchPhrase, (state, { searchPhrase }) => ({
     ...state,
-    searchPhrase
+    searchPhrase,
   }))
 );
 
