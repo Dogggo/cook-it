@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, tap, of, Observable } from 'rxjs';
+import { switchMap, map, catchError, tap, of } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -13,7 +13,6 @@ const cache = new Map<string, RecipiesEntity[]>();
 
 @Injectable()
 export class RecipiesEffects implements OnInitEffects {
-
   snackBarConfig: MatSnackBarConfig = {
     horizontalPosition: 'end',
     verticalPosition: 'top',

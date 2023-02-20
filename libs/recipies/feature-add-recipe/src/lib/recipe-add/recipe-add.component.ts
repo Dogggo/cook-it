@@ -21,11 +21,12 @@ import {
 } from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {
-  RecipiesUtilsPipesModule,
-} from '@cook-it/recipies/utils-pipes';
+import { RecipiesUtilsPipesModule } from '@cook-it/recipies/utils-pipes';
 import { Observable, Subscription } from 'rxjs';
-import {ModalInterface, RecipiesUiModalComponent} from '@cook-it/recipies/ui-modal';
+import {
+  ModalInterface,
+  RecipiesUiModalComponent,
+} from '@cook-it/recipies/ui-modal';
 
 const materialModules = [MatButtonModule];
 
@@ -58,17 +59,9 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.formState.addIngredient();
-    this.formState.addIngredient();
-    this.name.setAsyncValidators([
-      FormValidator.uniqueNameRequired((currentName: string) =>
-        this.store.select(checkIfNameExists(currentName, []))
-      ),
-    ]);
-    this.formState.form.updateValueAndValidity();
-    this.formSub = this.formState.form.valueChanges.subscribe(
-      () => (this.formState.triggerGuard = true)
-    );
+    this._initSetAmountOfIngredientsInForm(2);
+    this._initSetAsyncValidators();
+    this._initListenToFormChanges();
   }
 
   get ingredients() {
@@ -87,11 +80,11 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
     return this.formState;
   }
 
-  public addIngredient() {
+  addIngredient() {
     this.formState.addIngredient();
   }
 
-  public saveRecipe() {
+  saveRecipe() {
     this.store.dispatch(
       saveRecipe({
         payload: { ...this.form.getRawValue() },
@@ -100,11 +93,11 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
     this.formState.triggerGuard = false;
   }
 
-  public deleteIngredient(index: number) {
+  deleteIngredient(index: number) {
     this.formState.ingredients.removeAt(index);
   }
 
-  public disardChanges(): Observable<boolean> {
+  disardChanges(): Observable<boolean> {
     const modalInterface: ModalInterface = {
       modalHeader: 'Unsaved changes',
       modalContent:
@@ -124,6 +117,26 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
     return this.modalRef.afterClosed();
   }
 
+  private _initSetAmountOfIngredientsInForm(ingredientsAmount: number) {
+    for (let ing = 0; ing < ingredientsAmount; ing++) {
+      this.formState.addIngredient();
+    }
+  }
+
+  private _initSetAsyncValidators() {
+    this.name.setAsyncValidators([
+      FormValidator.uniqueNameRequired((currentName: string) =>
+        this.store.select(checkIfNameExists(currentName, []))
+      ),
+    ]);
+    this.formState.form.updateValueAndValidity();
+  }
+
+  private _initListenToFormChanges() {
+    this.formSub = this.formState.form.valueChanges.subscribe(
+      () => (this.formState.triggerGuard = true)
+    );
+  }
   private continueEditing() {
     this.modalRef.close(false);
   }

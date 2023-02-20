@@ -88,7 +88,7 @@ export class SidenavComponent {
   }
 
   toggleDarkTheme(checked: boolean) {
-   checked
+    checked
       ? this.store.dispatch(setDarkMode())
       : this.store.dispatch(setLightMode());
   }
@@ -145,7 +145,7 @@ const routes: Route[] = [
     SearchBarComponent,
     ReactiveFormsModule,
     RecipiesDataAccessDarkModeModule,
-    ScrollingModule
+    ScrollingModule,
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],

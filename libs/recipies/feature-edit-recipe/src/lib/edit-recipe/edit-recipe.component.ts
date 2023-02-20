@@ -10,9 +10,7 @@ import {
   RecipiesDataAccessRecipesModule,
   RecipiesState,
 } from '@cook-it/recipies/data-access-recipes';
-import {
-  RecipiesUtilsPipesModule,
-} from '@cook-it/recipies/utils-pipes';
+import { RecipiesUtilsPipesModule } from '@cook-it/recipies/utils-pipes';
 import {
   FormValidator,
   IngredientFormComponent,
@@ -26,7 +24,10 @@ import { FormState } from '@cook-it/recipies/ui-recipe-form';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
-import {ModalInterface, RecipiesUiModalComponent} from '@cook-it/recipies/ui-modal';
+import {
+  ModalInterface,
+  RecipiesUiModalComponent,
+} from '@cook-it/recipies/ui-modal';
 
 const materialModules = [MatButtonModule];
 

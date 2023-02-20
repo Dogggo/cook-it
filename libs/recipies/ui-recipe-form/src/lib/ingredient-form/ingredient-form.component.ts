@@ -42,6 +42,23 @@ export class IngredientFormComponent {
     return this.formState;
   }
 
+  get nameErrorMessage(): string | undefined {
+    for (const prop in this.state.ingredientNameErrors) {
+      if (this.nameControl.errors?.[prop]) {
+        return this.state.ingredientNameErrors[prop];
+      }
+    }
+    return;
+  }
+
+  get quantityErrorMessage(): string | undefined {
+    for (const prop in this.state.ingredientQuantityErrors) {
+      if (this.nameControl.errors?.[prop]) {
+        return this.state.ingredientQuantityErrors[prop];
+      }
+    }
+    return;
+  }
   delete() {
     this.deleteIngredient.emit();
   }

@@ -26,6 +26,39 @@ export class FormState {
 
   public triggerGuard = true;
 
+  recipeNameErrors: Record<string, string> = {
+    required: 'Name is required!',
+    minlength: `Name cannot be shorter than ${this.nameRecipeMinLength} characters`,
+    maxLength: `Name cannot be longer than ${this.nameRecipeMaxLength} characters`,
+    nameExists: 'You have already recipe with this name',
+  };
+
+  recipeDescriptionErrors: Record<string, string> = {
+    required: 'Description is required!',
+    minlength: `Description cannot be shorter than ${this.descriptionRecipeMinLength} characters`,
+    maxLength: `Description cannot be longer than ${this.descriptionRecipeMaxLength} characters`,
+  };
+
+  recipePreparationTimeErrors: Record<string, string> = {
+    required: 'Preparation time is required!',
+  };
+
+  recipePreviewErrors: Record<string, string> = {
+    required: 'Preview image is required!',
+  };
+
+  ingredientNameErrors: Record<string, string> = {
+    required: 'Name is required!',
+    minlength: `Name cannot be shorter than ${this.nameIngredientMinLength} characters`,
+    maxLength: `Name cannot be longer than ${this.nameIngredientMaxLength} characters`,
+  };
+
+  ingredientQuantityErrors: Record<string, string> = {
+    required: 'Quantity is required!',
+    minlength: `Quantity cannot be shorter than ${this.quantityIngredientMinLength} characters`,
+    maxLength: `Quantity cannot be longer than ${this.quantityIngredientMaxLength} characters`,
+  };
+
   private _form = this.formBuilder.group({
     images: this.formBuilder.group({
       preview: ['assets/recipes/spaghetti-pomodoro.jpg', Validators.required],
