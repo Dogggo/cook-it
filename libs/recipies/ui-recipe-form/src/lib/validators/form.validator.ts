@@ -1,13 +1,12 @@
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {first, map, Observable, switchMap, timer} from 'rxjs';
-import {Store} from "@ngrx/store";
-import {checkIfNameExists} from "@cook-it/recipies/data-access-recipes";
 
 export class FormValidator {
-  static uniqueNameRequired(store: Store, removedNames: string[]): AsyncValidatorFn {
+
+   static uniqueNameRequired(fn: (currentName: string) => Observable<boolean>): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return timer(500).pipe(
-        switchMap(() => store.select(checkIfNameExists(control.value, removedNames))),
+        switchMap(() => fn(control.value)),
         map((res) => {
           return res ? { nameExists: true} : null;
         })

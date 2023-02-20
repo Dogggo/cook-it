@@ -13,6 +13,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
+  checkIfNameExists,
   RecipiesDataAccessRecipesModule,
   RecipiesState,
   saveRecipe,
@@ -59,7 +60,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formState.addIngredient();
     this.formState.addIngredient();
-    this.name.setAsyncValidators([FormValidator.uniqueNameRequired(this.store, [])])
+    this.name.setAsyncValidators([FormValidator.uniqueNameRequired((currentName: string) => this.store.select(checkIfNameExists(currentName, [])))])
     this.formState.form.updateValueAndValidity();
     this.formSub = this.formState.form.valueChanges.subscribe(
       () => (this.formState.triggerGuard = true)

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
+  checkIfNameExists,
   deleteRecipe,
   editRecipe,
   getSelected,
@@ -94,7 +95,7 @@ export class EditRecipeComponent implements OnInit {
         this.recipeOnStart = recipe;
         if (recipe != undefined) {
           this.formState.setForm(recipe);
-          this.name.setAsyncValidators([FormValidator.uniqueNameRequired(this.store, [recipe.name])])
+          this.name.setAsyncValidators([FormValidator.uniqueNameRequired((currentName: string) => this.store.select(checkIfNameExists(currentName, [recipe.name])))])
           this.form.updateValueAndValidity();
         }
         recipe?.ingredients.forEach((ingredient) =>
