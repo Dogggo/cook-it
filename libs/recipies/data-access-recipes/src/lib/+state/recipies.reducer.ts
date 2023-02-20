@@ -10,6 +10,7 @@ export interface RecipiesState extends EntityState<RecipiesEntity> {
   selectedId?: string;
   loaded: boolean;
   error?: string | null;
+  searchPhrase: string;
 }
 
 export interface RecipiesPartialState {
@@ -28,6 +29,7 @@ export const initialRecipiesState: RecipiesState =
     loaded: false,
     error: null,
     showToast: false,
+    searchPhrase: ''
   });
 
 const reducer = createReducer(
@@ -68,6 +70,10 @@ const reducer = createReducer(
   on(RecipiesActions.deleteRecipiesFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(RecipiesActions.setSearchPhrase, (state, { searchPhrase }) => ({
+    ...state,
+    searchPhrase
   }))
 );
 

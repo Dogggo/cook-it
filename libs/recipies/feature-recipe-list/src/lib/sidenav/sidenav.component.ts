@@ -1,6 +1,6 @@
-import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {
   ChangeDetectionStrategy,
@@ -8,41 +8,41 @@ import {
   NgModule,
   ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Store } from '@ngrx/store';
+import {CommonModule} from '@angular/common';
+import {Store} from '@ngrx/store';
 import {
   RecipiesState,
   RecipiesEntity,
   RecipiesDataAccessRecipesModule,
-  getRecipiesBySearchPhrase,
+  getRecipiesBySearchPhrase, setSearchPhrase,
 } from '@cook-it/recipies/data-access-recipes';
-import { distinctUntilChanged, map, Observable } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
-import { Route, RouterModule } from '@angular/router';
-import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
-import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
-import { RecipiesFeatureAddRecipeModule } from '@cook-it/recipies/feature-add-recipe';
-import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
-import { RecipeAddComponent } from '@cook-it/recipies/feature-add-recipe';
-import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
+import {distinctUntilChanged, map, Observable} from 'rxjs';
+import {HttpClientModule} from '@angular/common/http';
+import {Route, RouterModule} from '@angular/router';
+import {RecipiesUiRecipiesSidebarModule} from '@cook-it/recipies/ui-recipies-sidebar';
+import {RecipiesFeatureRecipeDetailsModule} from '@cook-it/recipies/feature-recipe-details';
+import {RecipiesFeatureAddRecipeModule} from '@cook-it/recipies/feature-add-recipe';
+import {RecipeDetailsComponent} from '@cook-it/recipies/feature-recipe-details';
+import {RecipeAddComponent} from '@cook-it/recipies/feature-add-recipe';
+import {EditRecipeComponent} from '@cook-it/recipies/feature-edit-recipe';
 import {
   SearchBarComponent,
   AddRecipeButtonComponent,
 } from '@cook-it/recipies/ui-recipies-sidebar';
-import { FormGuard } from '../guard/form/form.guard';
-import { RecipesGuard } from '../guard/recipes/recipes.guard';
+import {FormGuard} from '../guard/form/form.guard';
+import {RecipesGuard} from '../guard/recipes/recipes.guard';
 import {
   BreakpointObserver,
   Breakpoints,
   BreakpointState,
 } from '@angular/cdk/layout';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DarkModeState } from '@cook-it/recipies/data-access-dark-mode';
-import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
-import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {DarkModeState} from '@cook-it/recipies/data-access-dark-mode';
+import {setDarkMode} from '@cook-it/recipies/data-access-dark-mode';
+import {RecipiesDataAccessDarkModeModule} from '@cook-it/recipies/data-access-dark-mode';
 
 @Component({
   selector: 'cook-it-sidenav',
@@ -52,7 +52,7 @@ import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-
 })
 export class SidenavComponent {
   recipies$: Observable<RecipiesEntity[]> =
-    this.store.select(getRecipiesBySearchPhrase(''));
+    this.store.select(getRecipiesBySearchPhrase);
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -73,7 +73,8 @@ export class SidenavComponent {
   constructor(
     private store: Store<RecipiesState | DarkModeState>,
     private breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+  }
 
   closeSideNav() {
     if (this.drawer.mode === 'over') {
@@ -82,11 +83,11 @@ export class SidenavComponent {
   }
 
   toggleDarkTheme(checked: boolean) {
-    this.store.dispatch(setDarkMode({ payload: checked }));
+    this.store.dispatch(setDarkMode({payload: checked}));
   }
 
   handleTypingPhrase(phrase: string) {
-    this.recipies$ = this.store.select(getRecipiesBySearchPhrase(phrase));
+    this.store.dispatch(setSearchPhrase({searchPhrase: phrase}));
   }
 }
 
@@ -142,4 +143,5 @@ const routes: Route[] = [
   exports: [SidenavComponent],
   providers: [FormGuard, RecipesGuard],
 })
-export class SidenavComponentModule {}
+export class SidenavComponentModule {
+}
