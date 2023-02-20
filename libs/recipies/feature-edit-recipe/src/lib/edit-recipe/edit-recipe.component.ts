@@ -18,11 +18,11 @@ import {
 } from '@cook-it/recipies/ui-recipe-form';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, takeWhile } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { FormState } from '@cook-it/recipies/ui-recipe-form';
 import { ActivatedRoute } from '@angular/router';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 import {
   ModalInterface,
@@ -85,30 +85,8 @@ export class EditRecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setRecipeOnStart();
-    this.formSub = this.formState.form.valueChanges
-      .pipe()
-      .subscribe(() => (this.formState.triggerGuard = true));
-  }
-
-  setRecipeOnStart() {
-    this.recipe$
-      .pipe(takeWhile((recipe) => recipe == undefined, true))
-      .subscribe((recipe) => {
-        this.recipeOnStart = recipe;
-        if (recipe != undefined) {
-          this.formState.setForm(recipe);
-          this.name.setAsyncValidators([
-            FormValidator.uniqueNameRequired((currentName: string) =>
-              this.store.select(checkIfNameExists(currentName, [recipe.name]))
-            ),
-          ]);
-          this.form.updateValueAndValidity();
-        }
-        recipe?.ingredients.forEach((ingredient) =>
-          this.formState.addIngredient(ingredient)
-        );
-      });
+    this._initSetRecipeOnStart();
+    this._initListenToFormChanges();
   }
 
   addIngredient() {
@@ -146,7 +124,7 @@ export class EditRecipeComponent implements OnInit {
       cancelButtonLabel: 'Discard changes',
       confirmButtonLabel: 'Continue editing',
       callbackMethod: () => {
-        this.continueEditing();
+        this._continueEditing();
       },
     };
 
@@ -158,15 +136,15 @@ export class EditRecipeComponent implements OnInit {
     return this.modalRef.afterClosed();
   }
 
-  private continueEditing() {
+  handleOnDelete(id: string) {
+    this._deleteRecipeConfirmation(id);
+  }
+
+  private _continueEditing() {
     this.modalRef.close(false);
   }
 
-  handleOnDelete(id: string) {
-    this.deleteRecipeConfirmation(id);
-  }
-
-  private deleteRecipeConfirmation(_id: string) {
+  private _deleteRecipeConfirmation(_id: string) {
     const modalInterface: ModalInterface = {
       modalHeader: `Delete recipe: "${this.recipeOnStart?.name}"?`,
       modalContent: 'This operation cannot be undone!',
@@ -184,5 +162,29 @@ export class EditRecipeComponent implements OnInit {
     });
 
     return this.modalRef.afterClosed();
+  }
+
+  private _initSetRecipeOnStart() {
+    this.recipe$.pipe(untilDestroyed(this)).subscribe((recipe) => {
+      this.recipeOnStart = recipe;
+      if (recipe != undefined) {
+        this.formState.setForm(recipe);
+        this.name.setAsyncValidators([
+          FormValidator.uniqueNameRequired((currentName: string) =>
+            this.store.select(checkIfNameExists(currentName, [recipe.name]))
+          ),
+        ]);
+        this.form.updateValueAndValidity();
+      }
+      recipe?.ingredients.forEach((ingredient) =>
+        this.formState.addIngredient(ingredient)
+      );
+    });
+  }
+
+  private _initListenToFormChanges() {
+    this.formSub = this.formState.form.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe(() => (this.formState.triggerGuard = true));
   }
 }
