@@ -10,12 +10,14 @@
     "recipies-feature-edit-recipe": "libs/recipies/feature-edit-recipe",
     "recipies-feature-recipe-details": "libs/recipies/feature-recipe-details",
     "recipies-feature-recipe-list": "libs/recipies/feature-recipe-list",
-    "recipies-shared": "libs/recipies/shared",
     "recipies-shell": "libs/recipies/shell",
+    "recipies-ui-modal": "libs/recipies/ui-modal",
     "recipies-ui-recipe-details": "libs/recipies/ui-recipe-details",
     "recipies-ui-recipe-form": "libs/recipies/ui-recipe-form",
     "recipies-ui-recipies-sidebar": "libs/recipies/ui-recipies-sidebar",
-    "recipies-ui-top-bar": "libs/recipies/ui-top-bar"
+    "recipies-ui-top-bar": "libs/recipies/ui-top-bar",
+    "recipies-utils-config": "libs/recipies/utils-config",
+    "recipies-utils-pipes": "libs/recipies/utils-pipes"
   },
   "@schematics/angular:component": {
     "changeDetection": "onPush",

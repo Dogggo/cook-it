@@ -1,0 +1,27 @@
+{
+  "name": "recipies-utils-pipes",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/recipies/utils-pipes/src",
+  "prefix": "cook-it",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/recipies/utils-pipes"],
+      "options": {
+        "jestConfig": "libs/recipies/utils-pipes/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/recipies/utils-pipes/**/*.ts",
+          "libs/recipies/utils-pipes/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:recipes", "type:utils"]
+}

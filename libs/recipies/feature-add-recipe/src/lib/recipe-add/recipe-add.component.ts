@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FormState, FormValidator,
+  FormState,
+  FormValidator,
   IngredientFormComponent,
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
@@ -21,11 +22,10 @@ import {
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
-  ModalComponent,
-  ModalInterface,
-  RecipiesSharedModule,
-} from '@cook-it/recipies/shared';
+  RecipiesUtilsPipesModule,
+} from '@cook-it/recipies/utils-pipes';
 import { Observable, Subscription } from 'rxjs';
+import {ModalInterface, RecipiesUiModalComponent} from '@cook-it/recipies/ui-modal';
 
 const materialModules = [MatButtonModule];
 
@@ -39,7 +39,7 @@ const materialModules = [MatButtonModule];
     ...materialModules,
     ReactiveFormsModule,
     RecipiesDataAccessRecipesModule,
-    RecipiesSharedModule,
+    RecipiesUtilsPipesModule,
   ],
   templateUrl: './recipe-add.component.html',
   styleUrls: ['./recipe-add.component.scss'],
@@ -47,20 +47,24 @@ const materialModules = [MatButtonModule];
   providers: [FormState],
 })
 export class RecipeAddComponent implements OnInit, OnDestroy {
-  modalRef!: MatDialogRef<ModalComponent>;
+  modalRef!: MatDialogRef<RecipiesUiModalComponent>;
 
   formSub!: Subscription;
 
   constructor(
     private store: Store<RecipiesState>,
     public dialog: MatDialog,
-    private formState: FormState,
+    private formState: FormState
   ) {}
 
   ngOnInit(): void {
     this.formState.addIngredient();
     this.formState.addIngredient();
-    this.name.setAsyncValidators([FormValidator.uniqueNameRequired((currentName: string) => this.store.select(checkIfNameExists(currentName, [])))])
+    this.name.setAsyncValidators([
+      FormValidator.uniqueNameRequired((currentName: string) =>
+        this.store.select(checkIfNameExists(currentName, []))
+      ),
+    ]);
     this.formState.form.updateValueAndValidity();
     this.formSub = this.formState.form.valueChanges.subscribe(
       () => (this.formState.triggerGuard = true)
@@ -112,7 +116,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
       },
     };
 
-    this.modalRef = this.dialog.open(ModalComponent, {
+    this.modalRef = this.dialog.open(RecipiesUiModalComponent, {
       width: '400px',
       data: modalInterface,
     });

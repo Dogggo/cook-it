@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,6 @@ import { FormState } from '../form.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeFormComponent {
-
   constructor(private formState: FormState) {}
 
   get nameControl() {

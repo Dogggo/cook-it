@@ -33,21 +33,21 @@
         </div>
 
         <mat-nav-list>
-          <cdk-virtual-scroll-viewport itemSize="8"  class="viewport">
-          <mat-list-item
-            class="wrapper"
-            routerLink="/{{ recipe._id }}"
-            (click)="closeSideNav()"
-            [routerLinkActive]="['active']"
-            *cdkVirtualFor="let recipe of recipies$ | async"
-          >
-            <cook-it-recipe-item
-              [imagePath]="recipe.images.preview"
-              [title]="recipe.name"
-              [description]="recipe.description"
-              data-cy="recipe-item"
-            ></cook-it-recipe-item>
-          </mat-list-item>
+          <cdk-virtual-scroll-viewport itemSize="8" class="viewport">
+            <mat-list-item
+              class="wrapper"
+              routerLink="/{{ recipe._id }}"
+              (click)="closeSideNav()"
+              [routerLinkActive]="['active']"
+              *cdkVirtualFor="let recipe of recipies$ | async"
+            >
+              <cook-it-recipe-item
+                [imagePath]="recipe.images.preview"
+                [title]="recipe.name"
+                [description]="recipe.description"
+                data-cy="recipe-item"
+              ></cook-it-recipe-item>
+            </mat-list-item>
           </cdk-virtual-scroll-viewport>
         </mat-nav-list>
         <div role="button" class="add-button" (click)="closeSideNav()">

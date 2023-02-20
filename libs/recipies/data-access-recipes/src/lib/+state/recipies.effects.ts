@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import {switchMap, map, catchError, tap, of, Observable} from 'rxjs';
+import { switchMap, map, catchError, tap, of, Observable } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { environment } from '../../../../../../apps/cook-it/src/environments/environment';
 import { RecipiesEntity } from './recipies.models';
+import { config } from '@cook-it/recipies/utils-config';
 
 const cache = new Map<string, RecipiesEntity[]>();
 
@@ -135,7 +136,7 @@ export class RecipiesEffects implements OnInitEffects {
   ngrxOnInitEffects(): Action {
     this.interval = setInterval(() => {
       cache.clear();
-    }, environment.cacheExpirationTime);
+    }, config.cacheExpirationTime);
     return RecipiesActions.initRecipies();
   }
 }

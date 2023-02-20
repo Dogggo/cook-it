@@ -10,7 +10,10 @@ import {
   RecipiesDataAccessRecipesModule,
   RecipiesState,
 } from '@cook-it/recipies/data-access-recipes';
-import { RecipiesSharedModule } from '@cook-it/recipies/shared';
+import {
+  ModalInterface,
+  RecipiesUtilsPipesModule,
+} from '@cook-it/recipies/utils-pipes';
 import {
   FormValidator,
   IngredientFormComponent,
@@ -24,7 +27,7 @@ import { FormState } from '@cook-it/recipies/ui-recipe-form';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
-import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
+import { RecipiesUiModalComponent } from '@cook-it/recipies/ui-modal';
 
 const materialModules = [MatButtonModule];
 
@@ -38,7 +41,7 @@ const materialModules = [MatButtonModule];
     ...materialModules,
     ReactiveFormsModule,
     RecipiesDataAccessRecipesModule,
-    RecipiesSharedModule,
+    RecipiesUtilsPipesModule,
     TopBarComponent,
   ],
   templateUrl: './edit-recipe.component.html',
@@ -48,7 +51,7 @@ const materialModules = [MatButtonModule];
 })
 @UntilDestroy()
 export class EditRecipeComponent implements OnInit {
-  modalRef!: MatDialogRef<ModalComponent>;
+  modalRef!: MatDialogRef<RecipiesUiModalComponent>;
 
   recipeOnStart?: RecipiesOverview;
 
@@ -95,7 +98,11 @@ export class EditRecipeComponent implements OnInit {
         this.recipeOnStart = recipe;
         if (recipe != undefined) {
           this.formState.setForm(recipe);
-          this.name.setAsyncValidators([FormValidator.uniqueNameRequired((currentName: string) => this.store.select(checkIfNameExists(currentName, [recipe.name])))])
+          this.name.setAsyncValidators([
+            FormValidator.uniqueNameRequired((currentName: string) =>
+              this.store.select(checkIfNameExists(currentName, [recipe.name]))
+            ),
+          ]);
           this.form.updateValueAndValidity();
         }
         recipe?.ingredients.forEach((ingredient) =>
@@ -143,7 +150,7 @@ export class EditRecipeComponent implements OnInit {
       },
     };
 
-    this.modalRef = this.dialog.open(ModalComponent, {
+    this.modalRef = this.dialog.open(RecipiesUiModalComponent, {
       width: '400px',
       data: modalInterface,
     });
@@ -171,7 +178,7 @@ export class EditRecipeComponent implements OnInit {
       },
     };
 
-    this.modalRef = this.dialog.open(ModalComponent, {
+    this.modalRef = this.dialog.open(RecipiesUiModalComponent, {
       width: '400px',
       data: modalInterface,
     });

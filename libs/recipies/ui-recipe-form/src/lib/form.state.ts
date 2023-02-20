@@ -5,7 +5,10 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { IngredientOverview, RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
+import {
+  IngredientOverview,
+  RecipiesOverview,
+} from '@cook-it/recipies/ui-recipe-details';
 
 @Injectable()
 export class FormState {

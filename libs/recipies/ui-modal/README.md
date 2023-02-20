@@ -1,7 +1,7 @@
-# recipies-shared
+# recipies-ui-modal
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test recipies-shared` to execute the unit tests.
+Run `nx test recipies-ui-modal` to execute the unit tests.

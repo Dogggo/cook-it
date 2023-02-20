@@ -19,7 +19,10 @@ import {
 } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
+import {
+  RecipiesUiModalComponent,
+  ModalInterface,
+} from '@cook-it/recipies/ui-modal';
 
 @Component({
   selector: 'cook-it-recipe-details',
@@ -37,7 +40,7 @@ import { ModalComponent, ModalInterface } from '@cook-it/recipies/shared';
 })
 @UntilDestroy()
 export class RecipeDetailsComponent implements OnInit {
-  modalRef!: MatDialogRef<ModalComponent, boolean>;
+  modalRef!: MatDialogRef<RecipiesUiModalComponent, boolean>;
 
   recipe$ = this.store.select(getSelected);
 
@@ -79,7 +82,7 @@ export class RecipeDetailsComponent implements OnInit {
       },
     };
 
-    this.modalRef = this.dialog.open(ModalComponent, {
+    this.modalRef = this.dialog.open(RecipiesUiModalComponent, {
       width: '400px',
       data: modalInterface,
     });
