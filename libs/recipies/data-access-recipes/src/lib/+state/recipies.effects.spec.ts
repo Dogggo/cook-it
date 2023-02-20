@@ -209,7 +209,7 @@ describe('RecipiesEffects', () => {
     it('should return deleteRecipiesSuccess action and navigate to home page, on success', (done) => {
       jest
         .spyOn(recipiesService, 'deleteRecipe')
-        .mockReturnValue(of(undefined));
+        .mockReturnValue(of(void null));
 
       effects.delete$.subscribe((resultAction) => {
         expect(resultAction).toEqual(

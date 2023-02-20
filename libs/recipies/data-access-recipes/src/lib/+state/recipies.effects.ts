@@ -38,7 +38,6 @@ export class RecipiesEffects implements OnInitEffects {
         if (cache.has(stringifiedAction)) {
           return of(
             RecipiesActions.loadRecipiesSuccess({
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               recipies: cache.get(stringifiedAction)!,
             })
           );
