@@ -43,38 +43,18 @@ export class RecipeFormComponent {
   }
 
   get nameErrorMessage(): string | undefined {
-    for (const prop in this.state.recipeNameErrors) {
-      if (this.nameControl.errors?.[prop]) {
-        return this.state.recipeNameErrors[prop];
-      }
-    }
-    return;
+    return this.state.recipeNameErrors[Object.keys(this.nameControl.errors ?? {})[0]];
   }
 
   get descriptionErrorMessage(): string | undefined {
-    for (const prop in this.state.recipeDescriptionErrors) {
-      if (this.descriptionControl.errors?.[prop]) {
-        return this.state.recipeDescriptionErrors[prop];
-      }
-    }
-    return;
+    return this.state.recipeDescriptionErrors[Object.keys(this.descriptionControl.errors ?? {})[0]];
   }
 
   get preparationTimeErrorMessage(): string | undefined {
-    for (const prop in this.state.recipePreparationTimeErrors) {
-      if (this.preparationInMinutesControl.errors?.[prop]) {
-        return this.state.recipePreparationTimeErrors[prop];
-      }
-    }
-    return;
+    return this.state.recipePreparationTimeErrors[Object.keys(this.preparationInMinutesControl.errors ?? {})[0]];
   }
 
   get previewImageErrorMessage(): string | undefined {
-    for (const prop in this.state.recipePreviewErrors) {
-      if (this.previewControl.errors?.[prop]) {
-        return this.state.recipePreviewErrors[prop];
-      }
-    }
-    return;
+    return this.state.recipePreviewErrors[Object.keys(this.previewControl.errors ?? {})[0]];
   }
 }
