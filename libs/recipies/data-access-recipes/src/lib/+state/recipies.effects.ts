@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { switchMap, map, catchError, tap, of } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { RecipiesEntity } from './recipies.models';
 import { config } from '@cook-it/recipies/utils-config';
+import { setDataInvalid } from './recipies.actions';
 
 const cache = new Map<string, RecipiesEntity[]>();
 
@@ -26,12 +27,13 @@ export class RecipiesEffects implements OnInitEffects {
     private readonly actions$: Actions,
     private recipiesService: RecipiesService,
     private router: Router,
-    private snackbarService: MatSnackBar
+    private snackbarService: MatSnackBar,
+    private store: Store
   ) {}
 
-  init$ = createEffect(() => {
+  load$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(RecipiesActions.initRecipies),
+      ofType(RecipiesActions.loadRecipies),
       switchMap((action) => {
         const stringifiedAction = JSON.stringify(action);
         if (cache.has(stringifiedAction)) {
@@ -133,7 +135,8 @@ export class RecipiesEffects implements OnInitEffects {
   ngrxOnInitEffects(): Action {
     this.interval = setInterval(() => {
       cache.clear();
+      this.store.dispatch(setDataInvalid());
     }, config.cacheExpirationTime);
-    return RecipiesActions.initRecipies();
+    return RecipiesActions.loadRecipies();
   }
 }

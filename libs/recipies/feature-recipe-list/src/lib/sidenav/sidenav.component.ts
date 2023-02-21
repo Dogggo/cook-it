@@ -15,9 +15,9 @@ import {
   RecipiesEntity,
   RecipiesDataAccessRecipesModule,
   getRecipiesBySearchPhrase,
-  setSearchPhrase,
+  setSearchPhrase, getIsStateValid, loadRecipies,
 } from '@cook-it/recipies/data-access-recipes';
-import { distinctUntilChanged, map, Observable } from 'rxjs';
+import {distinctUntilChanged, map, mergeWith, Observable, of, tap, withLatestFrom} from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
 import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
@@ -56,8 +56,19 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavComponent {
+
+  isValid$: Observable<boolean> = this.store.select(getIsStateValid)
   recipies$: Observable<RecipiesEntity[]> = this.store.select(
     getRecipiesBySearchPhrase
+  ).pipe(
+    withLatestFrom(this.isValid$),
+    tap(([, isValid]) => {
+      console.log(isValid)
+      if (!isValid) {
+        this.store.dispatch(loadRecipies())
+      }
+    }),
+    map(([recipes]) => recipes)
   );
 
   @ViewChild('drawer') drawer!: MatDrawer;

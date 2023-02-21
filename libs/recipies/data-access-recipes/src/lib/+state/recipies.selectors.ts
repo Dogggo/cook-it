@@ -15,6 +15,11 @@ export const getRecipiesLoaded = createSelector(
   (state: RecipiesState) => state.loaded
 );
 
+export const getIsStateValid = createSelector(
+  getRecipiesState,
+  (state: RecipiesState) => state.isValid
+);
+
 export const getRecipiesError = createSelector(
   getRecipiesState,
   (state: RecipiesState) => state.error
@@ -67,8 +72,3 @@ export const getRecipiesBySearchPhrase = createSelector(
         )
     )
 );
-
-export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
-  createSelector(getRecipiesBySearchPhrase, (entities) =>
-    entities.map((entity) => entity.name)
-  );

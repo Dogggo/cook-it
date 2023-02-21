@@ -80,7 +80,7 @@ describe('RecipiesEffects', () => {
         createRecipiesEntity(SECOND_RECIPE_ID),
       ];
       actions$ = new ReplaySubject(1);
-      actions$.next(RecipiesActions.initRecipies());
+      actions$.next(RecipiesActions.loadRecipies());
     });
 
     it('should return loadRecipiesSuccess action, on success', () => {

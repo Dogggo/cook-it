@@ -11,6 +11,7 @@ export interface RecipiesState extends EntityState<RecipiesEntity> {
   loaded: boolean;
   searchPhrase: string;
   error?: Error | null;
+  isValid: boolean;
 }
 
 export interface RecipiesPartialState {
@@ -28,19 +29,19 @@ export const initialRecipiesState: RecipiesState =
     state: [],
     loaded: false,
     error: null,
-    showToast: false,
     searchPhrase: '',
+    isValid: false
   });
 
 const reducer = createReducer(
   initialRecipiesState,
-  on(RecipiesActions.initRecipies, (state) => ({
+  on(RecipiesActions.loadRecipies, (state) => ({
     ...state,
     loaded: false,
     error: null,
   })),
   on(RecipiesActions.loadRecipiesSuccess, (state, { recipies }) => {
-    return recipiesAdapter.setAll(recipies, { ...state, loaded: true });
+    return recipiesAdapter.setAll(recipies, { ...state, loaded: true, isValid: true });
   }),
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
@@ -74,6 +75,10 @@ const reducer = createReducer(
   on(RecipiesActions.setSearchPhrase, (state, { searchPhrase }) => ({
     ...state,
     searchPhrase,
+  })),
+  on(RecipiesActions.setDataInvalid, (state) => ({
+    ...state,
+    isValid: false
   }))
 );
 

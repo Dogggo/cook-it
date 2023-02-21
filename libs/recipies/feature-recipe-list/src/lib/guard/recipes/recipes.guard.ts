@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import {
   getRecipiesLoaded,
-  initRecipies,
+  loadRecipies,
   RecipiesState,
 } from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
@@ -25,7 +25,7 @@ export class RecipesGuard implements CanActivate {
     return this.store.select(getRecipiesLoaded).pipe(
       tap((loaded) => {
         if (!loaded) {
-          this.store.dispatch(initRecipies());
+          this.store.dispatch(loadRecipies());
         }
       }),
       first(Boolean)
