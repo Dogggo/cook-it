@@ -28,7 +28,7 @@ describe('Recipies Selectors', () => {
         {
           ...initialRecipiesState,
           selectedId: 'PRODUCT-BBB',
-          error: ERROR_MSG,
+          error: Error(ERROR_MSG),
           loaded: true,
         }
       ),
