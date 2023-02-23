@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
+import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { switchMap, map, catchError, tap, of } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
+import { setDataInvalid } from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { RecipiesEntity } from './recipies.models';
 import { config } from '@cook-it/recipies/utils-config';
-import { setDataInvalid } from './recipies.actions';
 
 const cache = new Map<string, RecipiesEntity[]>();
 
@@ -20,8 +20,6 @@ export class RecipiesEffects implements OnInitEffects {
     duration: 3000,
     panelClass: ['error-snackbar'],
   };
-
-  interval!: number;
 
   constructor(
     private readonly actions$: Actions,
@@ -61,6 +59,23 @@ export class RecipiesEffects implements OnInitEffects {
       })
     );
   });
+
+  loadOnSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(RecipiesActions.loadRecipiesSuccess),
+        tap(() => {
+          setTimeout(() => {
+            cache.clear();
+            this.store.dispatch(setDataInvalid());
+          }, config.cacheExpirationTime);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   save$ = createEffect(() => {
     return this.actions$.pipe(
@@ -133,10 +148,6 @@ export class RecipiesEffects implements OnInitEffects {
   });
 
   ngrxOnInitEffects(): Action {
-    this.interval = setInterval(() => {
-      cache.clear();
-      this.store.dispatch(setDataInvalid());
-    }, config.cacheExpirationTime);
     return RecipiesActions.loadRecipies();
   }
 }
