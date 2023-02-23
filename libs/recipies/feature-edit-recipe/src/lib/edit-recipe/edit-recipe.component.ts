@@ -18,7 +18,7 @@ import {
 } from '@cook-it/recipies/ui-recipe-form';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { filter, Observable, Subscription } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -94,7 +94,7 @@ export class EditRecipeComponent implements OnInit {
   }
 
   saveRecipe() {
-    this.formState.triggerGuard = false;
+    this.formState.shouldTriggerDeactivateFormGuard = false;
     this.formState.form.markAsPristine();
     this.store.dispatch(
       editRecipe({
@@ -112,7 +112,7 @@ export class EditRecipeComponent implements OnInit {
   undoChanges() {
     if (this.recipeOnStart) {
       this.formState.setForm(this.recipeOnStart);
-      this.formState.triggerGuard = false;
+      this.formState.shouldTriggerDeactivateFormGuard = false;
     }
   }
 
@@ -165,9 +165,10 @@ export class EditRecipeComponent implements OnInit {
   }
 
   private _initSetRecipeOnStart() {
-    this.recipe$.pipe(untilDestroyed(this)).subscribe((recipe) => {
-      this.recipeOnStart = recipe;
-      if (recipe != undefined) {
+    this.recipe$
+      .pipe(filter(Boolean), untilDestroyed(this))
+      .subscribe((recipe) => {
+        this.recipeOnStart = recipe;
         this.formState.setForm(recipe);
         this.name.setAsyncValidators([
           FormValidator.uniqueNameRequired((currentName: string) =>
@@ -175,16 +176,15 @@ export class EditRecipeComponent implements OnInit {
           ),
         ]);
         this.form.updateValueAndValidity();
-      }
-      recipe?.ingredients.forEach((ingredient) =>
-        this.formState.addIngredient(ingredient)
-      );
-    });
+        recipe?.ingredients.forEach((ingredient) =>
+          this.formState.addIngredient(ingredient)
+        );
+      });
   }
 
   private _initListenToFormChanges() {
     this.formSub = this.formState.form.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe(() => (this.formState.triggerGuard = true));
+      .subscribe(() => (this.formState.shouldTriggerDeactivateFormGuard = true));
   }
 }

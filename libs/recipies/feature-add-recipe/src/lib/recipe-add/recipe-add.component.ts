@@ -90,7 +90,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
         payload: { ...this.form.getRawValue() },
       })
     );
-    this.formState.triggerGuard = false;
+    this.formState.shouldTriggerDeactivateFormGuard = false;
   }
 
   deleteIngredient(index: number) {
@@ -134,7 +134,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
 
   private _initListenToFormChanges() {
     this.formSub = this.formState.form.valueChanges.subscribe(
-      () => (this.formState.triggerGuard = true)
+      () => (this.formState.shouldTriggerDeactivateFormGuard = true)
     );
   }
   private continueEditing() {

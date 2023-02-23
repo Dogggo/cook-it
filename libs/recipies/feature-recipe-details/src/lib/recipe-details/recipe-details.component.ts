@@ -55,10 +55,10 @@ export class RecipeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.changeSelectedRecipe();
+    this._initChangeSelectedRecipe();
   }
 
-  private changeSelectedRecipe() {
+  private _initChangeSelectedRecipe() {
     this.routeSub = this.route.params
       .pipe(distinctUntilChanged(), untilDestroyed(this))
       .subscribe((param) => {

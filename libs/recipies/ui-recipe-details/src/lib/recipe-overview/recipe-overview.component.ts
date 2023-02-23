@@ -13,5 +13,5 @@ import { FormatTimePipe } from '@cook-it/recipies/utils-pipes';
 })
 export class RecipeOverviewComponent {
   @Input()
-  recipe?: RecipiesOverview;
+  recipe!: RecipiesOverview;
 }
