@@ -1,3 +1,3 @@
 export const config = {
-  cacheExpirationTime: 5000,
+  cacheExpirationTime: 60000,
 };

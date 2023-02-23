@@ -1,8 +1,8 @@
 import { RecipiesEntity } from './recipies.models';
 import {
+  initialRecipiesState,
   recipiesAdapter,
   RecipiesPartialState,
-  initialRecipiesState,
 } from './recipies.reducer';
 import * as RecipiesSelectors from './recipies.selectors';
 

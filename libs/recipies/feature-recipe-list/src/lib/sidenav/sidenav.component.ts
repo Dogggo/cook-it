@@ -11,25 +11,37 @@ import {
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import {
-  RecipiesState,
-  RecipiesEntity,
-  RecipiesDataAccessRecipesModule,
+  getIsStateValid,
   getRecipiesBySearchPhrase,
-  setSearchPhrase, getIsStateValid, loadRecipies,
+  loadRecipies,
+  RecipiesDataAccessRecipesModule,
+  RecipiesEntity,
+  RecipiesState,
+  setSearchPhrase,
 } from '@cook-it/recipies/data-access-recipes';
-import {distinctUntilChanged, map, mergeWith, Observable, of, tap, withLatestFrom} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  Observable,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
-import { RecipiesUiRecipiesSidebarModule } from '@cook-it/recipies/ui-recipies-sidebar';
-import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
-import { RecipiesFeatureAddRecipeModule } from '@cook-it/recipies/feature-add-recipe';
-import { RecipeDetailsComponent } from '@cook-it/recipies/feature-recipe-details';
-import { RecipeAddComponent } from '@cook-it/recipies/feature-add-recipe';
-import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
 import {
-  SearchBarComponent,
   AddRecipeButtonComponent,
+  RecipiesUiRecipiesSidebarModule,
+  SearchBarComponent,
 } from '@cook-it/recipies/ui-recipies-sidebar';
+import {
+  RecipeDetailsComponent,
+  RecipiesFeatureRecipeDetailsModule,
+} from '@cook-it/recipies/feature-recipe-details';
+import {
+  RecipeAddComponent,
+  RecipiesFeatureAddRecipeModule,
+} from '@cook-it/recipies/feature-add-recipe';
+import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
 import { FormGuard } from '../guard/form/form.guard';
 import { RecipesGuard } from '../guard/recipes/recipes.guard';
 import {
@@ -43,10 +55,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   DarkModeState,
+  RecipiesDataAccessDarkModeModule,
+  setDarkMode,
   setLightMode,
 } from '@cook-it/recipies/data-access-dark-mode';
-import { setDarkMode } from '@cook-it/recipies/data-access-dark-mode';
-import { RecipiesDataAccessDarkModeModule } from '@cook-it/recipies/data-access-dark-mode';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
@@ -56,20 +68,18 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavComponent {
-
-  isValid$: Observable<boolean> = this.store.select(getIsStateValid)
-  recipies$: Observable<RecipiesEntity[]> = this.store.select(
-    getRecipiesBySearchPhrase
-  ).pipe(
-    withLatestFrom(this.isValid$),
-    tap(([, isValid]) => {
-      console.log(isValid)
-      if (!isValid) {
-        this.store.dispatch(loadRecipies())
-      }
-    }),
-    map(([recipes]) => recipes)
-  );
+  isValid$: Observable<boolean> = this.store.select(getIsStateValid);
+  recipies$: Observable<RecipiesEntity[]> = this.store
+    .select(getRecipiesBySearchPhrase)
+    .pipe(
+      withLatestFrom(this.isValid$),
+      tap(([, isValid]) => {
+        if (!isValid) {
+          this.store.dispatch(loadRecipies());
+        }
+      }),
+      map(([recipes]) => recipes)
+    );
 
   @ViewChild('drawer') drawer!: MatDrawer;
 

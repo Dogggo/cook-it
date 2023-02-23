@@ -1,5 +1,5 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 
 import * as RecipiesActions from './recipies.actions';
 import { RecipiesEntity } from './recipies.models';
@@ -30,7 +30,7 @@ export const initialRecipiesState: RecipiesState =
     loaded: false,
     error: null,
     searchPhrase: '',
-    isValid: false
+    isValid: false,
   });
 
 const reducer = createReducer(
@@ -41,7 +41,11 @@ const reducer = createReducer(
     error: null,
   })),
   on(RecipiesActions.loadRecipiesSuccess, (state, { recipies }) => {
-    return recipiesAdapter.setAll(recipies, { ...state, loaded: true, isValid: true });
+    return recipiesAdapter.setAll(recipies, {
+      ...state,
+      loaded: true,
+      isValid: true,
+    });
   }),
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
@@ -78,7 +82,7 @@ const reducer = createReducer(
   })),
   on(RecipiesActions.setDataInvalid, (state) => ({
     ...state,
-    isValid: false
+    isValid: false,
   }))
 );
 

@@ -21,12 +21,12 @@ import {
 } from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { RecipiesUtilsPipesModule } from '@cook-it/recipies/utils-pipes';
 import { Observable, Subscription } from 'rxjs';
 import {
   ModalInterface,
   RecipiesUiModalComponent,
 } from '@cook-it/recipies/ui-modal';
+import { FormatTimePipe } from '@cook-it/recipies/utils-pipes';
 
 const materialModules = [MatButtonModule];
 
@@ -40,7 +40,7 @@ const materialModules = [MatButtonModule];
     ...materialModules,
     ReactiveFormsModule,
     RecipiesDataAccessRecipesModule,
-    RecipiesUtilsPipesModule,
+    FormatTimePipe,
   ],
   templateUrl: './recipe-add.component.html',
   styleUrls: ['./recipe-add.component.scss'],

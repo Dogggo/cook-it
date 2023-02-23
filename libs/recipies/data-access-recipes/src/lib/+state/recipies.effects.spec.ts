@@ -85,7 +85,7 @@ describe('RecipiesEffects', () => {
 
     it('should return loadRecipiesSuccess action, on success', () => {
       jest.spyOn(recipiesService, 'getRecipies').mockReturnValue(of(recipies));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesSuccess({ recipies })
         );
@@ -96,7 +96,7 @@ describe('RecipiesEffects', () => {
       jest
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
         );
@@ -132,7 +132,7 @@ describe('RecipiesEffects', () => {
       jest
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
         );

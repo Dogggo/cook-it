@@ -10,17 +10,16 @@ import {
   RecipiesDataAccessRecipesModule,
   RecipiesState,
 } from '@cook-it/recipies/data-access-recipes';
-import { RecipiesUtilsPipesModule } from '@cook-it/recipies/utils-pipes';
 import {
+  FormState,
   FormValidator,
   IngredientFormComponent,
   RecipeFormComponent,
 } from '@cook-it/recipies/ui-recipe-form';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
-import { FormState } from '@cook-it/recipies/ui-recipe-form';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
@@ -28,6 +27,7 @@ import {
   ModalInterface,
   RecipiesUiModalComponent,
 } from '@cook-it/recipies/ui-modal';
+import { FormatTimePipe } from '@cook-it/recipies/utils-pipes';
 
 const materialModules = [MatButtonModule];
 
@@ -41,7 +41,7 @@ const materialModules = [MatButtonModule];
     ...materialModules,
     ReactiveFormsModule,
     RecipiesDataAccessRecipesModule,
-    RecipiesUtilsPipesModule,
+    FormatTimePipe,
     TopBarComponent,
   ],
   templateUrl: './edit-recipe.component.html',

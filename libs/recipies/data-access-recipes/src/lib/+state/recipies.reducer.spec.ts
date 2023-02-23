@@ -3,9 +3,9 @@ import { Action } from '@ngrx/store';
 import * as RecipiesActions from './recipies.actions';
 import { RecipiesEntity } from './recipies.models';
 import {
-  RecipiesState,
   initialRecipiesState,
   recipiesReducer,
+  RecipiesState,
 } from './recipies.reducer';
 
 const FIRST_RECIPE_ID = 'PRODUCT-AAA';

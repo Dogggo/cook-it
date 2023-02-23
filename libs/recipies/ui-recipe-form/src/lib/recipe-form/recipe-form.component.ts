@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormState } from '../form.state';
+
 @Component({
   selector: 'cook-it-recipe-form',
   standalone: true,
@@ -43,18 +44,26 @@ export class RecipeFormComponent {
   }
 
   get nameErrorMessage(): string | undefined {
-    return this.state.recipeNameErrors[Object.keys(this.nameControl.errors ?? {})[0]];
+    return this.state.recipeNameErrors[
+      Object.keys(this.nameControl.errors ?? {})[0]
+    ];
   }
 
   get descriptionErrorMessage(): string | undefined {
-    return this.state.recipeDescriptionErrors[Object.keys(this.descriptionControl.errors ?? {})[0]];
+    return this.state.recipeDescriptionErrors[
+      Object.keys(this.descriptionControl.errors ?? {})[0]
+    ];
   }
 
   get preparationTimeErrorMessage(): string | undefined {
-    return this.state.recipePreparationTimeErrors[Object.keys(this.preparationInMinutesControl.errors ?? {})[0]];
+    return this.state.recipePreparationTimeErrors[
+      Object.keys(this.preparationInMinutesControl.errors ?? {})[0]
+    ];
   }
 
   get previewImageErrorMessage(): string | undefined {
-    return this.state.recipePreviewErrors[Object.keys(this.previewControl.errors ?? {})[0]];
+    return this.state.recipePreviewErrors[
+      Object.keys(this.previewControl.errors ?? {})[0]
+    ];
   }
 }

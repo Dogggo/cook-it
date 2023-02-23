@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Route } from '@angular/router';
+import { Route, RouterModule } from '@angular/router';
 import { RecipiesFeatureRecipeDetailsModule } from '@cook-it/recipies/feature-recipe-details';
 
 export const shellRoutes: Route[] = [

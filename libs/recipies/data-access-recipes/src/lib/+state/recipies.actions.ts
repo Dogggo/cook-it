@@ -70,6 +70,4 @@ export const setSearchPhrase = createAction(
   props<{ searchPhrase: string }>()
 );
 
-export const setDataInvalid = createAction(
-  '[Recipies] Set Data Invalid',
-)
+export const setDataInvalid = createAction('[Recipies] Set Data Invalid');

@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   RECIPIES_FEATURE_KEY,
-  RecipiesState,
   recipiesAdapter,
+  RecipiesState,
 } from './recipies.reducer';
 
 export const getRecipiesState =
