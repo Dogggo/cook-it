@@ -8,6 +8,7 @@ import {
   editRecipe,
   getSelected,
   RecipiesDataAccessRecipesModule,
+  RecipiesEntity,
   RecipiesState,
 } from '@cook-it/recipies/data-access-recipes';
 import {
@@ -22,7 +23,7 @@ import { filter, Observable, Subscription } from 'rxjs';
 import { TopBarComponent } from '@cook-it/recipies/ui-top-bar';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
+
 import {
   ModalInterface,
   RecipiesUiModalComponent,
@@ -52,8 +53,6 @@ const materialModules = [MatButtonModule];
 @UntilDestroy()
 export class EditRecipeComponent implements OnInit {
   modalRef!: MatDialogRef<RecipiesUiModalComponent>;
-
-  recipeOnStart?: RecipiesOverview;
 
   recipe$ = this.store.select(getSelected);
 
@@ -109,11 +108,10 @@ export class EditRecipeComponent implements OnInit {
     this.formState.form.markAsDirty();
   }
 
-  undoChanges() {
-    if (this.recipeOnStart) {
-      this.formState.setForm(this.recipeOnStart);
-      this.formState.shouldTriggerDeactivateFormGuard = false;
-    }
+  undoChanges(recipe: RecipiesEntity) {
+    this.formState.setForm(recipe);
+    this.formState.form.markAsPristine();
+    this.formState.shouldTriggerDeactivateFormGuard = false;
   }
 
   disardChanges(): Observable<boolean> {
@@ -136,17 +134,17 @@ export class EditRecipeComponent implements OnInit {
     return this.modalRef.afterClosed();
   }
 
-  handleOnDelete(id: string) {
-    this._deleteRecipeConfirmation(id);
+  handleOnDelete(id: string, name: string) {
+    this._deleteRecipeConfirmation(id, name);
   }
 
   private _continueEditing() {
     this.modalRef.close(false);
   }
 
-  private _deleteRecipeConfirmation(_id: string) {
+  private _deleteRecipeConfirmation(_id: string, name: string) {
     const modalInterface: ModalInterface = {
-      modalHeader: `Delete recipe: "${this.recipeOnStart?.name}"?`,
+      modalHeader: `Delete recipe: ${name}?`,
       modalContent: 'This operation cannot be undone!',
       cancelButtonLabel: 'Cancel',
       confirmButtonLabel: 'Delete',
@@ -168,7 +166,6 @@ export class EditRecipeComponent implements OnInit {
     this.recipe$
       .pipe(filter(Boolean), untilDestroyed(this))
       .subscribe((recipe) => {
-        this.recipeOnStart = recipe;
         this.formState.setForm(recipe);
         this.name.setAsyncValidators([
           FormValidator.uniqueNameRequired((currentName: string) =>
@@ -185,6 +182,8 @@ export class EditRecipeComponent implements OnInit {
   private _initListenToFormChanges() {
     this.formSub = this.formState.form.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe(() => (this.formState.shouldTriggerDeactivateFormGuard = true));
+      .subscribe(
+        () => (this.formState.shouldTriggerDeactivateFormGuard = true)
+      );
   }
 }
