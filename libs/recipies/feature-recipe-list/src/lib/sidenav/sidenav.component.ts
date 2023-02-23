@@ -43,7 +43,6 @@ import {
 } from '@cook-it/recipies/feature-add-recipe';
 import { EditRecipeComponent } from '@cook-it/recipies/feature-edit-recipe';
 import { FormGuard } from '../guard/form/form.guard';
-import { RecipesGuard } from '../guard/recipes/recipes.guard';
 import {
   BreakpointObserver,
   Breakpoints,
@@ -145,7 +144,6 @@ const routes: Route[] = [
       {
         path: ':id/edit',
         canDeactivate: [FormGuard],
-        canActivate: [RecipesGuard],
         component: EditRecipeComponent,
       },
     ],
@@ -170,6 +168,6 @@ const routes: Route[] = [
   ],
   declarations: [SidenavComponent],
   exports: [SidenavComponent],
-  providers: [FormGuard, RecipesGuard],
+  providers: [FormGuard],
 })
 export class SidenavComponentModule {}
