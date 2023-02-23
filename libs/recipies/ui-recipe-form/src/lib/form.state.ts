@@ -24,8 +24,6 @@ export class FormState {
   readonly quantityIngredientMinLength = 2;
   readonly quantityIngredientMaxLength = 30;
 
-  public shouldTriggerDeactivateFormGuard = true;
-
   recipeNameErrors: Record<string, string> = {
     required: 'Name is required!',
     minlength: `Name cannot be shorter than ${this.nameRecipeMinLength} characters`,

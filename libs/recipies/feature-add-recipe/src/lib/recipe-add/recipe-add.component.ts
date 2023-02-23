@@ -61,7 +61,6 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._initSetAmountOfIngredientsInForm(2);
     this._initSetAsyncValidators();
-    this._initListenToFormChanges();
   }
 
   get ingredients() {
@@ -90,7 +89,6 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
         payload: { ...this.form.getRawValue() },
       })
     );
-    this.formState.shouldTriggerDeactivateFormGuard = false;
   }
 
   deleteIngredient(index: number) {
@@ -132,11 +130,6 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
     this.formState.form.updateValueAndValidity();
   }
 
-  private _initListenToFormChanges() {
-    this.formSub = this.formState.form.valueChanges.subscribe(
-      () => (this.formState.shouldTriggerDeactivateFormGuard = true)
-    );
-  }
   private continueEditing() {
     this.modalRef.close(false);
   }

@@ -85,7 +85,6 @@ export class EditRecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this._initSetRecipeOnStart();
-    this._initListenToFormChanges();
   }
 
   addIngredient() {
@@ -93,7 +92,6 @@ export class EditRecipeComponent implements OnInit {
   }
 
   saveRecipe() {
-    this.formState.shouldTriggerDeactivateFormGuard = false;
     this.formState.form.markAsPristine();
     this.store.dispatch(
       editRecipe({
@@ -111,7 +109,6 @@ export class EditRecipeComponent implements OnInit {
   undoChanges(recipe: RecipiesEntity) {
     this.formState.setForm(recipe);
     this.formState.form.markAsPristine();
-    this.formState.shouldTriggerDeactivateFormGuard = false;
   }
 
   disardChanges(): Observable<boolean> {
@@ -177,13 +174,5 @@ export class EditRecipeComponent implements OnInit {
           this.formState.addIngredient(ingredient)
         );
       });
-  }
-
-  private _initListenToFormChanges() {
-    this.formSub = this.formState.form.valueChanges
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        () => (this.formState.shouldTriggerDeactivateFormGuard = true)
-      );
   }
 }
