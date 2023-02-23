@@ -9,7 +9,6 @@ import { setDataInvalid } from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { RecipiesEntity } from './recipies.models';
 import { config } from '@cook-it/recipies/utils-config';
-import { getIsStateValid } from '@cook-it/recipies/data-access-recipes';
 
 const cache = new Map<string, RecipiesEntity[]>();
 
