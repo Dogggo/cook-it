@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import {catchError, map, of, pairwise, switchMap, tap} from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
 import { setDataInvalid } from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { RecipiesEntity } from './recipies.models';
 import { config } from '@cook-it/recipies/utils-config';
+import { getIsStateValid } from '@cook-it/recipies/data-access-recipes';
 
 const cache = new Map<string, RecipiesEntity[]>();
 
@@ -28,6 +29,7 @@ export class RecipiesEffects implements OnInitEffects {
     private snackbarService: MatSnackBar,
     private store: Store
   ) {}
+
 
   load$ = createEffect(() => {
     return this.actions$.pipe(
@@ -64,12 +66,14 @@ export class RecipiesEffects implements OnInitEffects {
     () => {
       return this.actions$.pipe(
         ofType(RecipiesActions.loadRecipiesSuccess),
-        tap(() => {
+        map(() =>
           setTimeout(() => {
             cache.clear();
             this.store.dispatch(setDataInvalid());
-          }, config.cacheExpirationTime);
-        })
+          }, config.cacheExpirationTime)
+        ),
+        pairwise(),
+        tap(([previousTimeoutId]) => clearTimeout(previousTimeoutId)),
       );
     },
     {
