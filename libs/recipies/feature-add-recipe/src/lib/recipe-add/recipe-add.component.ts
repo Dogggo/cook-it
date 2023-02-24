@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,7 +20,7 @@ import {
 } from '@cook-it/recipies/data-access-recipes';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   ModalInterface,
   RecipiesUiModalComponent,
@@ -47,10 +46,8 @@ const materialModules = [MatButtonModule];
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [FormState],
 })
-export class RecipeAddComponent implements OnInit, OnDestroy {
+export class RecipeAddComponent implements OnInit {
   modalRef!: MatDialogRef<RecipiesUiModalComponent>;
-
-  formSub!: Subscription;
 
   constructor(
     private store: Store<RecipiesState>,
@@ -84,6 +81,7 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
   }
 
   saveRecipe() {
+    this.formState.form.markAsPristine();
     this.store.dispatch(
       saveRecipe({
         payload: { ...this.form.getRawValue() },
@@ -132,9 +130,5 @@ export class RecipeAddComponent implements OnInit, OnDestroy {
 
   private continueEditing() {
     this.modalRef.close(false);
-  }
-
-  ngOnDestroy(): void {
-    this.formSub.unsubscribe();
   }
 }

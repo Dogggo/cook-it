@@ -3,7 +3,7 @@ import {
   AsyncValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import { first, map, Observable, switchMap, timer } from 'rxjs';
+import {first, map, Observable, switchMap, timer} from 'rxjs';
 
 export class FormValidator {
   static uniqueNameRequired(

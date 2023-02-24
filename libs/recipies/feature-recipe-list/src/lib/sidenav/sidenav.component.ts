@@ -167,7 +167,6 @@ const routes: Route[] = [
     ScrollingModule,
   ],
   declarations: [SidenavComponent],
-  exports: [SidenavComponent],
-  providers: [FormGuard],
+  exports: [SidenavComponent]
 })
 export class SidenavComponentModule {}
