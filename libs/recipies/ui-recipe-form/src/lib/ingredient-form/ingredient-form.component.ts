@@ -42,6 +42,17 @@ export class IngredientFormComponent {
     return this.formState;
   }
 
+  get nameErrorMessage(): string | undefined {
+    return this.state.ingredientNameErrors[
+      Object.keys(this.nameControl.errors ?? {})[0]
+    ];
+  }
+
+  get quantityErrorMessage(): string {
+    return this.state.ingredientQuantityErrors[
+      Object.keys(this.quantityControl.errors ?? {})[0]
+    ];
+  }
   delete() {
     this.deleteIngredient.emit();
   }

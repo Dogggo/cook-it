@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 import { RecipiesEntity } from './recipies.models';
 import { RecipiesOverview } from '@cook-it/recipies/ui-recipe-details';
 
-export const initRecipies = createAction('[Recipies/API] Load Recipies');
+export const loadRecipies = createAction('[Recipies/API] Load Recipies');
 
 export const loadRecipiesSuccess = createAction(
   '[Recipies/API] Load Recipies Success',
@@ -12,7 +12,7 @@ export const loadRecipiesSuccess = createAction(
 
 export const loadRecipiesFailure = createAction(
   '[Recipies/API] Load Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const selectRecipe = createAction(
@@ -32,7 +32,7 @@ export const saveRecipiesSuccess = createAction(
 
 export const saveRecipiesFailure = createAction(
   '[Recipies/API] Save Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const editRecipe = createAction(
@@ -47,7 +47,7 @@ export const editRecipiesSuccess = createAction(
 
 export const editRecipiesFailure = createAction(
   '[Recipies/API] Edit Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const deleteRecipe = createAction(
@@ -62,10 +62,12 @@ export const deleteRecipiesSuccess = createAction(
 
 export const deleteRecipiesFailure = createAction(
   '[Recipies/API] Delete Recipies Failure',
-  props<{ error: string }>()
+  props<{ error: Error }>()
 );
 
 export const setSearchPhrase = createAction(
   '[Recipies] Set Search Phrase',
   props<{ searchPhrase: string }>()
 );
+
+export const setDataInvalid = createAction('[Recipies] Set Data Invalid');

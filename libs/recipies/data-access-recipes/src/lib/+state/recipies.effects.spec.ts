@@ -12,6 +12,7 @@ import { RecipiesService } from '../recipies.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const FIRST_RECIPE_ID = 'PRODUCT-AAA';
 const SECOND_RECIPE_ID = 'PRODUCT-BBB';
@@ -59,6 +60,7 @@ describe('RecipiesEffects', () => {
     providers: [
       RecipiesService,
       RecipiesEffects,
+      MatSnackBar,
       provideMockActions(() => actions$),
       provideMockStore(),
     ],
@@ -78,12 +80,12 @@ describe('RecipiesEffects', () => {
         createRecipiesEntity(SECOND_RECIPE_ID),
       ];
       actions$ = new ReplaySubject(1);
-      actions$.next(RecipiesActions.initRecipies());
+      actions$.next(RecipiesActions.loadRecipies());
     });
 
     it('should return loadRecipiesSuccess action, on success', () => {
       jest.spyOn(recipiesService, 'getRecipies').mockReturnValue(of(recipies));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesSuccess({ recipies })
         );
@@ -94,7 +96,7 @@ describe('RecipiesEffects', () => {
       jest
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
         );
@@ -130,7 +132,7 @@ describe('RecipiesEffects', () => {
       jest
         .spyOn(recipiesService, 'getRecipies')
         .mockReturnValue(throwError(() => new Error('404')));
-      effects.init$.subscribe((resultAction) => {
+      effects.load$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RecipiesActions.loadRecipiesFailure({ error: new Error('404') })
         );
@@ -207,7 +209,7 @@ describe('RecipiesEffects', () => {
     it('should return deleteRecipiesSuccess action and navigate to home page, on success', (done) => {
       jest
         .spyOn(recipiesService, 'deleteRecipe')
-        .mockReturnValue(of(recipeToDelete._id as string));
+        .mockReturnValue(of(void null));
 
       effects.delete$.subscribe((resultAction) => {
         expect(resultAction).toEqual(

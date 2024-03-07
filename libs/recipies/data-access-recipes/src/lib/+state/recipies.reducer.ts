@@ -1,5 +1,5 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 
 import * as RecipiesActions from './recipies.actions';
 import { RecipiesEntity } from './recipies.models';
@@ -9,8 +9,9 @@ export const RECIPIES_FEATURE_KEY = 'recipies';
 export interface RecipiesState extends EntityState<RecipiesEntity> {
   selectedId?: string;
   loaded: boolean;
-  error?: string | null;
   searchPhrase: string;
+  error?: Error | null;
+  isValid: boolean;
 }
 
 export interface RecipiesPartialState {
@@ -28,19 +29,23 @@ export const initialRecipiesState: RecipiesState =
     state: [],
     loaded: false,
     error: null,
-    showToast: false,
     searchPhrase: '',
+    isValid: false,
   });
 
 const reducer = createReducer(
   initialRecipiesState,
-  on(RecipiesActions.initRecipies, (state) => ({
+  on(RecipiesActions.loadRecipies, (state) => ({
     ...state,
     loaded: false,
     error: null,
   })),
   on(RecipiesActions.loadRecipiesSuccess, (state, { recipies }) => {
-    return recipiesAdapter.setAll(recipies, { ...state, loaded: true });
+    return recipiesAdapter.setAll(recipies, {
+      ...state,
+      loaded: true,
+      isValid: true,
+    });
   }),
   on(RecipiesActions.loadRecipiesFailure, (state, { error }) => ({
     ...state,
@@ -74,6 +79,10 @@ const reducer = createReducer(
   on(RecipiesActions.setSearchPhrase, (state, { searchPhrase }) => ({
     ...state,
     searchPhrase,
+  })),
+  on(RecipiesActions.setDataInvalid, (state) => ({
+    ...state,
+    isValid: false,
   }))
 );
 

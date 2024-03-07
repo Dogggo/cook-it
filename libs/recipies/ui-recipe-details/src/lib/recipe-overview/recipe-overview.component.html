@@ -2,20 +2,20 @@
   <div class="recipe-container__preview">
     <img
       class="recipe-container__preview-image"
-      [src]="'/' + recipe?.images?.preview"
+      [src]="'/' + recipe.images.preview"
       data-cy="preview-image"
     />
   </div>
   <div class="recipe-container__content">
     <div class="recipe-container__content-name" data-cy="name">
-      <span>{{ recipe?.name }}</span>
+      <span>{{ recipe.name }}</span>
     </div>
     <div class="recipe-container__content-description" data-cy="description">
-      <p>{{ recipe?.description }}</p>
+      <p>{{ recipe.description }}</p>
     </div>
     <span data-cy="preparationTime">
       <b>Preparation time</b> -
-      <i>{{ recipe?.preparationTimeInMinutes | formatTime }}</i>
+      <i>{{ recipe.preparationTimeInMinutes | formatTime }}</i>
     </span>
     <hr />
     <div class="recipe-container__content-ingredients">

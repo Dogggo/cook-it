@@ -34,8 +34,8 @@
       "@cook-it/recipies/feature-recipe-list": [
         "libs/recipies/feature-recipe-list/src/index.ts"
       ],
-      "@cook-it/recipies/shared": ["libs/recipies/shared/src/index.ts"],
       "@cook-it/recipies/shell": ["libs/recipies/shell/src/index.ts"],
+      "@cook-it/recipies/ui-modal": ["libs/recipies/ui-modal/src/index.ts"],
       "@cook-it/recipies/ui-navi-bar": [
         "libs/recipies/ui-navi-bar/src/index.ts"
       ],
@@ -48,7 +48,13 @@
       "@cook-it/recipies/ui-recipies-sidebar": [
         "libs/recipies/ui-recipies-sidebar/src/index.ts"
       ],
-      "@cook-it/recipies/ui-top-bar": ["libs/recipies/ui-top-bar/src/index.ts"]
+      "@cook-it/recipies/ui-top-bar": ["libs/recipies/ui-top-bar/src/index.ts"],
+      "@cook-it/recipies/utils-config": [
+        "libs/recipies/utils-config/src/index.ts"
+      ],
+      "@cook-it/recipies/utils-pipes": [
+        "libs/recipies/utils-pipes/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

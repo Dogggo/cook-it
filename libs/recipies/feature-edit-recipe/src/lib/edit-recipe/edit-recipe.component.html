@@ -1,50 +1,52 @@
-<cook-it-top-bar
-  [title]="recipeOnStart ? recipeOnStart.name : ''"
-  [selectedOption]="'Edit'"
-  (deleteRecipe)="handleOnDelete($event)"
-  data-cy="top-bar"
-></cook-it-top-bar>
+<ng-container *ngIf="recipe$ | async as recipe">
+  <cook-it-top-bar
+    [title]="recipe.name"
+    [selectedOption]="'Edit'"
+    (deleteRecipe)="handleOnDelete($event, recipe.name)"
+    data-cy="top-bar"
+  ></cook-it-top-bar>
 
-<form [formGroup]="form" data-cy="recipe-form">
-  <cook-it-recipe-form>
-    <div header class="container">
-      <span class="container__title">Edit recipe</span>
+  <form [formGroup]="form" data-cy="recipe-form">
+    <cook-it-recipe-form>
+      <div header class="container">
+        <span class="container__title">Edit recipe</span>
+        <div class="container__button">
+          <button
+            (click)="undoChanges(recipe)"
+            [disabled]="form.pristine"
+            data-cy="undo-changes-btn"
+            mat-button
+          >
+            Undo changes
+          </button>
+          <button
+            (click)="saveRecipe()"
+            [disabled]="form.invalid || form.pristine"
+            data-cy="save-changes-btn"
+            mat-button
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </cook-it-recipe-form>
+
+    <div class="container">
+      <span class="container__title">Edit Ingredients</span>
       <div class="container__button">
-        <button
-          (click)="undoChanges()"
-          [disabled]="form.pristine"
-          data-cy="undo-changes-btn"
-          mat-button
-        >
-          Undo changes
-        </button>
-        <button
-          (click)="saveRecipe()"
-          [disabled]="form.invalid || form.pristine"
-          data-cy="save-changes-btn"
-          mat-button
-        >
-          Save changes
+        <button (click)="addIngredient()" mat-stroked-button>
+          Add ingredient
         </button>
       </div>
     </div>
-  </cook-it-recipe-form>
 
-  <div class="container">
-    <span class="container__title">Edit Ingredients</span>
-    <div class="container__button">
-      <button (click)="addIngredient()" mat-stroked-button>
-        Add ingredient
-      </button>
+    <div class="ingredient">
+      <cook-it-ingredient-form
+        *ngFor="let ingredient of ingredients.controls; index as i"
+        (deleteIngredient)="deleteIngredient(i)"
+        [form]="ingredient"
+      >
+      </cook-it-ingredient-form>
     </div>
-  </div>
-
-  <div class="ingredient">
-    <cook-it-ingredient-form
-      *ngFor="let ingredient of ingredients.controls; index as i"
-      (deleteIngredient)="deleteIngredient(i)"
-      [form]="ingredient"
-    >
-    </cook-it-ingredient-form>
-  </div>
-</form>
+  </form>
+</ng-container>

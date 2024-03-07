@@ -13,7 +13,7 @@ export class FormGuard
   canDeactivate(
     component: RecipeAddComponent | EditRecipeComponent
   ): Observable<boolean> | boolean {
-    if (component.form?.dirty && component.formServiceState.triggerGuard) {
+    if (component.form?.dirty) {
       return component.disardChanges();
     }
     return true;

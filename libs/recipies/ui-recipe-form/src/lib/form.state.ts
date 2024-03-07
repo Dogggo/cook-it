@@ -5,8 +5,10 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { IngredientOverview } from '../../../ui-recipe-details/src/lib/model/ingredients-overview.interface';
-import { RecipiesOverview } from '../../../ui-recipe-details/src/lib/model/recipes-overview.interface';
+import {
+  IngredientOverview,
+  RecipiesOverview,
+} from '@cook-it/recipies/ui-recipe-details';
 
 @Injectable()
 export class FormState {
@@ -22,7 +24,38 @@ export class FormState {
   readonly quantityIngredientMinLength = 2;
   readonly quantityIngredientMaxLength = 30;
 
-  public triggerGuard = true;
+  recipeNameErrors: Record<string, string> = {
+    required: 'Name is required!',
+    minlength: `Name cannot be shorter than ${this.nameRecipeMinLength} characters`,
+    maxLength: `Name cannot be longer than ${this.nameRecipeMaxLength} characters`,
+    nameExists: 'You have already recipe with this name',
+  };
+
+  recipeDescriptionErrors: Record<string, string> = {
+    required: 'Description is required!',
+    minlength: `Description cannot be shorter than ${this.descriptionRecipeMinLength} characters`,
+    maxLength: `Description cannot be longer than ${this.descriptionRecipeMaxLength} characters`,
+  };
+
+  recipePreparationTimeErrors: Record<string, string> = {
+    required: 'Preparation time is required!',
+  };
+
+  recipePreviewErrors: Record<string, string> = {
+    required: 'Preview image is required!',
+  };
+
+  ingredientNameErrors: Record<string, string> = {
+    required: 'Name is required!',
+    minlength: `Name cannot be shorter than ${this.nameIngredientMinLength} characters`,
+    maxLength: `Name cannot be longer than ${this.nameIngredientMaxLength} characters`,
+  };
+
+  ingredientQuantityErrors: Record<string, string> = {
+    required: 'Quantity is required!',
+    minlength: `Quantity cannot be shorter than ${this.quantityIngredientMinLength} characters`,
+    maxLength: `Quantity cannot be longer than ${this.quantityIngredientMaxLength} characters`,
+  };
 
   private _form = this.formBuilder.group({
     images: this.formBuilder.group({
@@ -50,7 +83,7 @@ export class FormState {
         name: FormControl<string>;
         quantity: FormControl<string>;
       }>
-    >([]),
+    >([], [Validators.required, Validators.minLength(2)]),
   });
 
   get ingredients() {

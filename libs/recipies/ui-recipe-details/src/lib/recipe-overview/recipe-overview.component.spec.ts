@@ -2,7 +2,7 @@ import { SpectatorHost } from '@ngneat/spectator';
 import { RecipeOverviewComponent } from './recipe-overview.component';
 import { createHostFactory } from '@ngneat/spectator/jest';
 import { RecipiesOverview } from '../model/recipes-overview.interface';
-import { FormatTimePipe } from '@cook-it/recipies/shared';
+import { FormatTimePipe } from '@cook-it/recipies/utils-pipes';
 
 describe('RecipeOverviewComponent', () => {
   let spectator: SpectatorHost<RecipeOverviewComponent>;

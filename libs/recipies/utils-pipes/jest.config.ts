@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'recipies-shared',
+  displayName: 'recipies-utils-pipes',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/recipies/shared',
+  coverageDirectory: '../../../coverage/libs/recipies/utils-pipes',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

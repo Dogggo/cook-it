@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   RECIPIES_FEATURE_KEY,
-  RecipiesState,
   recipiesAdapter,
+  RecipiesState,
 } from './recipies.reducer';
 
 export const getRecipiesState =
@@ -13,6 +13,11 @@ const { selectAll, selectEntities } = recipiesAdapter.getSelectors();
 export const getRecipiesLoaded = createSelector(
   getRecipiesState,
   (state: RecipiesState) => state.loaded
+);
+
+export const getIsStateValid = createSelector(
+  getRecipiesState,
+  (state: RecipiesState) => state.isValid
 );
 
 export const getRecipiesError = createSelector(
@@ -40,6 +45,15 @@ export const getSelectedId = createSelector(
   (state: RecipiesState) => state.selectedId
 );
 
+export const checkIfNameExists = (name: string, removedNames: string[]) =>
+  createSelector(getAllRecipies, (recipes) => {
+    if (removedNames.includes(name)) return false;
+
+    return recipes.some(
+      (recipe) => recipe.name.toUpperCase() === name.toUpperCase()
+    );
+  });
+
 export const getSelected = createSelector(
   getRecipiesEntities,
   getSelectedId,
@@ -58,8 +72,3 @@ export const getRecipiesBySearchPhrase = createSelector(
         )
     )
 );
-
-export const getRecipiesNamesBySearchPhrase = (searchPhrase: string) =>
-  createSelector(getRecipiesBySearchPhrase, (entities) =>
-    entities.map((entity) => entity.name)
-  );

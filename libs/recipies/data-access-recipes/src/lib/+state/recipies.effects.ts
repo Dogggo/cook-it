@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createEffect, Actions, ofType, OnInitEffects } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { switchMap, map, catchError, tap, of } from 'rxjs';
+import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Action, Store } from '@ngrx/store';
+import { catchError, map, of, pairwise, switchMap, tap } from 'rxjs';
 import { RecipiesService } from '../recipies.service';
 import * as RecipiesActions from './recipies.actions';
+import { setDataInvalid } from './recipies.actions';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { config } from '@cook-it/recipies/utils-config';
 
 @Injectable()
 export class RecipiesEffects implements OnInitEffects {
@@ -20,12 +22,13 @@ export class RecipiesEffects implements OnInitEffects {
     private readonly actions$: Actions,
     private recipiesService: RecipiesService,
     private router: Router,
-    private snackbarService: MatSnackBar
+    private snackbarService: MatSnackBar,
+    private store: Store
   ) {}
 
-  init$ = createEffect(() => {
+  load$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(RecipiesActions.initRecipies),
+      ofType(RecipiesActions.loadRecipies),
       switchMap(() => {
         return this.recipiesService.getRecipies().pipe(
           map((recipies) => {
@@ -43,6 +46,24 @@ export class RecipiesEffects implements OnInitEffects {
       })
     );
   });
+
+  loadOnSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(RecipiesActions.loadRecipiesSuccess),
+        map(() =>
+          setTimeout(() => {
+            this.store.dispatch(setDataInvalid());
+          }, config.cacheExpirationTime)
+        ),
+        pairwise(),
+        tap(([previousTimeoutId]) => clearTimeout(previousTimeoutId))
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   save$ = createEffect(() => {
     return this.actions$.pipe(
@@ -115,6 +136,6 @@ export class RecipiesEffects implements OnInitEffects {
   });
 
   ngrxOnInitEffects(): Action {
-    return RecipiesActions.initRecipies();
+    return RecipiesActions.loadRecipies();
   }
 }

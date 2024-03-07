@@ -1,8 +1,8 @@
 import { RecipiesEntity } from './recipies.models';
 import {
+  initialRecipiesState,
   recipiesAdapter,
   RecipiesPartialState,
-  initialRecipiesState,
 } from './recipies.reducer';
 import * as RecipiesSelectors from './recipies.selectors';
 
@@ -28,7 +28,7 @@ describe('Recipies Selectors', () => {
         {
           ...initialRecipiesState,
           selectedId: 'PRODUCT-BBB',
-          error: ERROR_MSG,
+          error: Error(ERROR_MSG),
           loaded: true,
         }
       ),
